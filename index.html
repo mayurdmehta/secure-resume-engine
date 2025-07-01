@@ -1,6 +1,3 @@
-<!-- ======================================================================= -->
-<!-- FILE: index.html (Your Updated Frontend)                                -->
-<!-- ======================================================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,8 +112,6 @@
                 const response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    // The masterProfile is now removed from the body.
-                    // The backend function has its own copy.
                     body: JSON.stringify({ 
                         mode, 
                         jobDescription, 
