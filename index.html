@@ -39,6 +39,9 @@
         /* Chatbot Styles */
         #chatbot-fab { position: fixed; bottom: 2rem; right: 2rem; z-index: 100; }
         #chatbot-window { position: fixed; bottom: 6rem; right: 2rem; width: 350px; height: 500px; z-index: 100; transition: all 0.3s ease-in-out; transform-origin: bottom right; }
+        /* Project Card Styles */
+        .project-card { transition: transform 0.3s, box-shadow 0.3s; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05); }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
@@ -91,9 +94,29 @@
 
             <!-- PROJECTS PAGE -->
             <div id="projects" class="page hidden">
-                <div class="text-center py-20">
+                <header class="text-center mb-12">
                     <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
-                    <p class="text-xl text-gray-400">Coming soon! A showcase of my personal and professional projects.</p>
+                    <p class="text-xl text-gray-400">A showcase of my passion for building and problem-solving.</p>
+                </header>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Project Card 1 -->
+                    <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project1-modal">
+                        <h3 class="text-2xl font-bold text-brand-primary mb-2">This Portfolio Website</h3>
+                        <p class="text-gray-400 mb-4">A meta-project on building a personal portfolio through an iterative, AI-assisted development process with Gemini.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI-Assisted Development</span>
+                            <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Prompt Engineering</span>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project2-modal">
+                        <h3 class="text-2xl font-bold text-brand-primary mb-2">Career Toolkit AI</h3>
+                        <p class="text-gray-400 mb-4">The engine powering this site. An AI tool that analyzes job descriptions and generates tailored career assets.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Process Automation</span>
+                             <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI Implementation</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -170,7 +193,6 @@
             <h3 class="text-lg font-semibold text-white text-center">Get to Know Mayur</h3>
         </div>
         <div id="chat-messages" class="flex-1 p-4 space-y-4 overflow-y-auto">
-            <!-- Chat messages will be appended here -->
              <div class="flex justify-start">
                 <div class="bg-brand-primary text-white p-3 rounded-lg max-w-xs">
                     <p>Hi! I'm an AI assistant. Ask me anything to get to know Mayur better.</p>
@@ -187,15 +209,53 @@
         </div>
     </div>
 
-    <!-- Modal for Gemini Features -->
-    <div id="modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="modalTitle" class="text-2xl font-semibold text-white"></h2>
-                <button id="closeModalBtn" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+    <!-- Modal Container -->
+    <div id="modal-container">
+        <!-- Project 1 Modal -->
+        <div id="project1-modal" class="modal-backdrop hidden">
+            <div class="modal-content">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold text-white">This Portfolio Website</h2>
+                    <button class="close-modal-btn text-gray-400 hover:text-white text-3xl">&times;</button>
+                </div>
+                <div class="prose prose-dark max-w-none">
+                    <h3>The Challenge</h3>
+                    <p>How can a single person with a vision build a complete, modern, and interactive web application quickly and efficiently, without writing every line of code by hand?</p>
+                    <h3>My Role & Approach</h3>
+                    <p>I acted as the Product Manager and AI Director for this project. My role was to guide my AI partner, Gemini, through an iterative development process. I provided the high-level vision, detailed requirements for each feature, and continuous feedback to refine the output. This involved:</p>
+                    <ul>
+                        <li>**Prompt Engineering:** Crafting precise instructions to generate code for the UI, application logic, and backend functions.</li>
+                        <li>**Architectural Decisions:** Making key decisions, such as separating the frontend from the backend, securing API keys with a serverless function, and designing a holistic database structure.</li>
+                        <li>**Debugging & Iteration:** Collaboratively debugging issues related to API calls, data structures, and UI behavior.</li>
+                    </ul>
+                    <h3>The Outcome</h3>
+                    <p>This entire portfolio website, with over 500 lines of code across multiple files, was built through a collaborative human-AI process. It serves as a live demonstration of a modern workflow, rapid prototyping, and the ability to leverage AI as a powerful productivity multiplier to bring a complex idea to life.</p>
+                </div>
             </div>
-            <div id="modalLoader" class="hidden flex justify-center items-center py-16"><div class="loader"></div></div>
-            <div id="modalBody" class="prose prose-dark max-w-none"></div>
+        </div>
+        <!-- Project 2 Modal -->
+        <div id="project2-modal" class="modal-backdrop hidden">
+            <div class="modal-content">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold text-white">Career Toolkit AI</h2>
+                    <button class="close-modal-btn text-gray-400 hover:text-white text-3xl">&times;</button>
+                </div>
+                 <div class="prose prose-dark max-w-none">
+                    <h3>The Challenge</h3>
+                    <p>The process of tailoring a resume for each individual job application is time-consuming, repetitive, and often inefficient. The goal was to automate this process to create highly-targeted career assets instantly.</p>
+                    <h3>My Role & Approach</h3>
+                    <p>I designed and built the end-to-end system. The core of the project was architecting a "source of truth" database of my career accomplishments and then developing a sophisticated AI prompt engine. This engine instructs Gemini to:</p>
+                    <ul>
+                        <li>Analyze a job description for key skills, tone, and cultural fit.</li>
+                        <li>Intelligently select the most relevant projects from my database.</li>
+                        <li>Rewrite my accomplishments into new, concise bullet points that directly address the needs of the role.</li>
+                    </ul>
+                     <h3>Tech Stack</h3>
+                    <p>HTML, Tailwind CSS, JavaScript, Netlify Serverless Functions, and the Google Gemini API.</p>
+                    <h3>The Outcome</h3>
+                    <p>A fully functional web application that automates resume tailoring, drafts cover letters, and provides interview prep. It's a real-world example of my passion for process automation and building useful, AI-powered products.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -227,6 +287,29 @@
 
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
+        // --- PROJECT MODAL LOGIC ---
+        document.querySelectorAll('[data-modal-target]').forEach(card => {
+            card.addEventListener('click', () => {
+                const modalId = card.dataset.modalTarget;
+                document.getElementById(modalId).classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('.close-modal-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                button.closest('.modal-backdrop').classList.add('hidden');
+            });
+        });
+        
+        document.querySelectorAll('.modal-backdrop').forEach(modal => {
+             modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+
+
         // --- CHATBOT UI LOGIC ---
         const chatbotFab = document.getElementById('chatbot-fab');
         const chatbotWindow = document.getElementById('chatbot-window');
@@ -256,7 +339,7 @@
             
             const bubble = document.createElement('div');
             bubble.classList.add('p-3', 'rounded-lg', 'max-w-xs', sender === 'user' ? 'bg-gray-600' : 'bg-brand-primary', 'text-white');
-            bubble.innerHTML = `<p>${message}</p>`; // Use innerHTML to render formatted text if needed
+            bubble.innerHTML = `<p>${message}</p>`;
             
             messageDiv.appendChild(bubble);
             chatMessages.appendChild(messageDiv);
@@ -270,7 +353,6 @@
             addChatMessage(userMessage, 'user');
             chatInput.value = '';
             
-            // Add typing indicator
             const typingIndicator = document.createElement('div');
             typingIndicator.classList.add('flex', 'justify-start', 'typing-indicator');
             typingIndicator.innerHTML = `<div class="bg-brand-primary text-white p-3 rounded-lg max-w-xs"><p class="animate-pulse">...</p></div>`;
@@ -279,7 +361,6 @@
 
             const response = await callBackend('chatbot', userMessage);
             
-            // Remove typing indicator and add AI response
             chatMessages.removeChild(typingIndicator);
             addChatMessage(response, 'ai');
         }
@@ -295,7 +376,8 @@
         const nextSteps = document.getElementById('nextSteps');
         const coverLetterBtn = document.getElementById('coverLetterBtn');
         const interviewPrepBtn = document.getElementById('interviewPrepBtn');
-        const modal = document.getElementById('modal');
+        
+        const toolkitModal = document.getElementById('modal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
         const modalLoader = document.getElementById('modalLoader');
@@ -305,8 +387,8 @@
         analyzeBtn.addEventListener('click', () => callBackend('analyze'));
         coverLetterBtn.addEventListener('click', () => callBackend('coverLetter'));
         interviewPrepBtn.addEventListener('click', () => callBackend('interviewPrep'));
-        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+        closeModalBtn.addEventListener('click', () => toolkitModal.classList.add('hidden'));
+        toolkitModal.addEventListener('click', (e) => { if (e.target === toolkitModal) toolkitModal.classList.add('hidden'); });
 
         async function callBackend(mode, message = '') {
             const jobDescription = jobDescriptionInput.value;
@@ -333,7 +415,7 @@
                         mode, 
                         jobDescription, 
                         resumeText: resumeTextForFeatures,
-                        userQuery: message // For chatbot
+                        userQuery: message
                     })
                 });
 
@@ -346,7 +428,7 @@
                 const resultText = await response.text();
 
                 if (mode === 'chatbot') {
-                    return resultText; // Return for chatbot handler
+                    return resultText;
                 }
                 
                 if (mode === 'coverLetter' || mode === 'interviewPrep') {
@@ -402,8 +484,8 @@
         }
         
         function openModal(title) {
+            toolkitModal.classList.remove('hidden');
             modalTitle.textContent = title;
-            modal.classList.remove('hidden');
             modalBody.innerHTML = '';
             modalLoader.classList.remove('hidden');
         }
