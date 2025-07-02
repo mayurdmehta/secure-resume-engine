@@ -4,7 +4,7 @@ const masterProfile = require('./master_profile.json');
 // --- MASTER PROMPT TEMPLATE ---
 const getMasterPrompt = (mode, jobDescription, resumeText) => {
     if (mode === 'resume') {
-        return `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided Master Profile Database and a target Job Description.
+        return `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided Master Profile Database and a target Job Description. The database is now structured holistically, with each project broken down into 'problem', 'actions', and 'outcomes'.
 
 **//-- START OF PROCESS --//**
 
@@ -13,17 +13,19 @@ const getMasterPrompt = (mode, jobDescription, resumeText) => {
    - **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
 
 **2. EXECUTE:**
-   - Analyze the job description to create a blueprint (targetRole, top5HardSkills, top3CulturalTraits, writingStyle, coreProblem).
-   - Score and select the most relevant accomplishments from the database.
-   - Generate a new professional summary and core competencies section.
-   - **CRITICAL INSTRUCTION FOR BULLET POINTS:** Rewrite each selected accomplishment into a single, concise, and powerful bullet point.
-     - **STRUCTURE:** Each bullet point MUST start with a strong action verb (e.g., Led, Delivered, Increased) or a quantifiable result (e.g., Achieved $4M in savings...). The sentence must be in the **active voice**.
-     - **SYNTHESIZE, DON'T PARAPHRASE:** Do not try to include every detail from the source summary. Synthesize the most important action and outcome into a new, powerful sentence.
-     - **TONE:** Match the job description's writing style.
-     - **LENGTH & CLARITY:** The final bullet point must be no longer than two lines and use clear, direct language.
-     - **CLEAN OUTPUT:** Do NOT include the internal accomplishment ID (e.g., RH01) or any arrows (->) in the final output.
-   - Assemble the final resume in Markdown with the correct bullet counts (RH:5, LM:3, AK:5).
-   - Verify for 100% accuracy against the source data. No hallucinations.
+   - **Analyze Job:** Create an internal blueprint (targetRole, top5HardSkills, top3CulturalTraits, writingStyle, coreProblem).
+   - **Select Projects:** From the database, select the most relevant **projects** based on the blueprint.
+   - **Generate Content:**
+     - Create a new Professional Summary and Core Competencies section.
+     - **CRITICAL INSTRUCTION FOR BULLET POINTS:** For each selected project, you may construct one or more bullet points. To construct a bullet point:
+       - **Select Components:** Intelligently select the most relevant 'action' and the most impactful 'outcome' from that project's data that aligns with the job blueprint.
+       - **STRUCTURE:** Weave the selected components into a single, concise, and powerful sentence. Each bullet point MUST start with a strong action verb (e.g., Led, Delivered, Increased) or a quantifiable result (e.g., Achieved $4M in savings...). The sentence must be in the **active voice**.
+       - **TONE & LENGTH:** Match the job description's writing style. The final bullet point must be no longer than two lines.
+       - **CLEAN OUTPUT:** Do NOT include internal IDs (e.g., RH01) or arrows (->).
+   - **Assemble Resume:**
+     - Use Markdown format.
+     - Bullet counts: Robert Half: 5, LilacMosaic: 3, Akamai: 5.
+     - Verify for 100% accuracy against the source data. No hallucinations.
 
 **//-- END OF PROCESS --//**
 
