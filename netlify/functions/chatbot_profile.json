@@ -1,0 +1,85 @@
+{
+  "contactInfo": {
+    "name": "Mayur Mehta",
+    "phone": "+1 (571) 528-7448",
+    "email": "mayurdmehta@gmail.com",
+    "location": "Nashua, NH",
+    "linkedin": "[LinkedIn Profile URL]"
+  },
+  "experience": [
+    {
+      "company": "Robert Half",
+      "title": "Senior Business Systems Analyst",
+      "dates": "Dec 2022 – Mar 2025",
+      "projects": [
+        { "id": "RH01", "title": "Data Governance & Standardization", "summary": "Unified siloed global marketing teams by creating and implementing a standardized data governance framework for a $20M annual marketing spend..." },
+        { "id": "RH02", "title": "Analytics Engagement Model", "summary": "Resolved team inefficiency by designing and implementing a new engagement model and automated intake process for the Global Marketing Analytics team..." },
+        { "id": "RH03", "title": "AI Call Intelligence", "summary": "Owned the Invoca call intelligence platform to provide sales performance and customer sentiment insights..." },
+        { "id": "RH04", "title": "Analytics Operational Leadership", "summary": "Served as the central operational leader for a 40-member Global Marketing Analytics team..." },
+        { "id": "RH05", "title": "Confluence SSO Migration", "summary": "Led the project to migrate the 200+ user Global Marketing Confluence instance into the enterprise SSO environment..." }
+      ]
+    },
+    {
+      "company": "LilacMosaic Technologies",
+      "title": "Co-Founder / Lead Business Analyst",
+      "dates": "Aug 2023 – Jan 2025",
+      "projects": [
+        { "id": "LM01", "title": "AI Event Platform Product Strategy", "summary": "As co-founder, drove the end-to-end product discovery and strategy for an AI-driven event planning platform..." },
+        { "id": "LM02", "title": "GenAI Recommendation System", "summary": "Oversaw the integration of Hugging Face (GenAI) and Pinterest APIs to build a core AI design recommendation engine..." },
+        { "id": "LM03", "title": "Agile Framework Implementation", "summary": "Enabled a nimble startup team to thrive in a fluid environment by introducing Agile (Scrum) practices..." }
+      ]
+    },
+    {
+      "company": "Akamai Technologies",
+      "title": "Business Systems Analyst",
+      "dates": "Sep 2019 – Dec 2022",
+      "projects": [
+        { "id": "AK01", "title": "Global Tax Automation Program", "summary": "Led a 7-phase global program to modernize Akamai's tax automation by migrating from Oracle EBTax to Thomson Reuters OneSource..." },
+        { "id": "AK02", "title": "Expense & Compliance Automation", "summary": "Drove a complex, SOX-compliant expense system modernization by integrating SAP Concur, Amex, and the AppZen AI compliance engine with Oracle EBS..." },
+        { "id": "AK03", "title": "Host-to-Host Payment Automation", "summary": "Automated the transmission of $1B in annual vendor payments by designing and leading the implementation of a highly available (99.99% success rate) host-to-host XML system..." },
+        { "id": "AK04", "title": "Data-Driven Operational Management", "summary": "Increased cross-functional operational efficiency by 25% by owning the Procure-to-Pay modules in Oracle EBS..." }
+      ]
+    }
+  ],
+  "education": [
+    { "institution": "Northeastern University", "degree": "Master of Science, Engineering Management", "gpa": "3.9" },
+    { "institution": "University of Mumbai", "degree": "Bachelor of Science, Computer Science" }
+  ],
+  "certifications": [
+    { "name": "Certified Scrum Master (CSM)", "issuer": "Scrum Alliance", "status": "Completed: Apr 2025" },
+    { "name": "AWS Certified Cloud Practitioner", "issuer": "AWS", "status": "In Progress, Expected: Jul 2025" },
+    { "name": "Project Management Professional (PMP)", "issuer": "PMI", "status": "In Progress, Expected: Aug 2025" }
+  ],
+  "myJourney": {
+    "title": "My Professional Journey",
+    "story": "[Placeholder: A short narrative about how you got into your field, what drives you, and what your career aspirations are. For example: 'I started my career in computer science, but I quickly realized I was passionate about bridging the gap between a technical product and the business value it provides...']"
+  },
+  "guidingPrinciples": {
+    "title": "My Guiding Principles",
+    "principles": [
+      "[Placeholder: e.g., 'I believe in using data to tell a story and drive decisions.']",
+      "[Placeholder: e.g., 'Continuous improvement is at the core of everything I do, both personally and professionally.']",
+      "[Placeholder: e.g., 'I thrive on simplifying complex problems and making technology accessible to everyone.']"
+    ]
+  },
+  "outsideOfWork": {
+    "title": "Outside of Work",
+    "hobbies": [
+      {
+        "name": "Hiking",
+        "anecdote": "[Placeholder: e.g., 'I love exploring the trails in New Hampshire. It's my way of 'debugging' my own thoughts and finding new perspectives.']"
+      },
+      {
+        "name": "Building AI Tools",
+        "anecdote": "[Placeholder: e.g., 'Projects like this! I'm fascinated by how we can use large language models to automate complex tasks and create helpful, personalized experiences.']"
+      }
+    ]
+  },
+  "funFacts": {
+      "title": "Fun Facts",
+      "facts": [
+          "[Placeholder: e.g., 'I'm a huge fan of spicy food and am always on the hunt for the best hot sauce.']",
+          "[Placeholder: e.g., 'I once solved a Rubik's cube in under two minutes after watching a YouTube tutorial.']"
+      ]
+  }
+}
