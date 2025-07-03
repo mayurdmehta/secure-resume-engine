@@ -33,7 +33,9 @@ async function handleApiCall(mode) {
     }
 
     try {
-        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures);
+        // TEMPORARY DEBUG CODE
+		const newMode = (mode === 'resume') ? 'debug' : mode;
+		const resultText = await callBackend(newMode, jobDescription, resumeTextForFeatures);
         
         if (mode === 'coverLetter' || mode === 'interviewPrep') {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
