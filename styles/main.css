@@ -1,0 +1,62 @@
+body { 
+    font-family: 'Inter', sans-serif; 
+}
+.prose h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #f9fafb; }
+.prose h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem; color: #e5e7eb; }
+.prose h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #d1d5db; }
+.prose p { margin-bottom: 1rem; line-height: 1.6; color: #d1d5db; }
+.prose ul { list-style-position: inside; padding-left: 0; }
+.prose li { margin-bottom: 0.5rem; color: #d1d5db; }
+.prose strong { font-weight: 600; color: #f9fafb; }
+.prose-dark { color: #d1d5db; }
+.loader { border: 4px solid #4b5563; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 50; backdrop-filter: blur(4px); }
+.modal-content { background-color: #1f2937; border: 1px solid #4b5563; padding: 2rem; border-radius: 0.75rem; max-width: 90%; width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.nav-link { position: relative; transition: color 0.3s; }
+.nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; transform: translateX(-50%); background-color: #3b82f6; transition: width 0.3s; }
+.nav-link.active, .nav-link:hover { color: #fff; }
+.nav-link.active::after, .nav-link:hover::after { width: 100%; }
+#chatbot-fab { position: fixed; bottom: 2rem; right: 2rem; z-index: 100; }
+#chatbot-window { position: fixed; bottom: 6rem; right: 2rem; width: 350px; height: 500px; z-index: 100; transition: all 0.3s ease-in-out; transform-origin: bottom right; }
+.project-card { transition: transform 0.3s, box-shadow 0.3s; }
+.project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05); }
+```javascript
+/* ======================================================================= */
+/* FILE: scripts/main.js (Complete)                                        */
+/* ======================================================================= */
+import { initNavigation } from './navigation.js';
+import { initToolkit } from './toolkit.js';
+import { initChatbot } from './chatbot.js';
+import { initProjects } from './projects.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadPageContent();
+    
+    initNavigation();
+    initToolkit();
+    initChatbot();
+    initProjects();
+});
+
+async function loadPageContent() {
+    const pageContent = document.getElementById('page-content');
+    const modalContainer = document.getElementById('modal-container');
+    const chatbotContainer = document.getElementById('chatbot-container');
+
+    try {
+        const response = await fetch('pages.html');
+        if (!response.ok) throw new Error('Network response was not ok.');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        pageContent.innerHTML = doc.getElementById('pages-container').innerHTML;
+        modalContainer.innerHTML = doc.getElementById('modals-container').innerHTML;
+        chatbotContainer.innerHTML = doc.getElementById('chatbot-container').innerHTML;
+
+    } catch (error) {
+        console.error("Failed to load page content:", error);
+        pageContent.innerHTML = `<p class="text-red-500 text-center">Error: Could not load page content.</p>`;
+    }
+}
