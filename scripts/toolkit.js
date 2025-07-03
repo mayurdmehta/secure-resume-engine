@@ -4,7 +4,7 @@ export function initToolkit() {
     document.body.addEventListener('click', async (event) => {
         const toolkitPage = document.getElementById('toolkit');
         if (!toolkitPage || toolkitPage.classList.contains('hidden')) {
-            return; 
+            return;
         }
 
         const targetId = event.target.id;
@@ -33,15 +33,22 @@ async function handleApiCall(mode) {
     }
 
     try {
-        // TEMPORARY DEBUG CODE
-		const newMode = (mode === 'resume') ? 'debug' : mode;
-		const resultText = await callBackend(newMode, jobDescription, resumeTextForFeatures);
-        
+        // --- TEMPORARY DEBUG CODE ---
+        // This will force the 'resume' mode to run as 'debug' on the backend.
+        const newMode = (mode === 'resume') ? 'debug' : mode;
+        const resultText = await callBackend(newMode, jobDescription, resumeTextForFeatures);
+        // --- END TEMPORARY DEBUG CODE ---
+
         if (mode === 'coverLetter' || mode === 'interviewPrep') {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
             document.getElementById('modalLoader').classList.add('hidden');
         } else {
-            document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
+             // When in debug mode, we want to display the raw text response
+            if (newMode === 'debug') {
+                document.getElementById('resumeOutput').innerHTML = `<pre class="whitespace-pre-wrap text-left text-sm">${resultText}</pre>`;
+            } else {
+                document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
+            }
             document.getElementById('copyBtn').classList.remove('hidden');
             if (mode === 'resume') {
                 document.getElementById('nextSteps').classList.remove('hidden');
@@ -121,13 +128,13 @@ function copyToClipboard() {
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
     textArea.select();
-    try { 
-        document.execCommand('copy'); 
+    try {
+        document.execCommand('copy');
         document.getElementById('copyBtn').textContent = 'Copied!';
         setTimeout(() => { document.getElementById('copyBtn').textContent = 'Copy'; }, 2000);
-    } catch (err) { 
-        console.error('Failed to copy text: ', err); 
-        showError("Failed to copy text."); 
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        showError("Failed to copy text.");
     }
     document.body.removeChild(textArea);
 }
