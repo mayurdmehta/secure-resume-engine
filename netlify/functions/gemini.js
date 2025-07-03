@@ -2,12 +2,41 @@
 const masterProfile = require('./master_profile.json');
 const chatbotProfile = require('./chatbot_profile.json');
 
-// --- NEW HELPER FUNCTION TO PRE-FILTER DATA ---
-function selectRelevantProjects(jobDescription, profile) {
-    const jobKeywords = jobDescription.toLowerCase().match(/\b(\w+)\b/g) || [];
-    const keywordSet = new Set(jobKeywords);
+// --- HELPER: Call the Gemini API ---
+async function callGeminiAPI(prompt, apiKey) {
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+    const payload = { contents: chatHistory };
 
-    const scoredProjects = profile.experience.flatMap(exp => 
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error("API Error:", errorBody);
+        throw new Error(`Error from Gemini API with status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+        return result.candidates[0].content.parts[0].text;
+    } else {
+        console.error("API Response did not contain valid candidates:", result);
+        throw new Error('The AI model returned an empty or invalid response.');
+    }
+}
+
+// --- HELPER: Select relevant projects based on keywords ---
+function selectRelevantProjects(keywords, profile) {
+    const keywordSet = new Set(keywords.map(k => k.toLowerCase()));
+    if (keywordSet.size === 0) { // Fallback if no keywords are extracted
+        return profile; // Return the full profile if keyword extraction fails
+    }
+
+    const scoredProjects = profile.experience.flatMap(exp =>
         exp.projects.map(project => {
             const summaryWords = new Set((project.summary || '').toLowerCase().match(/\b(\w+)\b/g) || []);
             const score = [...keywordSet].filter(keyword => summaryWords.has(keyword)).length;
@@ -16,89 +45,25 @@ function selectRelevantProjects(jobDescription, profile) {
     );
 
     scoredProjects.sort((a, b) => b.score - a.score);
+    const topProjects = scoredProjects.slice(0, 10); // Take the top 10 projects overall
 
-    // Group by company to ensure we get a good selection from each experience
     const projectsByCompany = {};
-    for (const project of scoredProjects) {
+    for (const project of topProjects) {
         if (!projectsByCompany[project.company]) {
             projectsByCompany[project.company] = [];
         }
-        if (projectsByCompany[project.company].length < 5) { // Limit to top 5 from each company
-            projectsByCompany[project.company].push(project);
-        }
+        projectsByCompany[project.company].push(project);
     }
 
-    // Reconstruct a concise profile with only the most relevant projects
-    const relevantExperience = Object.values(projectsByCompany).map(companyProjects => {
-        return {
-            company: companyProjects[0].company,
-            title: companyProjects[0].title,
-            dates: companyProjects[0].dates,
-            projects: companyProjects.map(({ id, title, summary }) => ({ id, title, summary }))
-        };
-    });
-    
+    const relevantExperience = Object.values(projectsByCompany).map(companyProjects => ({
+        company: companyProjects[0].company,
+        title: companyProjects[0].title,
+        dates: companyProjects[0].dates,
+        projects: companyProjects.map(({ id, title, summary }) => ({ id, title, summary }))
+    }));
+
     return { ...profile, experience: relevantExperience };
 }
-
-
-// --- MASTER PROMPT TEMPLATE ---
-const getMasterPrompt = (mode, jobDescription, resumeText, userQuery) => {
-    if (mode === 'resume') {
-        // This mode now uses a pre-filtered, concise version of the masterProfile
-        const relevantProfile = selectRelevantProjects(jobDescription, masterProfile);
-
-        return `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided RELEVANT portions of a Master Profile Database and a target Job Description.
-
-**//-- START OF PROCESS --//**
-
-**1. GIVEN:**
-   - **The \`Relevant Profile Data\`:** ${JSON.stringify(relevantProfile)}
-   - **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
-
-**2. EXECUTE:**
-   - Analyze the job description to create a blueprint (targetRole, top5HardSkills, top3CulturalTraits, writingStyle, coreProblem).
-   - From the provided RELEVANT data, select the best projects.
-   - Generate a new professional summary and core competencies section.
-   - **CRITICAL INSTRUCTION FOR BULLET POINTS:** Rewrite each accomplishment into a single, concise, and powerful bullet point.
-     - **STRUCTURE:** Each bullet point MUST start with a strong action verb (e.g., Led, Delivered, Increased) or a quantifiable result (e.g., Achieved $4M in savings...). The sentence must be in the **active voice**.
-     - **SYNTHESIZE, DON'T PARAPHRASE:** Synthesize the most important action and outcome into a new, powerful sentence.
-     - **TONE & LENGTH:** Match the job description's writing style. Max two lines per bullet.
-     - **CLEAN OUTPUT:** Do NOT include internal IDs or arrows.
-   - Assemble the final resume in Markdown with the correct bullet counts (RH:5, LM:3, AK:5).
-   - Verify for 100% accuracy. No hallucinations.
-
-**//-- END OF PROCESS --//**
-
-**EXPECTED OUTPUT:** A complete, tailored resume in Markdown format, starting with the name.`;
-    }
-    if (mode === 'chatbot') {
-        const conciseProfile = `
-        Name: ${chatbotProfile.contactInfo.name}
-        Professional Summary: A Senior Business Systems Analyst and Technical Program Manager with over 6 years of experience, specializing in process automation, AI/ML implementation, and data-driven strategy.
-        Experience Overview:
-        - At Robert Half, he led data governance initiatives, managed AI platform integrations, and reengineered key business processes.
-        - As a co-founder at LilacMosaic Technologies, he drove product strategy from concept to launch for an AI-powered platform and implemented the Agile framework from scratch.
-        - At Akamai Technologies, he managed large-scale financial system migrations for Tax, Expense, and Payments, delivering significant cost savings and efficiency improvements.
-        Personal Journey: ${chatbotProfile.myJourney.story}
-        Guiding Principles: ${chatbotProfile.guidingPrinciples.principles.join(' ')}
-        Hobbies: ${chatbotProfile.outsideOfWork.hobbies.map(h => `${h.name}: ${h.anecdote}`).join('; ')}
-        Fun Facts: ${chatbotProfile.funFacts.facts.join(' ')}
-        `;
-        return `You are Mayur Mehta's personal AI assistant. Your purpose is to answer questions from visitors like recruiters or hiring managers.
-        **CRITICAL RULE:** Your knowledge is strictly limited to the information contained in the summarized Knowledge Base provided below. Do NOT answer any questions outside of this context. If a question is about a topic not covered in the database (e.g., personal opinions on politics), you must politely decline to answer, stating that your knowledge is limited to Mayur's professional and personal profile.
-        **Knowledge Base (A summary of Mayur's profile):**
-        ${conciseProfile}
-        **User's Question:**
-        "${userQuery}"
-        Based ONLY on the provided knowledge base, provide a helpful and concise answer to the user's question.`;
-    }
-    if (mode === 'analyze') { return `Analyze the following job description and produce a structured JSON "Blueprint" containing: \`targetRole\`, \`top5HardSkills\`, \`top3CulturalTraits\`, \`writingStyle\`, and \`coreProblem\`. \n\n**Job Description:**\n\`\`\`${jobDescription}\`\`\``; }
-    if (mode === 'coverLetter') { return `You are a professional career coach. Based on the provided Job Description and the candidate's Tailored Resume, write a concise and professional cover letter. It should be 3-4 paragraphs. Highlight 2-3 of the most relevant accomplishments from the resume and connect them directly to the job's core requirements. Maintain a confident but humble tone. Address it to the 'Hiring Team'.\n**Job Description:** \`\`\`${jobDescription}\`\`\`\n**Tailored Resume:** \`\`\`${resumeText}\`\`\``; }
-    if (mode === 'interviewPrep') { return `You are the hiring manager for the role in the Job Description below. You are preparing to interview the candidate whose resume is also provided. Generate a list of 6 insightful interview questions. Include a mix of behavioral questions (using the STAR method format) and questions that probe their technical and program management experience. The questions should be specific to the resume and the job requirements.\n**Job Description:** \`\`\`${jobDescription}\`\`\`\n**Tailored Resume:** \`\`\`${resumeText}\`\`\``; }
-    return '';
-};
-
 
 // --- SERVERLESS FUNCTION HANDLER ---
 exports.handler = async function (event, context) {
@@ -110,40 +75,62 @@ exports.handler = async function (event, context) {
         const { mode, jobDescription, resumeText, userQuery } = JSON.parse(event.body);
         const apiKey = process.env.GEMINI_API_KEY;
 
-        if (!apiKey) { throw new Error("API key is not configured."); }
-
-        const prompt = getMasterPrompt(mode, jobDescription, resumeText, userQuery);
-        if (!prompt) { return { statusCode: 400, body: 'Invalid mode provided.' }; }
-
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-        
-        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-        const payload = { contents: chatHistory };
-
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            const errorBody = await response.text();
-            console.error("API Error:", errorBody);
-            return { statusCode: response.status, body: 'Error from Gemini API.' };
+        if (!apiKey) {
+            throw new Error("API key is not configured.");
         }
 
-        const result = await response.json();
-        
-        if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
-            return { statusCode: 200, body: result.candidates[0].content.parts[0].text };
+        let prompt;
+
+        if (mode === 'resume') {
+            // STEP 1: Analyze the job description for keywords
+            const analysisPrompt = `Analyze the following job description and extract the top 15 most important technical skills, methodologies, and concepts. Return them as a simple JSON array of strings. Example: ["SaaS Implementation", "Oracle EBS", "Agile", "Data Governance"].\n\n**Job Description:**\n\`\`\`${jobDescription}\`\`\``;
+            const keywordsText = await callGeminiAPI(analysisPrompt, apiKey);
+            const keywords = JSON.parse(keywordsText);
+
+            // STEP 2: Use keywords to select relevant data and build the final prompt
+            const relevantProfile = selectRelevantProjects(keywords, masterProfile);
+            prompt = `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided RELEVANT portions of a Master Profile Database and a target Job Description.
+            **GIVEN:**
+               - **The \`Relevant Profile Data\`:** ${JSON.stringify(relevantProfile)}
+               - **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+            **EXECUTE:**
+               - Analyze the job description.
+               - From the RELEVANT data, select the best projects to highlight.
+               - Generate a new professional summary and core competencies section.
+               - **CRITICAL INSTRUCTION FOR BULLET POINTS:** Rewrite each accomplishment into a single, concise, and powerful bullet point.
+                 - **STRUCTURE:** Start with a strong action verb or a quantifiable result. Use the active voice.
+                 - **SYNTHESIZE, DON'T PARAPHRASE:** Create a new, powerful sentence from the source data.
+                 - **TONE & LENGTH:** Match the job description's style. Max two lines per bullet.
+                 - **CLEAN OUTPUT:** Do NOT include internal IDs or arrows.
+               - Assemble the resume in Markdown with bullet counts (RH:5, LM:3, AK:5).
+               - Verify for 100% accuracy. No hallucinations.
+            **EXPECTED OUTPUT:** A complete, tailored resume in Markdown format.`;
+
+        } else if (mode === 'chatbot') {
+            const conciseProfile = `Name: ${chatbotProfile.contactInfo.name}. Professional Summary: A Senior Business Systems Analyst and Technical Program Manager with over 6 years of experience...`; // A very short summary
+            prompt = `You are Mayur Mehta's personal AI assistant. Your knowledge is strictly limited to the information in the provided Knowledge Base. If asked about something not covered, politely decline.
+            **Knowledge Base:** ${JSON.stringify(chatbotProfile)}
+            **User's Question:** "${userQuery}"
+            Based ONLY on the database, provide a helpful and concise answer.`;
         } else {
-            // If the API returns a response without candidates (e.g., due to safety settings), provide a clearer error.
-            console.error("API Response did not contain valid candidates:", result);
-            return { statusCode: 500, body: 'The AI model returned an empty response. This may be due to the input content.' };
+            // Simplified prompts for other modes to reduce size
+            if (mode === 'analyze') { prompt = `Analyze the following job description and produce a structured JSON "Blueprint" containing: \`targetRole\`, \`top5HardSkills\`, \`top3CulturalTraits\`, \`writingStyle\`, and \`coreProblem\`. \n\n**Job Description:**\n\`\`\`${jobDescription}\`\`\``; }
+            if (mode === 'coverLetter') { prompt = `As a career coach, write a 3-4 paragraph cover letter for the following job, using the provided resume. Highlight 2-3 key accomplishments. Address it to the 'Hiring Team'.\n**Job:** \`\`\`${jobDescription}\`\`\`\n**Resume:** \`\`\`${resumeText}\`\`\``; }
+            if (mode === 'interviewPrep') { prompt = `As the hiring manager for the role below, generate 6 insightful interview questions based on the candidate's resume. Mix behavioral and technical questions.\n**Job:** \`\`\`${jobDescription}\`\`\`\n**Resume:** \`\`\`${resumeText}\`\`\``; }
         }
+
+        if (!prompt) {
+            return { statusCode: 400, body: 'Invalid mode provided.' };
+        }
+
+        const resultText = await callGeminiAPI(prompt, apiKey);
+        return { statusCode: 200, body: resultText };
 
     } catch (error) {
         console.error('Function Error:', error);
-        return { statusCode: 500, body: JSON.stringify({ error: 'An internal error occurred.' }) };
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message || 'An internal error occurred.' }),
+        };
     }
 };
