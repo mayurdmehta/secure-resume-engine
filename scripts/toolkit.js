@@ -27,28 +27,23 @@ async function handleApiCall(mode) {
     let resumeTextForFeatures = "";
     if (mode === 'coverLetter' || mode === 'interviewPrep') {
         resumeTextForFeatures = document.getElementById('resumeOutput').innerText;
+        if (!resumeTextForFeatures.trim()) {
+            showError("Please generate a resume first to provide context for this feature.");
+            return;
+        }
         openModal(mode === 'coverLetter' ? "✨ Cover Letter Draft" : "✨ Interview Prep Questions");
     } else {
         setLoading(true);
     }
 
     try {
-        // --- TEMPORARY DEBUG CODE ---
-        // This will force the 'resume' mode to run as 'debug' on the backend.
-        const newMode = (mode === 'resume') ? 'debug' : mode;
-        const resultText = await callBackend(newMode, jobDescription, resumeTextForFeatures);
-        // --- END TEMPORARY DEBUG CODE ---
+        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures);
 
         if (mode === 'coverLetter' || mode === 'interviewPrep') {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
             document.getElementById('modalLoader').classList.add('hidden');
         } else {
-             // When in debug mode, we want to display the raw text response
-            if (newMode === 'debug') {
-                document.getElementById('resumeOutput').innerHTML = `<pre class="whitespace-pre-wrap text-left text-sm">${resultText}</pre>`;
-            } else {
-                document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
-            }
+            document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
             document.getElementById('copyBtn').classList.remove('hidden');
             if (mode === 'resume') {
                 document.getElementById('nextSteps').classList.remove('hidden');
@@ -58,11 +53,22 @@ async function handleApiCall(mode) {
         }
     } catch (error) {
         console.error("Error in handleApiCall:", error);
+        // Attempt to parse a more specific error message from the backend
+        let errorMessage = "Sorry, an error occurred. Please try again.";
+        try {
+            const parsedError = JSON.parse(error.message);
+            if(parsedError.error) {
+                errorMessage = parsedError.error;
+            }
+        } catch(e) {
+            // Ignore if parsing fails, use the generic message
+        }
+
         if (mode === 'coverLetter' || mode === 'interviewPrep') {
-             document.getElementById('modalBody').innerHTML = `<p class="text-red-400">Failed to generate content. Please try again.</p>`;
+             document.getElementById('modalBody').innerHTML = `<p class="text-red-400">${errorMessage}</p>`;
              document.getElementById('modalLoader').classList.add('hidden');
         } else {
-            showError("Sorry, an error occurred. Please try again.");
+            showError(errorMessage);
         }
     } finally {
         if (mode !== 'coverLetter' && mode !== 'interviewPrep') {
@@ -102,11 +108,21 @@ function showError(message) {
 }
 
 function formatForDisplay(text) {
-     let html = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-     html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/^### (.*$)/gim, '<h3>$1</h3>').replace(/^\* (.*$)/gim, '<li>$1</li>');
-     html = html.replace(/<li>/g, '<ul><li>').replace(/<\/li>/g, '</li></ul>').replace(/<\/ul>\s*<ul>/g, '');
-     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-     return html.replace(/\n/g, '<br>');
+    // This is a simple Markdown to HTML converter.
+    // It's not exhaustive but handles headers, lists, and bold text.
+    let html = text
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n\n/g, '<br><br>') // Handle paragraphs
+        .replace(/\n/g, '<br>') // Handle single line breaks
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(\<br\>)?\s*\* (.*)/gim, (match, br, content) => `<ul><li>${content.trim()}</li></ul>`)
+        .replace(/<\/ul>\s*<ul>/g, ''); // Consolidate adjacent lists
+
+    return html;
 }
 
 function openModal(title) {
