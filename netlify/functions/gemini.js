@@ -1,55 +1,96 @@
 // --- IMPORT THE DATABASES ---
-const masterProfile = require('./master_profile.json'); // For Resume Engine
-const chatbotProfile = require('./chatbot_profile.json'); // For Chatbot
+const masterProfile = require('./master_profile.json');
+const chatbotProfile = require('./chatbot_profile.json');
+
+// --- NEW HELPER FUNCTION TO PRE-FILTER DATA ---
+function selectRelevantProjects(jobDescription, profile) {
+    const jobKeywords = jobDescription.toLowerCase().match(/\b(\w+)\b/g) || [];
+    const keywordSet = new Set(jobKeywords);
+
+    const scoredProjects = profile.experience.flatMap(exp => 
+        exp.projects.map(project => {
+            const summaryWords = new Set((project.summary || '').toLowerCase().match(/\b(\w+)\b/g) || []);
+            const score = [...keywordSet].filter(keyword => summaryWords.has(keyword)).length;
+            return { ...project, score, company: exp.company, title: exp.title, dates: exp.dates };
+        })
+    );
+
+    scoredProjects.sort((a, b) => b.score - a.score);
+
+    // Group by company to ensure we get a good selection from each experience
+    const projectsByCompany = {};
+    for (const project of scoredProjects) {
+        if (!projectsByCompany[project.company]) {
+            projectsByCompany[project.company] = [];
+        }
+        if (projectsByCompany[project.company].length < 5) { // Limit to top 5 from each company
+            projectsByCompany[project.company].push(project);
+        }
+    }
+
+    // Reconstruct a concise profile with only the most relevant projects
+    const relevantExperience = Object.values(projectsByCompany).map(companyProjects => {
+        return {
+            company: companyProjects[0].company,
+            title: companyProjects[0].title,
+            dates: companyProjects[0].dates,
+            projects: companyProjects.map(({ id, title, summary }) => ({ id, title, summary }))
+        };
+    });
+    
+    return { ...profile, experience: relevantExperience };
+}
+
 
 // --- MASTER PROMPT TEMPLATE ---
 const getMasterPrompt = (mode, jobDescription, resumeText, userQuery) => {
     if (mode === 'resume') {
-        return `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided Master Profile Database and a target Job Description.
-        **//-- START OF PROCESS --//**
-        **1. GIVEN:**
-           - **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
-           - **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
-        **2. EXECUTE:**
-           - Analyze the job description to create a blueprint.
-           - Score and select the most relevant projects from the database.
-           - Generate a new professional summary and core competencies section.
-           - **CRITICAL INSTRUCTION FOR BULLET POINTS:** Rewrite each selected accomplishment into a single, concise, and powerful bullet point.
-             - **STRUCTURE:** Each bullet point MUST start with a strong action verb or a quantifiable result. The sentence must be in the **active voice**.
-             - **SYNTHESIZE, DON'T PARAPHRASE:** Synthesize the most important action and outcome into a new, powerful sentence.
-             - **TONE & LENGTH:** Match the job description's writing style. Max two lines per bullet.
-             - **CLEAN OUTPUT:** Do NOT include internal IDs or arrows.
-           - Assemble the final resume in Markdown with the correct bullet counts (RH:5, LM:3, AK:5).
-           - Verify for 100% accuracy. No hallucinations.
-        **//-- END OF PROCESS --//**
-        **EXPECTED OUTPUT:** A complete, tailored resume in Markdown format, starting with the name.`;
+        // This mode now uses a pre-filtered, concise version of the masterProfile
+        const relevantProfile = selectRelevantProjects(jobDescription, masterProfile);
+
+        return `You are an elite AI resume writer. Your task is to create a perfectly tailored resume based on the provided RELEVANT portions of a Master Profile Database and a target Job Description.
+
+**//-- START OF PROCESS --//**
+
+**1. GIVEN:**
+   - **The \`Relevant Profile Data\`:** ${JSON.stringify(relevantProfile)}
+   - **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+
+**2. EXECUTE:**
+   - Analyze the job description to create a blueprint (targetRole, top5HardSkills, top3CulturalTraits, writingStyle, coreProblem).
+   - From the provided RELEVANT data, select the best projects.
+   - Generate a new professional summary and core competencies section.
+   - **CRITICAL INSTRUCTION FOR BULLET POINTS:** Rewrite each accomplishment into a single, concise, and powerful bullet point.
+     - **STRUCTURE:** Each bullet point MUST start with a strong action verb (e.g., Led, Delivered, Increased) or a quantifiable result (e.g., Achieved $4M in savings...). The sentence must be in the **active voice**.
+     - **SYNTHESIZE, DON'T PARAPHRASE:** Synthesize the most important action and outcome into a new, powerful sentence.
+     - **TONE & LENGTH:** Match the job description's writing style. Max two lines per bullet.
+     - **CLEAN OUTPUT:** Do NOT include internal IDs or arrows.
+   - Assemble the final resume in Markdown with the correct bullet counts (RH:5, LM:3, AK:5).
+   - Verify for 100% accuracy. No hallucinations.
+
+**//-- END OF PROCESS --//**
+
+**EXPECTED OUTPUT:** A complete, tailored resume in Markdown format, starting with the name.`;
     }
     if (mode === 'chatbot') {
-        // FIX: Create a concise summary of the profile to prevent request size errors.
         const conciseProfile = `
         Name: ${chatbotProfile.contactInfo.name}
         Professional Summary: A Senior Business Systems Analyst and Technical Program Manager with over 6 years of experience, specializing in process automation, AI/ML implementation, and data-driven strategy.
-
         Experience Overview:
         - At Robert Half, he led data governance initiatives, managed AI platform integrations, and reengineered key business processes.
         - As a co-founder at LilacMosaic Technologies, he drove product strategy from concept to launch for an AI-powered platform and implemented the Agile framework from scratch.
         - At Akamai Technologies, he managed large-scale financial system migrations for Tax, Expense, and Payments, delivering significant cost savings and efficiency improvements.
-
         Personal Journey: ${chatbotProfile.myJourney.story}
         Guiding Principles: ${chatbotProfile.guidingPrinciples.principles.join(' ')}
         Hobbies: ${chatbotProfile.outsideOfWork.hobbies.map(h => `${h.name}: ${h.anecdote}`).join('; ')}
         Fun Facts: ${chatbotProfile.funFacts.facts.join(' ')}
         `;
-
         return `You are Mayur Mehta's personal AI assistant. Your purpose is to answer questions from visitors like recruiters or hiring managers.
         **CRITICAL RULE:** Your knowledge is strictly limited to the information contained in the summarized Knowledge Base provided below. Do NOT answer any questions outside of this context. If a question is about a topic not covered in the database (e.g., personal opinions on politics), you must politely decline to answer, stating that your knowledge is limited to Mayur's professional and personal profile.
-
         **Knowledge Base (A summary of Mayur's profile):**
         ${conciseProfile}
-
         **User's Question:**
         "${userQuery}"
-
         Based ONLY on the provided knowledge base, provide a helpful and concise answer to the user's question.`;
     }
     if (mode === 'analyze') { return `Analyze the following job description and produce a structured JSON "Blueprint" containing: \`targetRole\`, \`top5HardSkills\`, \`top3CulturalTraits\`, \`writingStyle\`, and \`coreProblem\`. \n\n**Job Description:**\n\`\`\`${jobDescription}\`\`\``; }
@@ -96,7 +137,9 @@ exports.handler = async function (event, context) {
         if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
             return { statusCode: 200, body: result.candidates[0].content.parts[0].text };
         } else {
-            return { statusCode: 500, body: 'Invalid response structure from API.' };
+            // If the API returns a response without candidates (e.g., due to safety settings), provide a clearer error.
+            console.error("API Response did not contain valid candidates:", result);
+            return { statusCode: 500, body: 'The AI model returned an empty response. This may be due to the input content.' };
         }
 
     } catch (error) {
