@@ -1,4 +1,3 @@
-// Using Node's built-in file system module to read the database on demand
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -54,7 +53,7 @@ exports.handler = async function (event, context) {
             throw new Error("API key is not configured in the Netlify environment.");
         }
 
-        // --- RESUME GENERATION (NEW TWO-STEP PROCESS) ---
+        // --- RESUME GENERATION (TWO-STEP PROCESS) ---
         if (mode === 'resume') {
             // STEP 1: AI Pre-analysis to get keywords
             const keywordExtractionPrompt = `Based on the following job description, extract the most critical skills, technologies, and experiences. Return ONLY a JSON array of strings. Example: ["React", "Project Management", "SaaS"].\n\nJob Description:\n\`\`\`${jobDescription}\`\`\``;
@@ -100,10 +99,9 @@ exports.handler = async function (event, context) {
             return { statusCode: 200, body: finalResume };
         }
 
-        // --- OTHER MODES (Analyze, Cover Letter, etc.) ---
-        // These can use a simpler prompt structure as they don't need the large profile
+        // --- OTHER MODES (Cover Letter, Interview Prep, etc.) ---
+        // The 'analyze' mode has been removed to prevent conflicts.
         const otherModesPrompt = {
-            analyze: `Analyze the following job description in detail, covering strengths, weaknesses, and potential red flags. Format your output in Markdown.\n\nJob Description:\n\`\`\`${jobDescription}\`\`\``,
             coverLetter: `Using the tailored resume provided below, write a compelling 3-4 paragraph cover letter for the job description. Focus on aligning the candidate's experience with the company's needs. Format as a professional letter.\n\nResume:\n${resumeText}\n\nJob Description:\n${jobDescription}`,
             interviewPrep: `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions. The questions should probe the candidate's experience and fit for the role.\n\nResume:\n${resumeText}\n\nJob Description:\n${jobDescription}`,
             chatbot: `You are Mayur Mehta's personal AI assistant. Your persona is witty, helpful, and slightly informal. Based on your knowledge base, answer the following user query: "${userQuery}"`
