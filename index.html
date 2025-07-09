@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mayur Mehta | Product & Technology</title>
+    <title>Mayur Mehta - Personal Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
@@ -21,6 +21,19 @@
     </script>
 </head>
 <body class="bg-gray-900 text-gray-200">
+
+    <!-- 
+      NETLIFY FORM FIX: 
+      This hidden form is included so that Netlify's build bots can detect it. 
+      It has the same structure as our real form but is never shown to the user.
+      This ensures the form submission endpoint is created correctly.
+    -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+
 
     <div class="min-h-screen w-full bg-gradient-to-br from-gray-900 via-slate-900 to-black">
         
@@ -46,12 +59,15 @@
         </header>
 
         <div id="page-content" class="container mx-auto p-4 md:p-8">
-            </div>
+            <!-- Content is loaded here by main.js -->
+        </div>
     </div>
 
+    <!-- These containers will be populated by main.js -->
     <div id="chatbot-container"></div>
     <div id="modal-container"></div>
 
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
+```
