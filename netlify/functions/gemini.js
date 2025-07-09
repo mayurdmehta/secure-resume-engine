@@ -66,7 +66,8 @@ exports.handler = async function (event, context) {
             throw new Error("API key is not configured in the Netlify environment.");
         }
 
-        if (mode === 'resume') {
+        // FIX: The backend now correctly handles the 'generate' mode sent by the frontend.
+        if (mode === 'resume' || mode === 'generate') {
             // Step 1: Fetch the master profile data at runtime.
             const masterProfile = await getMasterProfile();
 
