@@ -1,165 +1,19 @@
-// The master profile is now a JavaScript object directly inside the function file.
-// This makes the function self-contained and removes any file path issues.
-const masterProfile = {
-  "contactInfo": {
-    "name": "Mayur Mehta",
-    "phone": "+1 (571) 528-7448",
-    "email": "mayurdmehta@gmail.com",
-    "location": "Nashua, NH",
-    "linkedin": "[LinkedIn Profile URL]"
-  },
-  "experience": [
-    {
-      "company": "Robert Half",
-      "title": "Senior Business Systems Analyst",
-      "dates": "Dec 2022 – Mar 2025",
-      "projects": [
-        { "id": "RH01", "title": "Data Governance & Standardization", "problem": "Global marketing teams operated in silos with inconsistent campaign tracking, making it impossible to get a clear view of performance across a $20M annual spend.", "actions": ["Owned the project end-to-end, from requirements gathering to platform configuration and stakeholder training.", "Created a single, holistic data standardization framework to unify all marketing teams.", "Configured the utm.io platform with the newly standardized parameters.", "Led the change management, training, and onboarding for over 200 marketing and product stakeholders."], "outcomes": [{ "metric": "150% adoption", "description": "Boosted adoption of the new data governance platform." }, { "metric": "30% reduction", "description": "Reduced data inconsistencies in marketing reports." }, { "metric": "$20M", "description": "Provided clear visibility into the performance of a $20M annual marketing spend." }] },
-        { "id": "RH02", "title": "Analytics Engagement Model", "problem": "The Global Marketing Analytics team lacked a formal intake process, causing analysts and engineers to spend more time chasing requirements than doing high-value work.", "actions": ["Partnered with PMO, business, and internal tech teams to establish a formal engagement model.", "Designed and automated a new intake process using Jira and Smartsheet.", "Took ownership of scoping all incoming requests and providing operational support to technical teams.", "Managed the entire workflow within a Kanban Agile framework."], "outcomes": [{ "metric": "2 weeks to 3 days", "description": "Reduced the request approval and review lifecycle." }, { "metric": "Increased Efficiency", "description": "Freed up engineering resources from administrative tasks to focus on technical work." }] },
-        { "id": "RH03", "title": "AI Call Intelligence", "problem": "The business lacked visibility into field sales performance and customer sentiment from inbound calls.", "actions": ["Owned the end-to-end configuration and management of the Invoca call intelligence platform.", "Partnered with Invoca's data science team to co-develop and train proprietary NLP models.", "Established a rigorous testing process using confusion matrix analysis to measure model performance.", "Led the technical integration of Invoca data into internal reporting systems and external ad platforms (Google Ads)."], "outcomes": [{ "metric": "90% accuracy", "description": "Achieved and maintained 90% accuracy for call classification models." }, { "metric": "Optimized Spend", "description": "Provided data to directly optimize marketing ad spend and keyword performance." }] },
-        { "id": "RH04", "title": "Analytics Operational Leadership", "problem": "A 40-person analytics team with four distinct verticals needed a central operational hub to align their work with high-level business goals.", "actions": ["Served as the primary operational point person for the entire 40-member team.", "Owned and groomed the unified team backlog for all incoming requests.", "Partnered with vertical leads to manage resource allocation and oversee execution.", "Worked directly with leadership to ensure strategic prioritization of the backlog."], "outcomes": [{ "metric": "30% efficiency", "description": "Increased the overall efficiency and throughput of the global analytics programs." }, { "metric": "Strategic Alignment", "description": "Ensured the team's work was always aligned with the goals for a $20M marketing spend." }] },
-        { "id": "RH05", "title": "Confluence SSO Migration", "problem": "An enterprise Atlassian migration created a disjointed user experience, forcing 200+ marketing stakeholders to manage two separate logins for Jira and Confluence.", "actions": ["Led and owned the entire project to migrate the standalone Confluence instance to the enterprise SSO environment.", "Managed all administrative aspects, including the complex migration of over 100GB of data.", "Meticulously planned and executed the migration to ensure zero disruption and no loss of permissions.", "Handled all training and onboarding for the 200+ affected stakeholders."], "outcomes": [{ "metric": "0 incidents", "description": "Completed the migration ahead of schedule with zero disruption to user access or permissions." }, { "metric": "200+ users", "description": "Seamlessly transitioned over 200 users to a unified login system." }] }
-      ]
-    },
-    {
-      "company": "LilacMosaic Technologies",
-      "title": "Co-Founder / Lead Business Analyst",
-      "dates": "Aug 2023 – Jan 2025",
-      "projects": [
-        { "id": "LM01", "title": "AI Event Platform Product Strategy", "problem": "Event planners lacked a single, integrated platform for end-to-end planning, visualization, and execution.", "actions": ["Drove the entire product discovery phase, conducting 15+ user interviews and 10+ surveys.", "Synthesized research into foundational product artifacts (personas, journey maps, JTBD).", "Translated validated hypotheses into user stories and functional requirements documents.", "Acted as the product leader, owning feature prioritization and the product roadmap."], "outcomes": [{ "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." }, { "metric": "15+ interviews", "description": "Validated product direction through extensive user research." }] },
-        { "id": "LM02", "title": "GenAI Recommendation System", "problem": "The platform needed a key differentiating feature—an AI-powered design recommendation system—to be competitive.", "actions": ["Oversaw the successful technical integration of Hugging Face (GenAI) and Pinterest APIs.", "Drove technical discussions and maintained the project plan for the feature.", "Launched the feature to a select group of 10+ early adopter customers for feedback.", "Mentored junior team members and interns on Agile and continuous development best practices."], "outcomes": [{ "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." }, { "metric": "10+ beta customers", "description": "Established a rapid feedback loop for continuous product improvement." }] },
-        { "id": "LM03", "title": "Agile Framework Implementation", "problem": "As a startup, the development environment was chaotic and requirements were constantly changing, hindering the ability to deliver value quickly.", "actions": ["Took the initiative to establish and implement an Agile (Scrum) framework from scratch.", "Acted as the team's Scrum Master and Agile coach.", "Introduced and facilitated all core Scrum ceremonies (sprint planning, stand-ups, retrospectives).", "Coached the team on using iterative development to embrace and adapt to change."], "outcomes": [{ "metric": "Increased Adaptability", "description": "Transformed a chaotic process into one that could thrive on fluid requirements." }, { "metric": "Faster Delivery", "description": "Increased the speed and predictability of value delivery to customers." }] }
-      ]
-    },
-    {
-      "company": "Akamai Technologies",
-      "title": "Business Systems Analyst",
-      "dates": "Sep 2019 – Dec 2022",
-      "projects": [
-        { "id": "AK01", "title": "Global Tax Automation Program", "problem": "Akamai's existing Oracle EBTax module was outdated and couldn't efficiently handle tax calculations for $1B in annual spend across 30+ global markets.", "actions": ["Led a 7-phase global program, managing the full SDLC for a 20+ member team.", "Learned and owned the configuration of the Thomson Reuters OneSource platform from scratch.", "Translated complex international tax laws into detailed BRDs, FRDs, and process flow diagrams.", "Managed the complex technical integration between Thomson Reuters and Oracle EBS R12.", "Acted as the primary bridge between technical and non-technical stakeholders during architecture discussions."], "outcomes": [{ "metric": "$4M", "description": "Delivered $4M in annual savings through operational and system efficiencies." }, { "metric": "$1B", "description": "Modernized a critical financial process impacting $1B in annual spend." }, { "metric": "30+", "description": "Successfully rolled out the new system across more than 30 global markets." }] },
-        { "id": "AK02", "title": "Expense & Compliance Automation", "problem": "An on-premise Oracle expense module was inefficient for a mobile workforce and lacked automated compliance checks for multi-million dollar travel spend.", "actions": ["Served as a key business analyst for a complex integration of SAP Concur, Amex, Oracle EBS, and the AppZen AI compliance engine.", "Partnered with internal stakeholders (Finance, Audit) and external SAP consultants to map requirements.", "Single-handedly owned the migration of 20+ operational reports from Oracle to Cognos BI, learning Cognos from scratch.", "Drove the integration of AppZen's ML tool to automate compliance checks, ensuring the entire program was SOX-compliant."], "outcomes": [{ "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." }, { "metric": "20% improvement", "description": "Improved on-time expense reporting compliance." }, { "metric": "20+", "description": "Successfully migrated and delivered over 20 critical BI reports on a new platform." }] },
-        { "id": "AK03", "title": "Host-to-Host Payment Automation", "problem": "The process for transmitting payment instructions for $1B in annual vendor invoices was manual, slow, and lacked scalability.", "actions": ["Acted as the BA and PM, facilitating the entire SDLC for the automation program.", "Designed the host-to-host payment transmission process using XML files.", "Authored all detailed technical documentation (BRD, FRD, TDD, BR100) for Oracle EBS R12 configuration.", "Managed critical dependencies with external banking partners (Chase, Citi), including regulatory requirements and UAT.", "Ensured the system was designed for high availability."], "outcomes": [{ "metric": "$1B", "description": "Automated the payment transmission process for $1B in annual spend." }, { "metric": "99.99% success", "description": "Delivered a robust and reliable system with a 99.99% successful payment completion rate." }] },
-        { "id": "AK04", "title": "Data-Driven Operational Management", "problem": "The Procure-to-Pay team needed to balance the delivery of critical, long-term projects with ongoing operational support and technical debt reduction.", "actions": ["Acted as the functional owner of the Procure-to-Pay modules within Oracle EBS R12.", "Used SQL to analyze operational data and provide objective evidence for prioritization.", "Created automated Tableau dashboards to give leadership real-time visibility into project and operational health.", "Partnered with DevOps on root cause analysis to identify and prioritize critical technical debt."], "outcomes": [{ "metric": "25% efficiency", "description": "Increased cross-functional operational efficiency through data-driven prioritization." }, { "metric": "Improved Stability", "description": "Enabled the successful, simultaneous delivery of multiple large-scale projects while maintaining operational stability." }] }
-      ]
-    }
-  ],
-  "education": [
-    { "institution": "Northeastern University", "degree": "Master of Science, Engineering Management", "gpa": "3.9" },
-    { "institution": "University of Mumbai", "degree": "Bachelor of Science, Computer Science" }
-  ],
-  "certifications": [
-    { "name": "Certified Scrum Master (CSM)", "issuer": "Scrum Alliance", "status": "Completed: Apr 2025" },
-    { "name": "AWS Certified Cloud Practitioner", "issuer": "AWS", "status": "In Progress, Expected: Jul 2025" },
-    { "name": "Project Management Professional (PMP)", "issuer": "PMI", "status": "In Progress, Expected: Aug 2025" }
-  ]
-};
+// This is a minimal test function to diagnose the root cause.
+// It contains no large objects or complex logic.
 
-// --- HELPER FUNCTION TO CALL THE GEMINI API ---
-async function callGeminiAPI(apiKey, prompt) {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-    const payload = {
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
-        ],
-    };
-
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-        const errorBody = await response.text();
-        console.error("Gemini API Error:", errorBody);
-        throw new Error(`Error from Gemini API with status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
-        return result.candidates[0].content.parts[0].text;
-    } else {
-        console.error("API Response did not contain valid candidates:", JSON.stringify(result, null, 2));
-        throw new Error('The AI model returned an empty or invalid response.');
-    }
-}
-
-
-// --- SERVERLESS FUNCTION HANDLER ---
 exports.handler = async function (event, context) {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
-
     try {
-        const { mode, jobDescription, resumeText, userQuery } = JSON.parse(event.body);
-        const apiKey = process.env.GEMINI_API_KEY;
-
-        if (!apiKey) {
-            throw new Error("API key is not configured in the Netlify environment.");
-        }
-
-        if (mode === 'resume') {
-            const resumeGenerationPrompt = `
-You are an elite AI career strategist and resume writer, acting as a world-class recruiter. Your task is to create a perfectly tailored resume by performing a deep, relational analysis of a candidate's full professional history against a target job description.
-
-**CRITICAL RULES:**
-1.  **Strict Grounding:** You MUST NOT invent, embellish, or infer any facts, figures, or details that are not explicitly present in the \`Master Profile Database\`. All output must be 100% traceable to the provided source data.
-2.  **No Hallucinations:** Do not add any information that is not in the master profile.
-3.  **Tone Matching:** The tone, pattern, and specific lingo of the generated resume MUST mirror the style of the \`Job Description\`.
-4.  **Writing Style:** Use clear, professional, and human-friendly language. Avoid overly complex technical jargon unless it is present in the Job Description.
-5.  **AI Persona:** Do not, under any circumstances, mention that you are an AI or that the resume was generated by an AI.
-6.  **Bullet Point Framework:** Every bullet point in the experience section MUST follow a 'Result -> Action -> Outcome' structure. Start with a quantifiable result, describe the action taken, and connect it to the business outcome.
-7.  **Formatting & Structure:**
-    * The final output must be a complete resume, starting with the candidate's name and contact info.
-    * A "Core Competencies" section MUST be included below the professional summary. The skills in this section must be grouped into logical, professional categories (e.g., "Program & Product Management", "Data & Analytics", "Tools & Technologies").
-    * Each bullet point MUST be no longer than two lines.
-    * The entire experience section should contain a TOTAL of 12-15 bullet points. You must dynamically allocate these bullets to the most relevant jobs based on your analysis. Do not use a fixed number of bullets per job.
-
-**Your "Chain of Thought" Process:**
-1.  **Analyze the Job Description:** First, deeply comprehend the provided \`Job Description\`. Identify the core responsibilities, essential skills, key technologies, and the underlying business goals. Also, analyze the tone, pattern, and specific lingo used.
-2.  **Analyze the Master Profile:** Next, review the candidate's entire \`Master Profile Database\`. Understand the narrative of their career and the impact of each project.
-3.  **Create the Summary and Competencies:** Based on your analysis, write a 3-4 line professional summary that directly addresses the top requirements of the job. Then, identify the most relevant skills and create a "Core Competencies" section, grouping these skills into logical buckets with clear headings.
-4.  **Synthesize, Select, and Allocate:** Strategically select the most relevant projects from the Master Profile. Then, dynamically allocate 12-15 bullet points across these experiences, prioritizing the most impactful and relevant accomplishments.
-5.  **Rewrite and Tailor:** Generate the experience section. Rewrite the bullet points for the selected experiences to speak directly to the needs and language of the Job Description, adhering strictly to all critical rules above.
-6.  **Final Verification:** Before producing the final output, perform a final cross-check of the entire resume you have generated against the \`Master Profile Database\` and all critical rules. Ensure every detail is 100% accurate and correctly formatted.
-
-**GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
-* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
-
-**YOUR FINAL OUTPUT:**
-Produce only the complete, tailored resume in Markdown format, adhering to all critical rules and formatting requirements.
-`;
-
-            const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
-            return { statusCode: 200, body: finalResume };
-        }
-
-        // --- OTHER MODES ---
-        const otherModesPrompt = {
-            coverLetter: `...`,
-            interviewPrep: `...`,
-            chatbot: `...`
-        }[mode];
-
-        if (!otherModesPrompt) {
-            return { statusCode: 400, body: 'Invalid mode provided.' };
-        }
-
-        const resultText = await callGeminiAPI(apiKey, otherModesPrompt);
-        return { statusCode: 200, body: resultText };
-
+        // Immediately return a success message.
+        return {
+            statusCode: 200,
+            body: "Isolation Test Successful! The basic function is running correctly."
+        };
     } catch (error) {
+        // This part should not be reached in this test.
         console.error('Function Error:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message || 'An internal error occurred.' }),
+            body: JSON.stringify({ error: 'An internal error occurred in the test function.' }),
         };
     }
 };
