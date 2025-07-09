@@ -6,24 +6,55 @@ import { initProjects } from './projects.js';
 // The HTML content is now stored securely inside a JavaScript template literal.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE -->
     <div id="home" class="page">
-        <div class="text-center py-20">
-            <h1 class="text-6xl font-bold text-white mb-4">Welcome</h1>
-            <p class="text-xl text-gray-400 mb-10">This is my personal portfolio. Explore my projects, read my blog, or use the Career Toolkit AI to see how my experience fits your needs.</p>
-            <div class="flex justify-center items-center space-x-6">
-                 <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    mayurdmehta@gmail.com
-                </a>
-                <a href="#" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" /></svg>
-                    LinkedIn Profile
-                </a>
+        <section class="text-center py-16 md:py-24">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
+            </p>
+            <a href="#philosophy" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300">
+                Explore My Approach
+            </a>
+        </section>
+
+        <section id="philosophy" class="py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">My Guiding Principles</h2>
+            <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                <div class="text-center">
+                    <div class="text-4xl mb-4 text-brand-primary">★</div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">Lead from the Front</h3>
+                    <p class="text-gray-400">
+                        I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-4 text-brand-primary">🚀</div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">Innovate with Purpose</h3>
+                    <p class="text-gray-400">
+                        Technology is a tool to solve human problems. I have a passion for integrating advanced solutions—from co-developing NLP models for call intelligence to integrating GenAI recommendation systems—to automate processes, unlock new efficiencies, and deliver a smarter user experience.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-4 text-brand-primary">🏛️</div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">Build for the Future</h3>
+                    <p class="text-gray-400">
+                        True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="text-center py-16 md:py-24 bg-gray-800/20 rounded-xl">
+             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Want the Full Story?</h2>
+             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                The resume tells you what I've done, but it doesn't tell you the whole story. For a more candid conversation, ask my AI assistant anything—from what it was like to co-found a tech startup to my journey in learning new technologies on the fly.
+             </p>
+             <a href="#" data-page="chatbot" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300 nav-link">
+                Ask My AI Assistant
+             </a>
+        </section>
     </div>
-    <!-- PROJECTS PAGE -->
+
     <div id="projects" class="page hidden">
         <header class="text-center mb-12">
             <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
@@ -48,14 +79,12 @@ const pageTemplates = `
             </div>
         </div>
     </div>
-    <!-- BLOGS PAGE -->
     <div id="blogs" class="page hidden">
         <div class="text-center py-20">
             <h1 class="text-5xl font-bold text-white mb-4">My Blog</h1>
             <p class="text-xl text-gray-400">Coming soon! A collection of my thoughts on technology, product management, and more.</p>
         </div>
     </div>
-    <!-- CAREER TOOLKIT AI PAGE -->
     <div id="toolkit" class="page hidden">
         <header class="text-center mb-10">
             <h1 class="text-5xl font-bold text-brand-primary mb-4">Career Toolkit AI</h1>
