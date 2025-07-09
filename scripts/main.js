@@ -46,7 +46,7 @@ const pageTemplates = `
                     <h2 class="text-3xl font-bold text-white mb-8">My Guiding Principles</h2>
                     <div class="space-y-8">
                         <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary">★</div>
+                            <div class="text-3xl text-brand-primary">🛡️</div>
                             <div>
                                 <h3 class="text-xl font-semibold text-white mb-1">Lead from the Front</h3>
                                 <p class="text-gray-400">I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.</p>
