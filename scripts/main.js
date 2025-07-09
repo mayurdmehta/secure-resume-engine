@@ -7,21 +7,39 @@ import { initProjects } from './projects.js';
 // The #home page has been updated to include the new sections and contact form.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE (UPDATED WITH CONTACT FORM) -->
+    <!-- HOME PAGE (UPDATED WITH HEADSHOT AND QUOTE) -->
     <div id="home" class="page">
         <!-- Hero Section -->
-        <section class="text-center py-16 md:py-24">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-                I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
-            </p>
-            <a href="#philosophy" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300">
-                Explore My Approach
-            </a>
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+                    <!-- Headshot -->
+                    <div class="md:col-span-1 flex justify-center">
+                        <img src="https://placehold.co/400x400/1f2937/9ca3af?text=Mayur" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
+                    </div>
+                    <!-- Hero Text -->
+                    <div class="md:col-span-2 text-center md:text-left">
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
+                            I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
+                        </p>
+                        <a href="#philosophy" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300">
+                            Explore My Approach
+                        </a>
+                    </div>
+                </div>
+                <!-- Favorite Quote -->
+                <div class="mt-20 md:mt-24 text-center">
+                    <blockquote class="text-2xl md:text-3xl italic text-gray-300 max-w-3xl mx-auto border-l-4 border-brand-primary pl-6">
+                        "The only way to do great work is to love what you do."
+                    </blockquote>
+                    <cite class="block text-gray-500 mt-4 text-lg">- Steve Jobs</cite>
+                </div>
+            </div>
         </section>
 
         <!-- Philosophy Section -->
-        <section id="philosophy" class="py-16 md:py-24">
+        <section id="philosophy" class="py-16 md:py-24 bg-gray-800/10">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">My Guiding Principles</h2>
             <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
                 <div class="text-center">
@@ -48,8 +66,19 @@ const pageTemplates = `
             </div>
         </section>
 
+        <!-- AI-Built Project Section -->
+        <section id="ai-built" class="py-16 md:py-24 bg-gray-800/20 rounded-xl">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="text-5xl mb-4">🤖</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">A Note on How This Site Was Built</h2>
+                <p class="text-lg md:text-xl text-gray-400">
+                    This entire portfolio is a passion project, built from scratch to explore the advanced coding capabilities of AI platforms like Google's Gemini. I acted as the product manager and architect, guiding the AI to generate the code for the UI, application logic, and backend functions. It's a living testament to my belief in leveraging new technologies to accelerate development and bring ambitious ideas to life.
+                </p>
+            </div>
+        </section>
+
         <!-- Chatbot Teaser Section -->
-        <section class="text-center py-16 md:py-24 bg-gray-800/20 rounded-xl">
+        <section class="text-center py-16 md:py-24">
              <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Want the Full Story?</h2>
              <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
                 The resume tells you what I've done, but it doesn't tell you the whole story. For a more candid conversation, ask my AI assistant anything—from what it was like to co-found a tech startup to my journey in learning new technologies on the fly.
@@ -59,8 +88,8 @@ const pageTemplates = `
              </a>
         </section>
 
-        <!-- NEW Contact Section -->
-        <section id="contact" class="py-16 md:py-24">
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 bg-gray-800/20 rounded-xl mt-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Get In Touch</h2>
             <div class="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto">
                 <!-- Contact Details -->
