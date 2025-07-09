@@ -116,36 +116,44 @@ const pageTemplates = `
                 <section id="contact" class="sticky top-24">
                     <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
                         <h2 class="text-2xl font-bold text-white text-center mb-6">Get In Touch</h2>
-                        <form name="contact" method="POST" data-netlify="true" class="space-y-4">
-                            <input type="hidden" name="form-name" value="contact">
-                            <div>
-                                <label for="name" class="sr-only">Your Name</label>
-                                <input type="text" name="name" id="name" required placeholder="Your Name" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                            </div>
-                            <div>
-                                <label for="email" class="sr-only">Your Email</label>
-                                <input type="email" name="email" id="email" required placeholder="Your Email" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                            </div>
-                            <div>
-                                <label for="message" class="sr-only">Message</label>
-                                <textarea name="message" id="message" rows="4" required placeholder="Your Message" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
-                                    Send Message
-                                </button>
-                            </div>
-                        </form>
-                        <div class="mt-6 pt-6 border-t border-gray-700 flex justify-center space-x-6">
-                            <a href="mailto:mayurdmehta@gmail.com" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="Email">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        
+                        <!-- Expanded Contact Details -->
+                        <div class="space-y-4 mb-6">
+                            <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors p-2 rounded-lg hover:bg-gray-700/50">
+                                <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span>mayurdmehta@gmail.com</span>
                             </a>
-                            <a href="https://www.linkedin.com/in/mehta-mayur" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="LinkedIn">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <a href="https://www.linkedin.com/in/mehta-mayur" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors p-2 rounded-lg hover:bg-gray-700/50">
+                                <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                <span>LinkedIn Profile</span>
                             </a>
-                             <a href="tel:+15715287448" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="Phone">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                             <a href="tel:+15715287448" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors p-2 rounded-lg hover:bg-gray-700/50">
+                                <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span>+1 (571) 528-7448</span>
                             </a>
+                        </div>
+
+                        <div class="border-t border-gray-700 pt-6">
+                            <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                                <input type="hidden" name="form-name" value="contact">
+                                <div>
+                                    <label for="name" class="sr-only">Your Name</label>
+                                    <input type="text" name="name" id="name" required placeholder="Your Name" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                                </div>
+                                <div>
+                                    <label for="email" class="sr-only">Your Email</label>
+                                    <input type="email" name="email" id="email" required placeholder="Your Email" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                                </div>
+                                <div>
+                                    <label for="message" class="sr-only">Message</label>
+                                    <textarea name="message" id="message" rows="4" required placeholder="Your Message" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
+                                </div>
+                                <div>
+                                    <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Chatbot Teaser Section -->
