@@ -3,10 +3,13 @@ import { initToolkit } from './toolkit.js';
 import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
-// The HTML content is now stored securely inside a JavaScript template literal.
+// The HTML content for all pages is stored in this template literal.
+// The #home page has been updated to include the new sections and contact form.
 const pageTemplates = `
 <div id="pages-container">
+    <!-- HOME PAGE (UPDATED WITH CONTACT FORM) -->
     <div id="home" class="page">
+        <!-- Hero Section -->
         <section class="text-center py-16 md:py-24">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
@@ -17,6 +20,7 @@ const pageTemplates = `
             </a>
         </section>
 
+        <!-- Philosophy Section -->
         <section id="philosophy" class="py-16 md:py-24">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">My Guiding Principles</h2>
             <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
@@ -44,6 +48,7 @@ const pageTemplates = `
             </div>
         </section>
 
+        <!-- Chatbot Teaser Section -->
         <section class="text-center py-16 md:py-24 bg-gray-800/20 rounded-xl">
              <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Want the Full Story?</h2>
              <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
@@ -53,8 +58,57 @@ const pageTemplates = `
                 Ask My AI Assistant
              </a>
         </section>
+
+        <!-- NEW Contact Section -->
+        <section id="contact" class="py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Get In Touch</h2>
+            <div class="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+                <!-- Contact Details -->
+                <div class="flex flex-col justify-center">
+                    <p class="text-gray-400 mb-8">
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out to me directly or use the form.
+                    </p>
+                    <div class="space-y-4">
+                        <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
+                            <svg class="w-6 h-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            mayurdmehta@gmail.com
+                        </a>
+                        <a href="tel:+15715287448" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
+                            <svg class="w-6 h-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                           +1 (571) 528-7448
+                        </a>
+                        <a href="https://www.linkedin.com/in/mehta-mayur" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
+                             <svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+                <!-- Contact Form: data-netlify="true" enables automatic form handling on Netlify -->
+                <form name="contact" method="POST" data-netlify="true" class="space-y-6">
+                    <input type="hidden" name="form-name" value="contact">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
+                        <input type="text" name="name" id="name" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Your Email</label>
+                        <input type="email" name="email" id="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                        <textarea name="message" id="message" rows="5" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </div>
 
+    <!-- PROJECTS PAGE (Unchanged) -->
     <div id="projects" class="page hidden">
         <header class="text-center mb-12">
             <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
@@ -79,12 +133,14 @@ const pageTemplates = `
             </div>
         </div>
     </div>
+    <!-- BLOGS PAGE (Unchanged) -->
     <div id="blogs" class="page hidden">
         <div class="text-center py-20">
             <h1 class="text-5xl font-bold text-white mb-4">My Blog</h1>
             <p class="text-xl text-gray-400">Coming soon! A collection of my thoughts on technology, product management, and more.</p>
         </div>
     </div>
+    <!-- CAREER TOOLKIT AI PAGE (Unchanged) -->
     <div id="toolkit" class="page hidden">
         <header class="text-center mb-10">
             <h1 class="text-5xl font-bold text-brand-primary mb-4">Career Toolkit AI</h1>
@@ -221,6 +277,10 @@ const pageTemplates = `
 </div>
 `;
 
+/**
+ * Main application entry point.
+ * Initializes all modules after the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     loadPageContent();
     initNavigation();
@@ -229,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjects();
 });
 
+/**
+ * Injects the page templates into the main containers in index.html.
+ */
 function loadPageContent() {
     const pageContent = document.getElementById('page-content');
     const modalContainer = document.getElementById('modal-container');
