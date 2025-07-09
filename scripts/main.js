@@ -46,21 +46,21 @@ const pageTemplates = `
                     <h2 class="text-3xl font-bold text-white mb-8">My Guiding Principles</h2>
                     <div class="space-y-8">
                         <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary mt-1">★</div>
+                            <div class="text-3xl text-brand-primary">★</div>
                             <div>
                                 <h3 class="text-xl font-semibold text-white mb-1">Lead from the Front</h3>
                                 <p class="text-gray-400">I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary mt-1">🚀</div>
+                            <div class="text-3xl text-brand-primary">🚀</div>
                             <div>
                                 <h3 class="text-xl font-semibold text-white mb-1">Innovate with Purpose</h3>
                                 <p class="text-gray-400">Technology is a tool to solve human problems. I have a passion for integrating advanced solutions—from co-developing NLP models for call intelligence to integrating GenAI recommendation systems—to automate processes, unlock new efficiencies, and deliver a smarter user experience.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary mt-1">🏛️</div>
+                            <div class="text-3xl text-brand-primary">🏛️</div>
                             <div>
                                 <h3 class="text-xl font-semibold text-white mb-1">Build for the Future</h3>
                                 <p class="text-gray-400">True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.</p>
@@ -117,8 +117,35 @@ const pageTemplates = `
                     <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
                         <h2 class="text-2xl font-bold text-white text-center mb-6">Get In Touch</h2>
                         
+                        <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                            <input type="hidden" name="form-name" value="contact">
+                            <div>
+                                <label for="name" class="sr-only">Your Name</label>
+                                <input type="text" name="name" id="name" required placeholder="Your Name" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                            </div>
+                            <div>
+                                <label for="email" class="sr-only">Your Email</label>
+                                <input type="email" name="email" id="email" required placeholder="Your Email" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                            </div>
+                            <div>
+                                <label for="message" class="sr-only">Message</label>
+                                <textarea name="message" id="message" rows="4" required placeholder="Your Message" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="flex items-center text-center my-4">
+                            <div class="flex-grow border-t border-gray-700"></div>
+                            <span class="flex-shrink mx-4 text-gray-500">OR</span>
+                            <div class="flex-grow border-t border-gray-700"></div>
+                        </div>
+
                         <!-- Expanded Contact Details -->
-                        <div class="space-y-4 mb-6">
+                        <div class="space-y-4">
                             <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors p-2 rounded-lg hover:bg-gray-700/50">
                                 <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <span>mayurdmehta@gmail.com</span>
@@ -131,29 +158,6 @@ const pageTemplates = `
                                 <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                 <span>+1 (571) 528-7448</span>
                             </a>
-                        </div>
-
-                        <div class="border-t border-gray-700 pt-6">
-                            <form name="contact" method="POST" data-netlify="true" class="space-y-4">
-                                <input type="hidden" name="form-name" value="contact">
-                                <div>
-                                    <label for="name" class="sr-only">Your Name</label>
-                                    <input type="text" name="name" id="name" required placeholder="Your Name" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                                </div>
-                                <div>
-                                    <label for="email" class="sr-only">Your Email</label>
-                                    <input type="email" name="email" id="email" required placeholder="Your Email" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                                </div>
-                                <div>
-                                    <label for="message" class="sr-only">Message</label>
-                                    <textarea name="message" id="message" rows="4" required placeholder="Your Message" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
-                                </div>
-                                <div>
-                                    <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
-                                        Send Message
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <!-- Chatbot Teaser Section -->
