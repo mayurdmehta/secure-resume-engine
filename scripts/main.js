@@ -4,13 +4,13 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
-// The #home page has been updated to include the new sections and contact form.
+// The #home page has been updated to use a more dynamic, two-column "dashboard" layout.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE (UPDATED WITH CORE TRAITS) -->
+    <!-- HOME PAGE (UPDATED WITH DASHBOARD LAYOUT) -->
     <div id="home" class="page">
         <!-- Hero Section -->
-        <section class="py-16 md:py-24">
+        <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
                     <!-- Headshot -->
@@ -23,13 +23,10 @@ const pageTemplates = `
                         <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
                             I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
                         </p>
-                        <a href="#philosophy" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300">
-                            Explore My Approach
-                        </a>
                     </div>
                 </div>
                 <!-- Favorite Quote -->
-                <div class="mt-20 md:mt-24 text-center">
+                <div class="mt-16 md:mt-20 text-center">
                     <blockquote class="text-2xl md:text-3xl italic text-gray-300 max-w-3xl mx-auto border-l-4 border-brand-primary pl-6">
                         "The only way to do great work is to love what you do."
                     </blockquote>
@@ -38,130 +35,129 @@ const pageTemplates = `
             </div>
         </section>
 
-        <!-- Philosophy Section -->
-        <section id="philosophy" class="py-16 md:py-24 bg-gray-800/10">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">My Guiding Principles</h2>
-            <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-                <div class="text-center">
-                    <div class="text-4xl mb-4 text-brand-primary">★</div>
-                    <h3 class="text-2xl font-semibold text-white mb-3">Lead from the Front</h3>
-                    <p class="text-gray-400">
-                        I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.
-                    </p>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl mb-4 text-brand-primary">🚀</div>
-                    <h3 class="text-2xl font-semibold text-white mb-3">Innovate with Purpose</h3>
-                    <p class="text-gray-400">
-                        Technology is a tool to solve human problems. I have a passion for integrating advanced solutions—from co-developing NLP models for call intelligence to integrating GenAI recommendation systems—to automate processes, unlock new efficiencies, and deliver a smarter user experience.
-                    </p>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl mb-4 text-brand-primary">🏛️</div>
-                    <h3 class="text-2xl font-semibold text-white mb-3">Build for the Future</h3>
-                    <p class="text-gray-400">
-                        True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.
-                    </p>
-                </div>
-            </div>
-        </section>
+        <!-- Main Dashboard Layout -->
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-5 gap-16">
+            
+            <!-- Left Column: The Narrative -->
+            <div class="lg:col-span-3">
+                
+                <!-- Philosophy Section -->
+                <section id="philosophy" class="pt-8">
+                    <h2 class="text-3xl font-bold text-white mb-8">My Guiding Principles</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl text-brand-primary mt-1">★</div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-white mb-1">Lead from the Front</h3>
+                                <p class="text-gray-400">I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl text-brand-primary mt-1">🚀</div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-white mb-1">Innovate with Purpose</h3>
+                                <p class="text-gray-400">Technology is a tool to solve human problems. I have a passion for integrating advanced solutions—from co-developing NLP models for call intelligence to integrating GenAI recommendation systems—to automate processes, unlock new efficiencies, and deliver a smarter user experience.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl text-brand-primary mt-1">🏛️</div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-white mb-1">Build for the Future</h3>
+                                <p class="text-gray-400">True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Core Traits Section -->
-        <section id="core-traits" class="py-16 md:py-24">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Core Traits</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
-                    <h3 class="text-xl font-bold text-brand-primary mb-2">Systems Thinker</h3>
-                    <p class="text-gray-400">I see beyond the immediate task to understand the entire ecosystem. My experience with large-scale programs, like the $1B Global Tax Automation, has trained me to connect disparate parts into a cohesive, high-functioning whole.</p>
-                </div>
-                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
-                    <h3 class="text-xl font-bold text-brand-primary mb-2">Proactive Owner</h3>
-                    <p class="text-gray-400">I don't wait for instructions; I take the initiative. Whether implementing an Agile framework from scratch at a startup or driving a complex data migration, I own the outcome from conception to completion.</p>
-                </div>
-                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
-                    <h3 class="text-xl font-bold text-brand-primary mb-2">The Translator</h3>
-                    <p class="text-gray-400">I thrive at the intersection of business and technology. I'm adept at translating complex international tax laws or stakeholder needs into detailed technical requirements that engineers can execute flawlessly.</p>
-                </div>
-                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
-                    <h3 class="text-xl font-bold text-brand-primary mb-2">Data-Driven Pragmatist</h3>
-                    <p class="text-gray-400">Opinions are good, but data is better. I leverage tools like SQL to analyze operational data, providing objective evidence that transforms chaotic backlogs into prioritized, strategic roadmaps.</p>
-                </div>
-                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50 md:col-span-2">
-                    <h3 class="text-xl font-bold text-brand-primary mb-2">The Problem Solver</h3>
-                    <p class="text-gray-400">At my core, I am driven to solve complex puzzles. I enjoy dissecting ambiguous problems—from untangling inconsistent marketing data across a $20M spend to streamlining chaotic intake processes—and architecting robust, scalable solutions that create lasting clarity and value.</p>
-                </div>
-            </div>
-        </section>
+                <!-- Core Traits Section -->
+                <section id="core-traits" class="pt-16">
+                    <h2 class="text-3xl font-bold text-white mb-8">Core Traits</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                            <h3 class="text-lg font-bold text-brand-primary mb-2">Systems Thinker</h3>
+                            <p class="text-gray-400 text-sm">I see beyond the immediate task to understand the entire ecosystem, connecting disparate parts into a cohesive, high-functioning whole.</p>
+                        </div>
+                        <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                            <h3 class="text-lg font-bold text-brand-primary mb-2">Proactive Owner</h3>
+                            <p class="text-gray-400 text-sm">I don't wait for instructions; I take the initiative and own the outcome from conception to completion.</p>
+                        </div>
+                        <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                            <h3 class="text-lg font-bold text-brand-primary mb-2">The Translator</h3>
+                            <p class="text-gray-400 text-sm">I thrive at the intersection of business and technology, translating complex needs into flawless technical requirements.</p>
+                        </div>
+                        <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                            <h3 class="text-lg font-bold text-brand-primary mb-2">Data-Driven Pragmatist</h3>
+                            <p class="text-gray-400 text-sm">Opinions are good, but data is better. I leverage data to transform chaotic backlogs into prioritized, strategic roadmaps.</p>
+                        </div>
+                         <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50 md:col-span-2">
+                            <h3 class="text-lg font-bold text-brand-primary mb-2">The Problem Solver</h3>
+                            <p class="text-gray-400 text-sm">At my core, I am driven to solve complex puzzles. I enjoy dissecting ambiguous problems and architecting robust, scalable solutions that create lasting clarity and value.</p>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- AI-Built Project Section -->
-        <section id="ai-built" class="py-16 md:py-24 bg-gray-800/20 rounded-xl">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="text-5xl mb-4">🤖</div>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">A Note on How This Site Was Built</h2>
-                <p class="text-lg md:text-xl text-gray-400">
-                    This entire portfolio is a passion project, built from scratch to explore the advanced coding capabilities of AI platforms like Google's Gemini. I acted as the product manager and architect, guiding the AI to generate the code for the UI, application logic, and backend functions. It's a living testament to my belief in leveraging new technologies to accelerate development and bring ambitious ideas to life.
-                </p>
-            </div>
-        </section>
+                <!-- AI-Built Project Section -->
+                <section id="ai-built" class="pt-16">
+                    <div class="bg-gray-800/20 rounded-xl p-8 text-center border border-gray-700/50">
+                        <div class="text-4xl mb-4">🤖</div>
+                        <h2 class="text-2xl font-bold text-white mb-3">A Note on How This Site Was Built</h2>
+                        <p class="text-gray-400">
+                            This entire portfolio is a passion project, built from scratch to explore the advanced coding capabilities of AI platforms like Google's Gemini. I acted as the product manager and architect, guiding the AI to generate the code for the UI, application logic, and backend functions. It's a living testament to my belief in leveraging new technologies to accelerate development and bring ambitious ideas to life.
+                        </p>
+                    </div>
+                </section>
 
-        <!-- Chatbot Teaser Section -->
-        <section class="text-center py-16 md:py-24">
-             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Want the Full Story?</h2>
-             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-                The resume tells you what I've done, but it doesn't tell you the whole story. For a more candid conversation, ask my AI assistant anything—from what it was like to co-found a tech startup to my journey in learning new technologies on the fly.
-             </p>
-             <a href="#" data-page="chatbot" class="inline-block bg-brand-primary text-white font-bold text-lg py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors duration-300 nav-link">
-                Ask My AI Assistant
-             </a>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24 bg-gray-800/20 rounded-xl mt-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Get In Touch</h2>
-            <div class="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto">
-                <!-- Contact Details -->
-                <div class="flex flex-col justify-center">
-                    <p class="text-gray-400 mb-8">
-                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out to me directly or use the form.
-                    </p>
-                    <div class="space-y-4">
-                        <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
-                            <svg class="w-6 h-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            mayurdmehta@gmail.com
-                        </a>
-                        <a href="tel:+15715287448" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
-                            <svg class="w-6 h-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                           +1 (571) 528-7448
-                        </a>
-                        <a href="https://www.linkedin.com/in/mehta-mayur" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg text-gray-300 hover:text-brand-primary transition-colors">
-                             <svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            LinkedIn Profile
-                        </a>
-                    </div>
-                </div>
-                <!-- Contact Form: data-netlify="true" enables automatic form handling on Netlify -->
-                <form name="contact" method="POST" data-netlify="true" class="space-y-6">
-                    <input type="hidden" name="form-name" value="contact">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
-                        <input type="text" name="name" id="name" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Your Email</label>
-                        <input type="email" name="email" id="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
-                        <textarea name="message" id="message" rows="5" required class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
-                            Send Message
-                        </button>
-                    </div>
-                </form>
             </div>
-        </section>
+
+            <!-- Right Column: The Action -->
+            <div class="lg:col-span-2">
+                
+                <!-- Contact Section -->
+                <section id="contact" class="sticky top-24">
+                    <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                        <h2 class="text-2xl font-bold text-white text-center mb-6">Get In Touch</h2>
+                        <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                            <input type="hidden" name="form-name" value="contact">
+                            <div>
+                                <label for="name" class="sr-only">Your Name</label>
+                                <input type="text" name="name" id="name" required placeholder="Your Name" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                            </div>
+                            <div>
+                                <label for="email" class="sr-only">Your Email</label>
+                                <input type="email" name="email" id="email" required placeholder="Your Email" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition">
+                            </div>
+                            <div>
+                                <label for="message" class="sr-only">Message</label>
+                                <textarea name="message" id="message" rows="4" required placeholder="Your Message" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-300">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                        <div class="mt-6 pt-6 border-t border-gray-700 flex justify-center space-x-6">
+                            <a href="mailto:mayurdmehta@gmail.com" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="Email">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/mehta-mayur" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="LinkedIn">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                             <a href="tel:+15715287448" class="text-gray-400 hover:text-brand-primary transition-colors" aria-label="Phone">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Chatbot Teaser Section -->
+                    <div class="text-center mt-8">
+                         <a href="#" data-page="chatbot" class="text-brand-primary hover:text-blue-400 font-semibold transition-colors nav-link">
+                           Or, want the full story? Ask my AI assistant &rarr;
+                         </a>
+                    </div>
+                </section>
+
+            </div>
+        </div>
     </div>
 
     <!-- PROJECTS PAGE (Unchanged) -->
