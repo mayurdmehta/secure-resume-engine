@@ -4,20 +4,17 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
-// The #home page has been updated to use a more dynamic, two-column "dashboard" layout.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE (UPDATED WITH DASHBOARD LAYOUT) -->
+    <!-- HOME PAGE (Unchanged) -->
     <div id="home" class="page">
         <!-- Hero Section -->
         <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
-                    <!-- Headshot -->
                     <div class="md:col-span-1 flex justify-center">
                         <img src="https://placehold.co/400x400/1f2937/9ca3af?text=Mayur" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
-                    <!-- Hero Text -->
                     <div class="md:col-span-2 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
                         <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
@@ -25,7 +22,6 @@ const pageTemplates = `
                         </p>
                     </div>
                 </div>
-                <!-- Favorite Quote -->
                 <div class="mt-16 md:mt-20 text-center">
                     <blockquote class="text-2xl md:text-3xl italic text-gray-300 max-w-3xl mx-auto border-l-4 border-brand-primary pl-6">
                         "The only way to do great work is to love what you do."
@@ -37,11 +33,7 @@ const pageTemplates = `
 
         <!-- Main Dashboard Layout -->
         <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-5 gap-16">
-            
-            <!-- Left Column: The Narrative -->
             <div class="lg:col-span-3">
-                
-                <!-- Philosophy Section -->
                 <section id="philosophy" class="pt-8">
                     <h2 class="text-3xl font-bold text-white mb-8">My Guiding Principles</h2>
                     <div class="space-y-8">
@@ -68,8 +60,6 @@ const pageTemplates = `
                         </div>
                     </div>
                 </section>
-
-                <!-- Core Traits Section -->
                 <section id="core-traits" class="pt-16">
                     <h2 class="text-3xl font-bold text-white mb-8">Core Traits</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -95,8 +85,6 @@ const pageTemplates = `
                         </div>
                     </div>
                 </section>
-
-                <!-- AI-Built Project Section -->
                 <section id="ai-built" class="pt-16">
                     <div class="bg-gray-800/20 rounded-xl p-8 text-center border border-gray-700/50">
                         <div class="text-4xl mb-4">🤖</div>
@@ -106,17 +94,11 @@ const pageTemplates = `
                         </p>
                     </div>
                 </section>
-
             </div>
-
-            <!-- Right Column: The Action -->
             <div class="lg:col-span-2">
-                
-                <!-- Contact Section -->
                 <section id="contact" class="sticky top-24">
                     <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
                         <h2 class="text-2xl font-bold text-white text-center mb-6">Get In Touch</h2>
-                        
                         <form name="contact" method="POST" data-netlify="true" class="space-y-4">
                             <input type="hidden" name="form-name" value="contact">
                             <div>
@@ -137,14 +119,11 @@ const pageTemplates = `
                                 </button>
                             </div>
                         </form>
-
                         <div class="flex items-center text-center my-4">
                             <div class="flex-grow border-t border-gray-700"></div>
                             <span class="flex-shrink mx-4 text-gray-500">OR</span>
                             <div class="flex-grow border-t border-gray-700"></div>
                         </div>
-
-                        <!-- Expanded Contact Details -->
                         <div class="space-y-4">
                             <a href="mailto:mayurdmehta@gmail.com" class="flex items-center text-gray-300 hover:text-brand-primary transition-colors p-2 rounded-lg hover:bg-gray-700/50">
                                 <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -160,14 +139,12 @@ const pageTemplates = `
                             </a>
                         </div>
                     </div>
-                    <!-- Chatbot Teaser Section -->
                     <div class="text-center mt-8">
                          <a href="#" data-page="chatbot" class="text-brand-primary hover:text-blue-400 font-semibold transition-colors nav-link">
                            Or, want the full story? Ask my AI assistant &rarr;
                          </a>
                     </div>
                 </section>
-
             </div>
         </div>
     </div>
@@ -204,13 +181,16 @@ const pageTemplates = `
             <p class="text-xl text-gray-400">Coming soon! A collection of my thoughts on technology, product management, and more.</p>
         </div>
     </div>
-    <!-- CAREER TOOLKIT AI PAGE (Unchanged) -->
+
+    <!-- CAREER TOOLKIT AI PAGE (UPDATED) -->
     <div id="toolkit" class="page hidden">
-        <header class="text-center mb-10">
-            <h1 class="text-5xl font-bold text-brand-primary mb-4">Career Toolkit AI</h1>
-            <p class="text-lg text-gray-400 max-w-3xl mx-auto">
-                This tool was born from a personal project to automate the tedious process of tailoring a resume for each job application. It uses a custom-built AI engine, powered by Gemini, to analyze a job description and intelligently rewrite my career story to highlight the most relevant skills and experiences. It's a demonstration of my passion for process automation, AI implementation, and creating efficient, user-centric solutions.
-            </p>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">My Solution to a Tedious Problem</h1>
+            <div class="max-w-3xl mx-auto text-lg text-gray-400 space-y-4">
+                <p>Like any job seeker, I found the process of manually tailoring my resume for every application to be repetitive and inefficient. As a technologist who loves to build, I saw an opportunity to solve my own problem.</p>
+                <p>This toolkit is the result. It's a living application that I designed and architected from the ground up, using AI to automate the process. It's a direct reflection of how I approach challenges: identify a pain point, architect a solution, and build a tool that delivers tangible value.</p>
+                <p class="font-semibold text-gray-300">What you see below is not just a demo; it's the actual tool I use.</p>
+            </div>
         </header>
         <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="bg-gray-800/50 p-6 rounded-xl shadow-2xl border border-gray-700 backdrop-blur-sm">
