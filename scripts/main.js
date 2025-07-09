@@ -7,7 +7,7 @@ import { initProjects } from './projects.js';
 // The #home page has been updated to include the new sections and contact form.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE (UPDATED WITH HEADSHOT AND QUOTE) -->
+    <!-- HOME PAGE (UPDATED WITH CORE TRAITS) -->
     <div id="home" class="page">
         <!-- Hero Section -->
         <section class="py-16 md:py-24">
@@ -62,6 +62,33 @@ const pageTemplates = `
                     <p class="text-gray-400">
                         True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Traits Section -->
+        <section id="core-traits" class="py-16 md:py-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Core Traits</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">Systems Thinker</h3>
+                    <p class="text-gray-400">I see beyond the immediate task to understand the entire ecosystem. My experience with large-scale programs, like the $1B Global Tax Automation, has trained me to connect disparate parts into a cohesive, high-functioning whole.</p>
+                </div>
+                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">Proactive Owner</h3>
+                    <p class="text-gray-400">I don't wait for instructions; I take the initiative. Whether implementing an Agile framework from scratch at a startup or driving a complex data migration, I own the outcome from conception to completion.</p>
+                </div>
+                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">The Translator</h3>
+                    <p class="text-gray-400">I thrive at the intersection of business and technology. I'm adept at translating complex international tax laws or stakeholder needs into detailed technical requirements that engineers can execute flawlessly.</p>
+                </div>
+                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">Data-Driven Pragmatist</h3>
+                    <p class="text-gray-400">Opinions are good, but data is better. I leverage tools like SQL to analyze operational data, providing objective evidence that transforms chaotic backlogs into prioritized, strategic roadmaps.</p>
+                </div>
+                <div class="bg-gray-800/20 p-6 rounded-lg border border-gray-700/50 md:col-span-2">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">The Problem Solver</h3>
+                    <p class="text-gray-400">At my core, I am driven to solve complex puzzles. I enjoy dissecting ambiguous problems—from untangling inconsistent marketing data across a $20M spend to streamlining chaotic intake processes—and architecting robust, scalable solutions that create lasting clarity and value.</p>
                 </div>
             </div>
         </section>
