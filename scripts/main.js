@@ -8,7 +8,6 @@ const pageTemplates = `
 <div id="pages-container">
     <!-- HOME PAGE (Unchanged) -->
     <div id="home" class="page">
-        <!-- Hero Section -->
         <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
@@ -30,8 +29,6 @@ const pageTemplates = `
                 </div>
             </div>
         </section>
-
-        <!-- Main Dashboard Layout -->
         <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-5 gap-16">
             <div class="lg:col-span-3">
                 <section id="philosophy" class="pt-8">
@@ -200,13 +197,13 @@ const pageTemplates = `
                 </div>
                 <textarea id="jobDescription" class="w-full h-96 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition duration-200" placeholder="Paste the full job description here..."></textarea>
                 <div class="flex space-x-4 mt-4">
-                    <button id="analyzeBtn" class="w-1/2 bg-gray-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-400 transition-all duration-200 flex items-center justify-center disabled:bg-gray-700 disabled:text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        Analyze Job
-                    </button>
                     <button id="generateBtn" class="w-1/2 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:from-gray-600 disabled:to-gray-700 disabled:shadow-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
                         Generate Resume
+                    </button>
+                    <button id="coverLetterBtn" class="w-1/2 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        Generate Cover Letter
                     </button>
                 </div>
             </div>
@@ -220,12 +217,11 @@ const pageTemplates = `
                 </div>
                 <div id="loader" class="hidden flex justify-center items-center h-full"><div class="loader"></div></div>
                 <div id="resumeOutput" class="prose prose-dark max-w-none flex-grow overflow-y-auto p-4 bg-gray-900/70 border border-gray-700 rounded-lg">
-                    <p class="text-gray-500">Your tailored resume and career tools will appear here...</p>
+                    <p class="text-gray-500">Your tailored content will appear here...</p>
                 </div>
                 <div id="nextSteps" class="hidden mt-4 p-4 bg-brand-primary/10 rounded-lg border border-brand-primary/30">
                     <h3 class="text-xl font-semibold text-brand-primary mb-3">Next Steps ✨</h3>
                     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                        <button id="coverLetterBtn" class="flex-1 bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-500 transition duration-200">Draft Cover Letter</button>
                         <button id="interviewPrepBtn" class="flex-1 bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-500 transition duration-200">Interview Prep</button>
                     </div>
                 </div>
