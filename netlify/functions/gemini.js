@@ -1,154 +1,219 @@
-/*
-=======================================================================
-FILE: netlify/functions/gemini.js (Complete & Updated)
-PURPOSE: This serverless function acts as a secure backend for the 
-         entire application. It handles all interactions with the 
-         Google Gemini API.
-=======================================================================
-*/
-
-// Import necessary modules.
-// 'GoogleGenerativeAI' is for interacting with the Gemini API.
-// 'fs' (File System) and 'path' are Node.js modules for file handling.
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { promises as fs } from 'fs';
-import path from 'path';
-
-// Retrieve the Gemini API key from environment variables for security.
-const geminiApiKey = process.env.GEMINI_API_KEY;
-// Initialize the Generative AI client.
-const genAI = new GoogleGenerativeAI(geminiApiKey);
-
-/**
- * Asynchronously reads and parses a JSON file from the project's root directory.
- * This is a helper function to keep our code DRY (Don't Repeat Yourself).
- * @param {string} fileName - The name of the JSON file to read (e.g., 'master_profile.json').
- * @returns {Promise<object>} A promise that resolves to the parsed JSON object.
- */
-async function readJsonFile(fileName) {
-    // Construct the absolute path to the file. `process.cwd()` returns the 
-    // current working directory of the Node.js process, which in Netlify's
-    // environment is the project root.
-    const filePath = path.resolve(process.cwd(), fileName);
-    const data = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(data);
+// This function fetches the master profile from a public URL at runtime.
+async function getMasterProfile() {
+    // The URL points to the master profile JSON file on the live site.
+    const profileUrl = `https://mayur-mehta-portfolio.netlify.app/master_profile.json`;
+    try {
+        const response = await fetch(profileUrl);
+        if (!response.ok) {
+            // Handle cases where the profile can't be fetched.
+            throw new Error(`Failed to fetch master profile with status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching master profile:", error);
+        // This error will be caught by the main handler and sent to the client.
+        throw new Error("Could not load the master profile data.");
+    }
 }
 
-/**
- * The main handler for the Netlify serverless function.
- * This function is triggered by any HTTP request to its endpoint.
- * @param {object} event - The incoming request object from Netlify.
- * @returns {Promise<object>} A promise that resolves to an HTTP response object.
- */
-export async function handler(event) {
-    // We only want to process POST requests.
+// This function fetches the chatbot profile from a public URL at runtime.
+async function getChatbotProfile() {
+    // The URL points to the chatbot profile JSON file on the live site.
+    const profileUrl = `https://mayur-mehta-portfolio.netlify.app/chatbot_profile.json`;
+    try {
+        const response = await fetch(profileUrl);
+        if (!response.ok) {
+            // Handle cases where the profile can't be fetched.
+            throw new Error(`Failed to fetch chatbot profile with status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching chatbot profile:", error);
+        // This error will be caught by the main handler and sent to the client.
+        throw new Error("Could not load the chatbot profile data.");
+    }
+}
+
+
+// --- HELPER FUNCTION TO CALL THE GEMINI API ---
+// This centralized function handles all communication with the Google Gemini API.
+async function callGeminiAPI(apiKey, prompt) {
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const payload = {
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        // Safety settings are configured to be non-restrictive for this use case.
+        safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+        ],
+    };
+
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error("Gemini API Error:", errorBody);
+        throw new Error(`Error from Gemini API with status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // Safely access the response text to prevent errors.
+    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+        return result.candidates[0].content.parts[0].text;
+    } else {
+        console.error("API Response did not contain valid candidates:", JSON.stringify(result, null, 2));
+        throw new Error('The AI model returned an empty or invalid response.');
+    }
+}
+
+// --- SERVERLESS FUNCTION HANDLER ---
+// This is the main entry point for the Netlify serverless function.
+exports.handler = async function (event, context) {
+    // Only allow POST requests.
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
     try {
-        // Parse the incoming request body to get the necessary data.
+        // Parse the request body to get the mode and other data.
         const { mode, jobDescription, resumeText, userQuery } = JSON.parse(event.body);
-        
-        // Load the JSON databases from the root directory.
-        const masterProfile = await readJsonFile('master_profile.json');
-        const chatbotProfile = await readJsonFile('chatbot_profile.json');
+        const apiKey = process.env.GEMINI_API_KEY;
 
-        let prompt;
-        // Select the appropriate Gemini model.
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-        // Use a switch statement to handle different modes of operation.
-        switch (mode) {
-            case 'generate':
-                // Prompt for generating a tailored resume.
-                prompt = `
-                    As an expert resume writer, your task is to create a tailored resume for Mayur Mehta using his master profile.
-                    Analyze the following job description and create a professional one-page resume.
-                    - Start with the contact information.
-                    - Write a compelling professional summary that aligns with the job description.
-                    - Select and highlight the most relevant projects from his experience, rewriting bullet points to directly address the job's requirements.
-                    - Include relevant education and certifications.
-                    - The tone should be professional and confident.
-
-                    Job Description:
-                    ${jobDescription}
-
-                    Mayur's Master Profile:
-                    ${JSON.stringify(masterProfile, null, 2)}
-                `;
-                break;
-            
-            case 'coverLetter':
-                // Prompt for generating a cover letter.
-                prompt = `
-                    As a professional career coach, write a compelling and concise cover letter for Mayur Mehta based on his master profile and the provided job description.
-                    - The letter should be enthusiastic and professional.
-                    - It must highlight 1-2 of his most relevant accomplishments that match the key requirements of the role.
-                    - Keep it to three paragraphs.
-
-                    Job Description:
-                    ${jobDescription}
-
-                    Mayur's Master Profile:
-                    ${JSON.stringify(masterProfile, null, 2)}
-                `;
-                break;
-
-            case 'interviewPrep':
-                // Prompt for generating interview preparation questions.
-                 prompt = `
-                    You are an expert interview coach. Based on the provided job description and the tailored resume, generate a list of 5-7 potential interview questions. 
-                    For each question, provide a concise, powerful answer that Mayur could use, drawing directly from his experience in the master profile.
-                    
-                    Job Description:
-                    ${jobDescription}
-
-                    Tailored Resume:
-                    ${resumeText}
-
-                    Mayur's Master Profile:
-                    ${JSON.stringify(masterProfile, null, 2)}
-                `;
-                break;
-            
-            case 'chatbot':
-                // Prompt for the chatbot interaction.
-                prompt = `
-                    You are Mayur Mehta's personal AI assistant. Your persona is friendly, knowledgeable, and slightly informal.
-                    Answer the user's question based *only* on the information provided in the chatbot profile.
-                    If the answer isn't in the profile, respond with "That's a great question! I don't have that information right now, but I can ask Mayur and get back to you."
-                    Keep your answers conversational and concise.
-
-                    User's Question: "${userQuery}"
-
-                    Chatbot Profile (Your Knowledge Base):
-                    ${JSON.stringify(chatbotProfile, null, 2)}
-                `;
-                break;
-
-            default:
-                // Handle invalid modes.
-                throw new Error('Invalid mode specified');
+        if (!apiKey) {
+            throw new Error("API key is not configured.");
         }
 
-        // Send the generated prompt to the Gemini API.
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = await response.text();
+        // --- RESUME GENERATION MODE ---
+        if (mode === 'generate') {
+            const masterProfile = await getMasterProfile();
+            const resumeGenerationPrompt = `
+You are an elite AI career strategist and resume writer, acting as a world-class recruiter. Your task is to create a perfectly tailored resume by performing a deep, relational analysis of a candidate's full professional history against a target job description.
 
-        // Return a successful response with the generated text.
-        return {
-            statusCode: 200,
-            body: text
-        };
+**CRITICAL RULES:**
+1.  **Strict Grounding:** You MUST NOT invent, embellish, or infer any facts, figures, or details that are not explicitly present in the \`Master Profile Database\`. All output must be 100% traceable to the provided source data.
+2.  **No Hallucinations:** Do not add any information that is not in the master profile. This is especially true for the "Core Competencies" section.
+3.  **Tone Matching:** The tone, pattern, and specific lingo of the generated resume MUST mirror the style of the \`Job Description\`.
+4.  **Writing Style:** Use clear, professional, and human-friendly language. Avoid overly complex technical jargon unless it is present in the Job Description.
+5.  **AI Persona:** Do not, under any circumstances, mention that you are an AI or that the resume was generated by an AI.
+6.  **Bullet Point Framework:** Every bullet point in the experience section MUST follow a 'Result -> Action -> Outcome' structure. Start with a quantifiable result, describe the action taken, and connect it to the business outcome.
+7.  **Formatting & Structure:**
+    * The final output must be a complete resume, starting with the candidate's name and contact info.
+    * A "Core Competencies" section MUST be included below the professional summary. The skills in this section must be grouped into logical, professional categories (e.g., "Program & Product Management", "Data & Analytics", "Tools & Technologies").
+    * Each bullet point MUST be no longer than two lines.
+    * The entire experience section should contain a TOTAL of 12-15 bullet points. You must dynamically allocate these bullets to the most relevant jobs based on your analysis. Do not use a fixed number of bullets per job.
+
+**Your "Chain of Thought" Process:**
+1.  **Analyze the Job Description:** First, deeply comprehend the provided \`Job Description\`. Identify the core responsibilities, essential skills, key technologies, and the underlying business goals. Also, analyze the tone, pattern, and specific lingo used.
+2.  **Analyze the Master Profile:** Next, review the candidate's entire \`Master Profile Database\`. Understand the narrative of their career and the impact of each project.
+3.  **Create the Summary and Competencies:** Based on your analysis, write a 3-4 line professional summary that directly addresses the top requirements of the job. Then, to create the "Core Competencies" section, first identify all relevant skills from the Job Description. Cross-reference this list against the Master Profile. The final competencies listed MUST BE PRESENT in the Master Profile.
+4.  **Synthesize, Select, and Allocate:** Strategically select the most relevant projects from the Master Profile. Then, dynamically allocate 12-15 bullet points across these experiences, prioritizing the most impactful and relevant accomplishments.
+5.  **Rewrite and Tailor:** Generate the experience section. Rewrite the bullet points for the selected experiences to speak directly to the needs and language of the Job Description, adhering strictly to all critical rules above.
+6.  **Final Verification:** Before producing the final output, perform a final cross-check of the entire resume you have generated against the \`Master Profile Database\` and all critical rules. Ensure every detail is 100% accurate and correctly formatted.
+
+**GIVEN DATA:**
+* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
+* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+
+**YOUR FINAL OUTPUT:**
+Produce only the complete, tailored resume in Markdown format, adhering to all critical rules and formatting requirements.
+`;
+            const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
+            return { statusCode: 200, body: finalResume };
+        }
+
+        // --- COVER LETTER GENERATION MODE ---
+        if (mode === 'coverLetter') {
+            const masterProfile = await getMasterProfile();
+            const coverLetterPrompt = `
+You are an expert career coach writing a cover letter for a client. Your task is to create a compelling, professional, and human-sounding cover letter based on the client's full professional history and a target job description.
+
+**CRITICAL RULES:**
+1.  **Strict Grounding:** Base the letter entirely on the facts provided in the \`Master Profile Database\`. Do not invent or embellish any details.
+2.  **Highlight Reel, Not a Summary:** Do not simply summarize the resume. Instead, select the 2-3 most impactful projects or accomplishments from the Master Profile that directly align with the core needs of the Job Description and build a narrative around them.
+3.  **Tone Matching:** The tone of the cover letter MUST mirror the professional tone of the \`Job Description\`.
+4.  **Structure:** The letter should be 3-4 paragraphs. Start with a strong opening that grabs the reader's attention, use the body paragraphs to connect your selected accomplishments to the employer's problems, and end with a confident call to action.
+5.  **AI Persona:** Do not mention that you are an AI or that the letter was generated.
+
+**GIVEN DATA:**
+* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
+* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+
+**YOUR FINAL OUTPUT:**
+Produce only the complete, tailored cover letter.
+`;
+            const finalCoverLetter = await callGeminiAPI(apiKey, coverLetterPrompt);
+            return { statusCode: 200, body: finalCoverLetter };
+        }
+
+        // --- CHATBOT MODE ---
+        if (mode === 'chatbot') {
+            // Fetch the dynamic chatbot profile at runtime.
+            const chatbotProfile = await getChatbotProfile();
+            const chatbotPrompt = `
+You are an AI Career Advocate for Mayur Mehta. Your purpose is to engage with recruiters and hiring managers in a way that is insightful, compelling, and authentically represents Mayur's professional story and capabilities. You are a friendly, professional, and highly intelligent conversationalist.
+
+**CRITICAL RULES:**
+1.  **Persona & Identity:** You are Mayur's AI assistant, not Mayur himself. Your tone should be professional yet approachable, confident but not arrogant.
+2.  **Strict Grounding:** You MUST base all your answers on the information found in the \`Chatbot Profile Database\`. Do not make up personal details, stories, or facts.
+3.  **No Hallucinations:** If the answer to a question isn't in the database, gracefully deflect. Say: "That's an excellent question that would be best answered by Mayur directly. Would you like the link to his LinkedIn profile to connect with him?" Do not invent information.
+4.  **Go Beyond the Facts - Tell a Story:** Do not just retrieve facts. Your primary goal is to synthesize information into compelling narratives. When asked a behavioral question (e.g., "Tell me about a time..."), use the anecdotes in the database to construct a STAR (Situation, Task, Action, Result) response.
+5.  **Connect to Value:** Always try to connect your answers to the value Mayur brings. For example, if asked about a skill, don't just say "Yes, he knows Python." Say: "Yes, he's proficient in Python. For instance, at [Company], he developed a Python script that automated [Task], which resulted in [Quantifiable Outcome]. His expertise is in using Python for data analysis and automation."
+6.  **Be Proactive & Engaging:** End your responses with an engaging hook or a clarifying question to keep the conversation flowing. For example: "...and that project taught him a lot about stakeholder management. Is that a key competency for this role?"
+7.  **Tone Adaptability:** You must adapt your tone based on the user's query.
+    * **For professional questions** (about skills, experience, projects): Maintain the 'AI Career Advocate' persona—professional, insightful, and value-focused.
+    * **For personal questions** (about hobbies, interests, personality): Switch to a more casual, friendly, and conversational tone. Share the information in a lighthearted way, as if you're sharing a fun fact about a colleague.
+
+**Your "Chain of Thought" Process:**
+1.  **Deconstruct the User's Intent & Tone:** First, analyze the user's question. Is it professional or personal in nature? This is your first and most important decision, as it will determine your response's tone.
+2.  **Scan and Synthesize:** Scan the entire \`Chatbot Profile Database\` for all relevant keywords, projects, and anecdotes related to the query. Synthesize these points into a cohesive answer.
+3.  **Find the "Why" - The Narrative Arc:** Don't just list facts. Find the story. Why was this project important? What was the challenge? What was the lesson learned?
+4.  **Draft the Response:** Write a direct answer to the question, ensuring your tone matches the user's intent (professional or personal).
+5.  **Weave in the Proof:** If professional, enhance the answer with a specific, brief example or anecdote from the database, ideally framed using the STAR method. If personal, weave in details from the profile in a fun and engaging way.
+6.  **Add the Value Hook:** Conclude by connecting the answer to a professional competency and, if appropriate, ask a follow-up question to encourage further dialogue. For personal questions, you can end with a friendly closing.
+
+**GIVEN DATA:**
+* **The User's Question:** \`\`\`${userQuery}\`\`\`
+* **The \`Chatbot Profile Database\`:** ${JSON.stringify(chatbotProfile)}
+
+**YOUR TASK:**
+Based on the user's question, act as an AI Career Advocate and provide a helpful, insightful, and conversational response grounded in the provided database and all the rules above.
+`;
+            const responseText = await callGeminiAPI(apiKey, chatbotPrompt);
+            return { statusCode: 200, body: responseText };
+        }
+
+
+        // --- INTERVIEW PREP MODE ---
+        if (mode === 'interviewPrep') {
+             // This prompt is static as it doesn't rely on a dynamic profile.
+             const interviewPrepPrompt = `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions that probe for specific examples of the candidate's skills and experience. The questions should be open-ended and designed to elicit detailed responses.
+
+             **Job Description:**
+             \`\`\`${jobDescription}\`\`\`
+
+             **Candidate's Resume:**
+             \`\`\`${resumeText}\`\`\`
+             `;
+             const resultText = await callGeminiAPI(apiKey, interviewPrepPrompt);
+             return { statusCode: 200, body: resultText };
+        }
+
+        // If no valid mode is found, return an error.
+        return { statusCode: 400, body: 'Invalid mode provided.' };
 
     } catch (error) {
-        // Handle any errors that occur during the process.
-        console.error('Error processing request:', error);
+        console.error('Function Error:', error);
+        // Return a generic error message to the client.
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'An error occurred processing your request.' })
+            body: JSON.stringify({ error: error.message || 'An internal error occurred.' }),
         };
     }
-}
+};
