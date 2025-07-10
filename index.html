@@ -39,7 +39,11 @@
         
         <header class="sticky top-0 z-40 bg-gray-900/50 backdrop-blur-lg border-b border-gray-800">
             <nav class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold text-white" data-page="home">Mayur Mehta</a>
+                <!-- LOGO UPDATE: Replaced the text link with an image tag for the logo -->
+                <a href="#" class="flex-shrink-0" data-page="home">
+                    <!-- Ensure the src path matches the name of your logo file in the root directory -->
+                    <img src="/logo.png" alt="Mayur Mehta Logo" class="h-10">
+                </a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#" class="nav-link text-gray-400 font-medium active" data-page="home">Home</a>
                     <a href="#" class="nav-link text-gray-400 font-medium" data-page="projects">Projects</a>
@@ -70,4 +74,3 @@
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
-```
