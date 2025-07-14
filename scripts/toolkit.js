@@ -7,10 +7,11 @@ export function initToolkit() {
             return;
         }
 
-        const targetId = event.target.id;
-        // Updated to include coverLetterBtn as a primary action
-        if (['generateBtn', 'coverLetterBtn', 'interviewPrepBtn'].includes(targetId)) {
-            // The 'analyzeBtn' case is removed as the button no longer exists.
+        const targetId = event.target.closest('button')?.id;
+
+        if (['generateBtn', 'coverLetterBtn', 'generateLinkedinBtn', 'interviewPrepBtn'].includes(targetId)) {
+            // The mode for the backend is derived from the button ID.
+            // 'generateLinkedinBtn' -> 'generateLinkedin'
             const mode = targetId.replace('Btn', '');
             await handleApiCall(mode);
         } else if (targetId === 'copyBtn') {
@@ -27,16 +28,14 @@ async function handleApiCall(mode) {
     }
 
     let resumeTextForFeatures = "";
-    // This block now only handles interviewPrep, which still depends on generated resume text.
     if (mode === 'interviewPrep') {
         resumeTextForFeatures = document.getElementById('resumeOutput').innerText;
-        if (!resumeTextForFeatures.trim() || !resumeTextForFeatures.includes('Professional Experience')) { // Check if it looks like a resume
+        if (!resumeTextForFeatures.trim() || !resumeTextForFeatures.includes('Professional Experience')) {
             showError("Please generate a resume first to provide context for interview prep.");
             return;
         }
         openModal("✨ Interview Prep Questions");
     } else {
-        // All primary actions (resume, cover letter) now use the main loader.
         setLoading(true);
     }
 
@@ -47,11 +46,9 @@ async function handleApiCall(mode) {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
             document.getElementById('modalLoader').classList.add('hidden');
         } else {
-            // Both resume and cover letter results are shown in the main output.
             document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
             document.getElementById('copyBtn').classList.remove('hidden');
             
-            // Only show the "Next Steps" for interview prep if a resume was generated.
             if (mode === 'generate') {
                 document.getElementById('nextSteps').classList.remove('hidden');
             } else {
@@ -82,6 +79,7 @@ async function handleApiCall(mode) {
 function setLoading(isLoading) {
     const generateBtn = document.getElementById('generateBtn');
     const coverLetterBtn = document.getElementById('coverLetterBtn');
+    const linkedInBtn = document.getElementById('generateLinkedinBtn'); // Get the new button
     const resumeOutput = document.getElementById('resumeOutput');
     const loader = document.getElementById('loader');
     const errorMessageDiv = document.getElementById('error-message');
@@ -89,6 +87,7 @@ function setLoading(isLoading) {
 
     if(generateBtn) generateBtn.disabled = isLoading;
     if(coverLetterBtn) coverLetterBtn.disabled = isLoading;
+    if(linkedInBtn) linkedInBtn.disabled = isLoading; // Disable the new button
 
     if (isLoading) {
         if(resumeOutput) resumeOutput.classList.add('hidden');
@@ -110,9 +109,20 @@ function showError(message) {
 }
 
 function formatForDisplay(text) {
-    let html = text
+    let sanitizedText = text
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
+        .replace(/>/g, "&gt;");
+
+    // Handle the new "Subject: " format for LinkedIn messages
+    if (sanitizedText.startsWith('Subject: ')) {
+        const parts = sanitizedText.split(/\n\n/);
+        const subjectLine = parts[0].replace('Subject: ', '');
+        const body = parts.slice(1).join('<br><br>');
+        return `<h3>${subjectLine}</h3><br>${body}`;
+    }
+
+    // Existing formatting for other content types
+    let html = sanitizedText
         .replace(/\n\n/g, '<br><br>')
         .replace(/\n/g, '<br>')
         .replace(/^### (.*$)/gim, '<h3>$1</h3>')

@@ -6,7 +6,6 @@ import { initProjects } from './projects.js';
 // The HTML content for all pages is stored in this template literal.
 const pageTemplates = `
 <div id="pages-container">
-    <!-- HOME PAGE (Unchanged) -->
     <div id="home" class="page">
         <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
@@ -146,7 +145,6 @@ const pageTemplates = `
         </div>
     </div>
 
-    <!-- PROJECTS PAGE (Unchanged) -->
     <div id="projects" class="page hidden">
         <header class="text-center mb-12">
             <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
@@ -171,7 +169,6 @@ const pageTemplates = `
             </div>
         </div>
     </div>
-    <!-- BLOGS PAGE (Unchanged) -->
     <div id="blogs" class="page hidden">
         <div class="text-center py-20">
             <h1 class="text-5xl font-bold text-white mb-4">My Blog</h1>
@@ -179,7 +176,6 @@ const pageTemplates = `
         </div>
     </div>
 
-    <!-- CAREER TOOLKIT AI PAGE (UPDATED) -->
     <div id="toolkit" class="page hidden">
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">My Solution to a Tedious Problem</h1>
@@ -197,13 +193,17 @@ const pageTemplates = `
                 </div>
                 <textarea id="jobDescription" class="w-full h-96 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition duration-200" placeholder="Paste the full job description here..."></textarea>
                 <div class="flex space-x-4 mt-4">
-                    <button id="generateBtn" class="w-1/2 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:from-gray-600 disabled:to-gray-700 disabled:shadow-none">
+                    <button id="generateBtn" class="flex-1 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:from-gray-600 disabled:to-gray-700 disabled:shadow-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
                         Generate Resume
                     </button>
-                    <button id="coverLetterBtn" class="w-1/2 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
+                    <button id="coverLetterBtn" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                         Generate Cover Letter
+                    </button>
+                    <button id="generateLinkedinBtn" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn Message
                     </button>
                 </div>
             </div>

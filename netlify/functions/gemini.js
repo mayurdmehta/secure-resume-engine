@@ -151,6 +151,49 @@ Produce only the complete, tailored cover letter.
             const finalCoverLetter = await callGeminiAPI(apiKey, coverLetterPrompt);
             return { statusCode: 200, body: finalCoverLetter };
         }
+        
+        // --- LINKEDIN MESSAGE GENERATION MODE ---
+        if (mode === 'generateLinkedin') {
+            const masterProfile = await getMasterProfile();
+            const linkedinMessagePrompt = `
+You are a world-class career strategist and networking expert, ghostwriting a LinkedIn InMail message. Your goal is to create an exceptionally concise and impactful message, including a compelling subject line, that positions the candidate as the clear solution to the hiring manager's problem.
+
+**CRITICAL RULES:**
+1.  **Output Format:** Your final output MUST be plain text. It must start with "Subject: " followed by the subject line, a double newline, and then the message body.
+    **Example Format:**
+    Subject: Your generated subject line here
+
+    Your generated message body here.
+2.  **Subject Line Best Practices:**
+    * **Clarity & Specificity:** It must mention the specific job title from the \`Job Description\`.
+    * **Value Hint:** Briefly hint at a key qualification (e.g., "Experienced," "Results-driven").
+    * **Brevity:** Keep it under 10 words.
+3.  **Message Body Best Practices:**
+    * **Extreme Brevity:** The body MUST be under 75 words and no more than 3-4 sentences. This is non-negotiable.
+    * **Grounding:** The message must be 100% grounded in the facts from the \`Master Profile Database\`.
+    * **The "Problem-Solution" Framework:**
+        * **Sentence 1 (The Hook):** Express genuine, concise interest in the company's mission or a specific challenge from the \`Job Description\`.
+        * **Sentence 2 (The Solution):** Identify the single most critical requirement from the \`Job Description\` and connect it directly to a single, quantifiable accomplishment from the \`Master Profile Database\`.
+        * **Sentence 3 (The CTA):** End with a simple, confident, and low-friction call to action.
+4.  **Persona & Tone:** Write from the first-person ("I"). The tone should be professional, direct, and confident. Do not mention you are an AI.
+
+**Your "Chain of Thought" Process:**
+1.  **Analyze the Job Description:** Identify the #1 pain point and the exact job title.
+2.  **Find the Silver Bullet:** Scan the \`Master Profile Database\` for the single most compelling, quantifiable result that proves you can solve that core problem.
+3.  **Craft the Subject Line:** Following the rules, create a short, impactful subject line.
+4.  **Craft the Message Body:** Write the body adhering strictly to the 3-sentence structure and word limit.
+5.  **Assemble the Final Text:** Combine the subject and body into the specified text format.
+
+**GIVEN DATA:**
+* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
+* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+
+**YOUR FINAL OUTPUT:**
+Produce only the tailored text in the specified "Subject: ..." format.
+`;
+            const finalMessage = await callGeminiAPI(apiKey, linkedinMessagePrompt);
+            return { statusCode: 200, body: finalMessage };
+        }
 
         // --- CHATBOT MODE ---
         if (mode === 'chatbot') {
