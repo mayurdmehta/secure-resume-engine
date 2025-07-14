@@ -139,6 +139,22 @@
             { "metric": "Increased Adaptability", "description": "Transformed a chaotic process into one that could thrive on fluid requirements." },
             { "metric": "Faster Delivery", "description": "Increased the speed and predictability of value delivery to customers." }
           ]
+        },
+        {
+          "id": "LM04",
+          "title": "Foundational Product & Market Strategy",
+          "problem": "As a bootstrapped startup with limited runway, we faced the risk of building a product nobody wanted. It was critical to validate our core idea and define a viable market entry strategy before committing significant development resources.",
+          "actions": [
+            "Executed a multi-faceted discovery process, distilling insights from comprehensive market, user, and competitor analyses to identify a key gap in the market.",
+            "Architected foundational product artifacts (user personas, journey maps) that served as the 'single source of truth' to align the engineering and business vision.",
+            "Drove the strategic definition of our MVP by applying 'diverge and converge' frameworks to translate raw user research into a prioritized feature backlog.",
+            "Recruited and established a 'first-adopter' program to create a rapid and continuous feedback loop for product validation."
+          ],
+          "outcomes": [
+            { "metric": "Focused MVP Scope", "description": "Distilled a wide-ranging list of features and ideas into 4 focused, core feature modules essential for the MVP, preventing feature bloat and saving months of estimated development time." },
+            { "metric": "40% Adopter Conversion", "description": "Achieved a 40% conversion rate from user interviews into active beta program participants, proving the identified customer problem was significant and resonant." },
+            { "metric": "2 Letters of Intent (LOI)", "description": "Validated the business model and market demand by securing 2 Letters of Intent (LOI) from key early adopters before a single line of code was written." }
+          ]
         }
       ]
     },
