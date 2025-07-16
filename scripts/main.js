@@ -4,7 +4,6 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
-// START: FIX - The pageTemplates string now ONLY contains the dynamic content.
 // The static <header> has been removed as it lives permanently in index.html.
 const pageTemplates = `
 <div id="pages-container">
@@ -350,22 +349,20 @@ function loadPageContent() {
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(pageTemplates, 'text/html');
-    
-    // START: FIX - Correctly grab the header and mobile menu from the parsed doc
-    const header = doc.querySelector('header');
+
+    // Get the content from the parsed template
     const pagesContainer = doc.getElementById('pages-container');
-    
-    // Inject the header into the body
-    if (header) {
-        document.body.insertBefore(header, document.getElementById('page-content'));
-    }
-    
-    // Inject the page content
+    const modalsContainer = doc.getElementById('modals-container');
+    const chatbotContent = doc.getElementById('chatbot-container');
+
+    // Inject the content into the correct placeholders in index.html
     if (pagesContainer) {
         pageContent.innerHTML = pagesContainer.innerHTML;
     }
-    // END: FIX
-
-    modalContainer.innerHTML = doc.getElementById('modals-container').innerHTML;
-    chatbotContainer.innerHTML = doc.getElementById('chatbot-container').innerHTML;
+    if (modalsContainer) {
+        modalContainer.innerHTML = modalsContainer.innerHTML;
+    }
+    if (chatbotContent) {
+        chatbotContainer.innerHTML = chatbotContent.innerHTML;
+    }
 }
