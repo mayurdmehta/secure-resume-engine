@@ -10,18 +10,25 @@ function switchPage(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
     
     // Show the target page.
-    document.getElementById(targetPageId).classList.remove('hidden');
+    const activePage = document.getElementById(targetPageId);
+    if (activePage) {
+        activePage.classList.remove('hidden');
+    }
 
     // Update the 'active' state for all navigation links.
-    document.querySelectorAll('header .nav-link, #mobile-menu a').forEach(link => {
+    document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
         link.classList.remove('active');
+        // Check if the link's hash corresponds to the active page ID.
         if (link.hash === `#${targetPageId}`) {
             link.classList.add('active');
         }
     });
     
     // Ensure the mobile menu is closed after navigation.
-    document.getElementById('mobile-menu')?.classList.add('hidden');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+    }
 }
 
 /**
@@ -38,13 +45,15 @@ function handleRouting() {
 export function initNavigation() {
     // Set up a global click listener to handle all navigation and actions.
     document.body.addEventListener('click', (e) => {
-        const navLink = e.target.closest('a[href^="#"]');
+        // Correctly identify navigation links in the header, mobile menu, and the logo.
+        const navLink = e.target.closest('a.nav-link');
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
         // Handle clicks on internal navigation links (e.g., #projects).
-        if (navLink) {
+        if (navLink && navLink.hash) {
             const pageId = navLink.hash.substring(1);
+            // Ensure the target page exists in the DOM.
             if (document.getElementById(pageId)) {
                 e.preventDefault();
                 // Only push a new state if the URL is actually changing.
@@ -61,9 +70,8 @@ export function initNavigation() {
             const action = actionLink.dataset.action;
             if (action === 'open-chatbot') {
                 const chatbotFab = document.getElementById('chatbot-fab');
-                const chatbotWindow = document.getElementById('chatbot-window');
-                // Open chatbot only if it's currently hidden.
-                if (chatbotFab && chatbotWindow?.classList.contains('hidden')) {
+                // Programmatically click the FAB to trigger its existing toggle logic.
+                if (chatbotFab) {
                     chatbotFab.click();
                 }
             }
@@ -78,6 +86,6 @@ export function initNavigation() {
     // Add a listener for the 'popstate' event to handle browser back/forward buttons.
     window.addEventListener('popstate', handleRouting);
 
-    // Perform initial routing when the application loads.
+    // Perform initial routing when the application loads to handle deep links.
     handleRouting();
 }
