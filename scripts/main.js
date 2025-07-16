@@ -4,7 +4,6 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
-// START: MODIFICATION - Updated navigation links to use href for routing.
 const pageTemplates = `
 <div id="pages-container">
     <div id="home" class="page">
@@ -326,7 +325,6 @@ const pageTemplates = `
     </div>
 </div>
 `;
-// END: MODIFICATION
 
 /**
  * Main application entry point.
@@ -351,7 +349,21 @@ function loadPageContent() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(pageTemplates, 'text/html');
     
-    pageContent.innerHTML = doc.getElementById('pages-container').innerHTML;
+    // START: FIX - Correctly grab the header and mobile menu from the parsed doc
+    const header = doc.querySelector('header');
+    const pagesContainer = doc.getElementById('pages-container');
+    
+    // Inject the header into the body
+    if (header) {
+        document.body.insertBefore(header, document.getElementById('page-content'));
+    }
+    
+    // Inject the page content
+    if (pagesContainer) {
+        pageContent.innerHTML = pagesContainer.innerHTML;
+    }
+    // END: FIX
+
     modalContainer.innerHTML = doc.getElementById('modals-container').innerHTML;
     chatbotContainer.innerHTML = doc.getElementById('chatbot-container').innerHTML;
 }
