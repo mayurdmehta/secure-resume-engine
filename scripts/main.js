@@ -191,7 +191,18 @@ const pageTemplates = `
                     <div class="bg-brand-primary/20 text-brand-primary p-2 rounded-lg mr-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
                     <h2 class="text-2xl font-semibold text-white">Job Description</h2>
                 </div>
-                <textarea id="jobDescription" class="w-full h-96 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition duration-200" placeholder="Paste the full job description here..."></textarea>
+                <textarea id="jobDescription" class="w-full h-64 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition duration-200" placeholder="Paste the full job description here..."></textarea>
+                
+                <!-- START: Additional Context Block -->
+                <div class="mt-4">
+                    <div class="flex items-center mb-2">
+                         <div class="bg-purple-500/20 text-purple-400 p-2 rounded-lg mr-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V4a2 2 0 012-2h8a2 2 0 012 2v4z" /></svg></div>
+                        <h2 class="text-xl font-semibold text-white">Additional Context (Optional)</h2>
+                    </div>
+                    <textarea id="additionalContext" class="w-full h-32 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200" placeholder="e.g., Mention my passion for data visualization, address the cover letter to Jane Doe, or highlight my startup experience..."></textarea>
+                </div>
+                <!-- END: Additional Context Block -->
+
                 <div class="flex space-x-4 mt-4">
                     <button id="generateBtn" class="flex-1 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:from-gray-600 disabled:to-gray-700 disabled:shadow-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>

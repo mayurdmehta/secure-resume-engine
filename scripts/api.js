@@ -1,11 +1,16 @@
-export async function callBackend(mode, jobDescription = '', resumeText = '', userQuery = '') {
+// START: Updated function signature to include additionalContext
+export async function callBackend(mode, jobDescription = '', resumeText = '', userQuery = '', additionalContext = '') {
+// END: Updated function signature
     try {
         const backendUrl = `${window.location.origin}/.netlify/functions/gemini`;
         const payload = {
             mode,
             jobDescription,
             resumeText,
-            userQuery
+            userQuery,
+            // START: Add additionalContext to payload
+            additionalContext
+            // END: Add additionalContext to payload
         };
 
         const response = await fetch(backendUrl, {

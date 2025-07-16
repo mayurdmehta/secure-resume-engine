@@ -10,8 +10,6 @@ export function initToolkit() {
         const targetId = event.target.closest('button')?.id;
 
         if (['generateBtn', 'coverLetterBtn', 'generateLinkedinBtn', 'interviewPrepBtn'].includes(targetId)) {
-            // The mode for the backend is derived from the button ID.
-            // 'generateLinkedinBtn' -> 'generateLinkedin'
             const mode = targetId.replace('Btn', '');
             await handleApiCall(mode);
         } else if (targetId === 'copyBtn') {
@@ -22,6 +20,10 @@ export function initToolkit() {
 
 async function handleApiCall(mode) {
     const jobDescription = document.getElementById('jobDescription').value;
+    // START: Get additional context
+    const additionalContext = document.getElementById('additionalContext').value;
+    // END: Get additional context
+
     if (!jobDescription.trim()) {
         showError("Please paste a job description.");
         return;
@@ -40,7 +42,9 @@ async function handleApiCall(mode) {
     }
 
     try {
-        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures);
+        // START: Pass additional context to the backend
+        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures, '', additionalContext);
+        // END: Pass additional context to the backend
 
         if (mode === 'interviewPrep') {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
@@ -79,7 +83,7 @@ async function handleApiCall(mode) {
 function setLoading(isLoading) {
     const generateBtn = document.getElementById('generateBtn');
     const coverLetterBtn = document.getElementById('coverLetterBtn');
-    const linkedInBtn = document.getElementById('generateLinkedinBtn'); // Get the new button
+    const linkedInBtn = document.getElementById('generateLinkedinBtn');
     const resumeOutput = document.getElementById('resumeOutput');
     const loader = document.getElementById('loader');
     const errorMessageDiv = document.getElementById('error-message');
@@ -87,7 +91,7 @@ function setLoading(isLoading) {
 
     if(generateBtn) generateBtn.disabled = isLoading;
     if(coverLetterBtn) coverLetterBtn.disabled = isLoading;
-    if(linkedInBtn) linkedInBtn.disabled = isLoading; // Disable the new button
+    if(linkedInBtn) linkedInBtn.disabled = isLoading;
 
     if (isLoading) {
         if(resumeOutput) resumeOutput.classList.add('hidden');
@@ -113,7 +117,6 @@ function formatForDisplay(text) {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
 
-    // Handle the new "Subject: " format for LinkedIn messages
     if (sanitizedText.startsWith('Subject: ')) {
         const parts = sanitizedText.split(/\n\n/);
         const subjectLine = parts[0].replace('Subject: ', '');
@@ -121,7 +124,6 @@ function formatForDisplay(text) {
         return `<h3>${subjectLine}</h3><br>${body}`;
     }
 
-    // Existing formatting for other content types
     let html = sanitizedText
         .replace(/\n\n/g, '<br><br>')
         .replace(/\n/g, '<br>')
