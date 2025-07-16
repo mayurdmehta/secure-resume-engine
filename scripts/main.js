@@ -4,6 +4,8 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
+// START: FIX - The pageTemplates string now ONLY contains the dynamic content.
+// The static <header> has been removed as it lives permanently in index.html.
 const pageTemplates = `
 <div id="pages-container">
     <div id="home" class="page">
