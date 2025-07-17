@@ -158,33 +158,38 @@ Produce only the complete, tailored cover letter.
             const masterProfile = await getMasterProfile();
             // START: Inject context into the prompt
             const linkedinMessagePrompt = `
-You are a world-class career strategist and networking expert, ghostwriting a LinkedIn InMail message. Your goal is to create an exceptionally concise and impactful message, including a compelling subject line, that positions the candidate as the clear solution to the hiring manager's problem, incorporating any specific user instructions.
+You are a world-class career strategist and networking expert, ghostwriting a LinkedIn InMail message. Your goal is to create an exceptionally concise and impactful message that positions the candidate as the clear solution to the hiring manager's problem.
 
 **CRITICAL RULES:**
-1.  **Output Format:** Your final output MUST be plain text. It must start with "Subject: " followed by the subject line, a double newline, and then the message body.
+1.  **Output Format:** Your final output MUST be plain text. It must start with "Subject: " followed by the subject line, a double newline, and then the message body followed by a closing.
     **Example Format:**
     Subject: Your generated subject line here
 
     Your generated message body here.
-2.  **Subject Line Best Practices:**
-    * **Clarity & Specificity:** It must mention the specific job title from the \`Job Description\`.
-    * **Value Hint:** Briefly hint at a key qualification (e.g., "Experienced," "Results-driven").
-    * **Brevity:** Keep it under 10 words.
-3.  **Message Body Best Practices:**
-    * **Extreme Brevity:** The body MUST be under 100 words and no more than 3-4 sentences. This is non-negotiable.
-    * **Grounding:** The message must be 100% grounded in the facts from the \`Master Profile Database\`.
-    * **The "Problem-Solution" Framework:**
-        * **Sentence 1 (The Hook):** Express genuine, concise interest in the company's mission or a specific challenge from the \`Job Description\`.
-        * **Sentence 2 (The Solution):** Identify the single most critical requirement from the \`Job Description\` and connect it directly to a single, quantifiable accomplishment from the \`Master Profile Database\`. Prioritize anything mentioned in the \`Additional User-Provided Context\`.
-        * **Sentence 3 (The CTA):** Show genuine interest in the job listing and End with a simple, confident, and low-friction call to action.
+
+    Best regards,
+    Mayur Mehta
+2.  **Extreme Brevity:** The message body MUST be under 100 words and exactly 3 sentences. This is non-negotiable.
+3.  **Grounding:** The message must be 100% grounded in the facts from the \`Master Profile Database\`.
 4.  **Persona & Tone:** Write from the first-person ("I"). The tone should be professional, direct, and confident. Do not mention you are an AI.
 
-**Your "Chain of Thought" Process:**
-1.  **Analyze All Inputs:** Identify the #1 pain point from the \`Job Description\` and the exact job title. Review the \`Additional User-Provided Context\` for specific directives.
-2.  **Find the Silver Bullet:** Scan the \`Master Profile Database\` for the single most compelling, quantifiable result that proves you can solve the core problem, guided by the user's context.
-3.  **Craft the Subject Line:** Following the rules, create a short, impactful subject line.
-4.  **Craft the Message Body:** Write the body adhering strictly to the 3-sentence structure and word limit.
-5.  **Assemble the Final Text:** Combine the subject and body into the specified text format.
+**Your "Chain of Thought" Process & Message Structure:**
+
+1.  **Analyze All Inputs:**
+    * Deeply analyze the \`Job Description\` to find the exact job title and identify a specific, unique detail (e.g., a company value, a mentioned project, a key responsibility). This will be your "Hyper-Researched Hook".
+    * Review the \`Additional User-Provided Context\` for any specific directives.
+    * Scan the \`Master Profile Database\` for the single most compelling, quantifiable result that proves you can solve the core problem identified in the job description.
+
+2.  **Craft the Subject Line (The "What & Why"):**
+    * **Formula:** [Job Title] | [Candidate's Key Value Proposition]
+    * The value proposition should be a 2-3 word summary of the candidate's core strength related to the role (e.g., "Data Governance & Analytics", "Product Strategy").
+
+3.  **Craft the Message Body (The "Hook, Bridge, & Ask"):**
+    * **Sentence 1 (The "Hyper-Researched" Hook):** Start by referencing the specific detail you found in the job description to show you've done your research.
+    * **Sentence 2 (The "Bridge"):** Directly connect their stated need to your single most relevant, quantifiable accomplishment from the master profile.
+    * **Sentence 3 (The "Ask"):** End with a simple, confident, and value-oriented call to action.
+
+4.  **Assemble the Final Text:** Combine the subject, body, and a professional closing ("Best regards,\nMayur Mehta") into the specified plain text format.
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
@@ -192,7 +197,7 @@ You are a world-class career strategist and networking expert, ghostwriting a Li
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the tailored text in the specified "Subject: ..." format.
+Produce only the tailored text in the specified format, adhering to all rules.
 `;
             // END: Inject context into the prompt
             const finalMessage = await callGeminiAPI(apiKey, linkedinMessagePrompt);
