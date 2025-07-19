@@ -3,24 +3,23 @@ import { initToolkit } from './toolkit.js';
 import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
-// Optimized home hero section
 const pageTemplates = `
 <div id="pages-container">
     <div id="home" class="page">
-        <section class="hero-home py-10 md:py-14">
+        <section class="hero-home py-6 md:py-10">
             <div class="container mx-auto px-4">
-                <div class="grid md:grid-cols-3 gap-8 items-center">
-                    <div class="md:col-span-1 flex justify-center md:justify-end">
-                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-44 h-44 md:w-56 md:h-56 object-cover border-4 border-gray-700 shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn">
+                <div class="grid md:grid-cols-3 gap-4 items-center md:items-center">
+                    <div class="md:col-span-1 flex justify-center md:justify-end -mt-8 md:mt-0">
+                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-36 h-36 md:w-44 md:h-44 object-cover border-4 border-gray-700 shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left flex flex-col justify-center">
-                        <h1 class="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight transition-opacity duration-700 opacity-0 animate-fadeIn delay-100">
+                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight transition-opacity duration-700 opacity-0 animate-fadeIn delay-100">
                           Engineering Impact: Delivering Scalable Solutions in AI, Automation, and Business Systems
                         </h1>
-                        <p class="text-md md:text-lg text-gray-400 max-w-lg mx-auto md:mx-0 mb-6 leading-relaxed transition-opacity duration-700 opacity-0 animate-fadeIn delay-200">
+                        <p class="text-base md:text-lg text-gray-400 max-w-md mx-auto md:mx-0 mb-4 leading-relaxed transition-opacity duration-700 opacity-0 animate-fadeIn delay-200">
                           Hi, I'm Mayur—a technical program manager and builder passionate about turning ambitious ideas into scalable reality. From delivering automation solutions impacting $1B in annual transactions at the enterprise level to building AI-powered solutions from the ground up, I specialize in bridging business vision with technical execution. I lead cross-functional teams to design, launch, and continuously improve high-impact programs across analytics, AI, enterprise applications, and operations.
                         </p>
-                        <div class="flex justify-center md:justify-start">
+                        <div class="flex justify-center md:justify-start mt-2">
                           <a href="/Mayur_Mehta_Resume.pdf" target="_blank" class="inline-block bg-brand-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary animate-fadeIn delay-300">
                             View Resume
                           </a>

@@ -1,6 +1,7 @@
-body { 
-    font-family: 'Inter', sans-serif; 
+body {
+    font-family: 'Inter', sans-serif;
 }
+
 .prose h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #f9fafb; }
 .prose h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem; color: #e5e7eb; }
 .prose h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #d1d5db; }
@@ -21,48 +22,17 @@ body {
 #chatbot-window { position: fixed; bottom: 6rem; right: 2rem; width: 350px; height: 500px; z-index: 100; transition: all 0.3s ease-in-out; transform-origin: bottom right; }
 .project-card { transition: transform 0.3s, box-shadow 0.3s; }
 .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05); }
-```javascript
-/* ======================================================================= */
-/* FILE: scripts/main.js (Complete)                                        */
-/* ======================================================================= */
-import { initNavigation } from './navigation.js';
-import { initToolkit } from './toolkit.js';
-import { initChatbot } from './chatbot.js';
-import { initProjects } from './projects.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadPageContent();
-    
-    initNavigation();
-    initToolkit();
-    initChatbot();
-    initProjects();
-});
-
-async function loadPageContent() {
-    const pageContent = document.getElementById('page-content');
-    const modalContainer = document.getElementById('modal-container');
-    const chatbotContainer = document.getElementById('chatbot-container');
-
-    try {
-        const response = await fetch('pages.html');
-        if (!response.ok) throw new Error('Network response was not ok.');
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        pageContent.innerHTML = doc.getElementById('pages-container').innerHTML;
-        modalContainer.innerHTML = doc.getElementById('modals-container').innerHTML;
-        chatbotContainer.innerHTML = doc.getElementById('chatbot-container').innerHTML;
-
-    } catch (error) {
-        console.error("Failed to load page content:", error);
-        pageContent.innerHTML = `<p class="text-red-500 text-center">Error: Could not load page content.</p>`;
-    }
+/* ===== Header Auto-Hide ===== */
+.header-hide {
+  transform: translateY(-100%);
+  transition: transform 0.3s;
 }
-/* ===== Optimized Home Hero Animations and Layout ===== */
+header {
+  transition: transform 0.3s;
+}
 
-/* Fade-in animation for hero section elements */
+/* ===== Optimized Home Hero Animations and Layout ===== */
 .animate-fadeIn {
   opacity: 0;
   animation: fadeIn 1s forwards;
@@ -80,7 +50,6 @@ async function loadPageContent() {
   to { opacity: 1; }
 }
 
-/* Responsive tweaks for hero section */
 @media (max-width: 767px) {
   .hero-home .grid {
     grid-template-columns: 1fr !important;
