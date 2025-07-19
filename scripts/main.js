@@ -3,28 +3,29 @@ import { initToolkit } from './toolkit.js';
 import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
+// The HTML content for all pages is stored in this template literal.
+// The static <header> has been removed as it lives permanently in index.html.
 const pageTemplates = `
 <div id="pages-container">
     <div id="home" class="page">
-        <section class="hero-home py-6 md:py-10">
+        <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
-                <div class="grid md:grid-cols-3 gap-4 items-center md:items-center">
-                    <div class="md:col-span-1 flex justify-center md:justify-end -mt-8 md:mt-0">
-                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-36 h-36 md:w-44 md:h-44 object-cover border-4 border-gray-700 shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn">
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-1 flex justify-center">
+                        <img src="https://placehold.co/400x400/1f2937/9ca3af?text=Mayur" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
-                    <div class="md:col-span-2 text-center md:text-left flex flex-col justify-center">
-                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight transition-opacity duration-700 opacity-0 animate-fadeIn delay-100">
-                          Engineering Impact: Delivering Scalable Solutions in AI, Automation, and Business Systems
-                        </h1>
-                        <p class="text-base md:text-lg text-gray-400 max-w-md mx-auto md:mx-0 mb-4 leading-relaxed transition-opacity duration-700 opacity-0 animate-fadeIn delay-200">
-                          Hi, I'm Mayur—a technical program manager and builder passionate about turning ambitious ideas into scalable reality. From delivering automation solutions impacting $1B in annual transactions at the enterprise level to building AI-powered solutions from the ground up, I specialize in bridging business vision with technical execution. I lead cross-functional teams to design, launch, and continuously improve high-impact programs across analytics, AI, enterprise applications, and operations.
+                    <div class="md:col-span-2 text-center md:text-left">
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
+                            I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
                         </p>
-                        <div class="flex justify-center md:justify-start mt-2">
-                          <a href="/Mayur_Mehta_Resume.pdf" target="_blank" class="inline-block bg-brand-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary animate-fadeIn delay-300">
-                            View Resume
-                          </a>
-                        </div>
                     </div>
+                </div>
+                <div class="mt-16 md:mt-20 text-center">
+                    <blockquote class="text-2xl md:text-3xl italic text-gray-300 max-w-3xl mx-auto border-l-4 border-brand-primary pl-6">
+                        "The only way to do great work is to love what you do."
+                    </blockquote>
+                    <cite class="block text-gray-500 mt-4 text-lg">- Steve Jobs</cite>
                 </div>
             </div>
         </section>
