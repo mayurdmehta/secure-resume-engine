@@ -11,8 +11,8 @@ const pageTemplates = `
         <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
-                    <div class="md:col-span-1 flex justify-center md:justify-start">
-                        <img src="https://placehold.co/400x400/1f2937/9ca3af?text=Mayur" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
+                    <div class="md:col-span-1 flex justify-center md:justify-left">
+                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_picture.jpeg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
