@@ -12,7 +12,7 @@ const pageTemplates = `
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
                     <div class="md:col-span-1 flex justify-center md:justify-left">
-                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpeg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
+                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
                         <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">Delivering Scalable Solutions in AI, Automation and Business Systems </h1>
