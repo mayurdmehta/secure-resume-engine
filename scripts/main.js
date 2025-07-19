@@ -12,7 +12,7 @@ const pageTemplates = `
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
                     <div class="md:col-span-1 flex justify-center">
-                        <img src="https://placehold.co/400x400/1f2937/9ca3af?text=Mayur" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
+                        <img src="https://github.com/mayurdmehta/secure-resume-engine/blob/main/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
