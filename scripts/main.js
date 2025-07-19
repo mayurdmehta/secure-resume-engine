@@ -12,13 +12,13 @@ const pageTemplates = `
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
                     <div class="md:col-span-1 flex justify-center md:justify-left">
-                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_picture.jpeg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
+                        <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpeg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
-                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
-                        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
-                            I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
+                        <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">Delivering Scalable Solutions in AI, Automation and Business Systems </h1>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto md:mx-0 mb-8">
                         </p>
+                            Hi, I'm Mayur—a technical program manager and builder passionate about turning ambitious ideas into scalable reality. From delivering automation solutions impacting $1B in annual transactions at the enterprise level to building AI-powered solutions from the ground up, I specialize in bridging business vision with technical execution. I lead cross-functional teams to design, launch, and continuously improve high-impact programs across analytics, AI, enterprise applications, and operations.
                     </div>
                 </div>
                 <div class="mt-16 md:mt-20 text-center">
