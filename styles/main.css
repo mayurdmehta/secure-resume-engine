@@ -60,3 +60,38 @@ async function loadPageContent() {
         pageContent.innerHTML = `<p class="text-red-500 text-center">Error: Could not load page content.</p>`;
     }
 }
+/* ===== Optimized Home Hero Animations and Layout ===== */
+
+/* Fade-in animation for hero section elements */
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+.animate-fadeIn.delay-100 {
+  animation-delay: 0.1s;
+}
+.animate-fadeIn.delay-200 {
+  animation-delay: 0.2s;
+}
+.animate-fadeIn.delay-300 {
+  animation-delay: 0.3s;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Responsive tweaks for hero section */
+@media (max-width: 767px) {
+  .hero-home .grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-home .md\:col-span-1, .hero-home .md\:col-span-2 {
+    grid-column: span 1 / span 1 !important;
+  }
+  .hero-home .text-center, .hero-home .md\:text-left {
+    text-align: center !important;
+  }
+  .hero-home .flex-col {
+    align-items: center !important;
+  }
+}
