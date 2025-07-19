@@ -15,9 +15,9 @@ const pageTemplates = `
                         <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
-                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">From Vision to Value: Building What's Next</h1>
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Engineering Impact: Delivering Scalable Solutions in AI, Automation, and Business Systems</h1>
                         <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8">
-                            I’m Mayur, a product-driven technologist and co-founder who thrives on turning complex challenges into scalable solutions. Whether it's leading a global data governance program or building an AI-powered startup from the ground up, I bridge the gap between ambitious ideas and tangible results.
+                            Hi, I'm Mayur—a technical program manager and builder passionate about turning ambitious ideas into scalable reality. From delivering automation solutions impacting $1B in annual transactions at the enterprise level to building AI-powered solutions from the ground up, I specialize in bridging business vision with technical execution. I lead cross-functional teams to design, launch, and continuously improve high-impact programs across analytics, AI, enterprise applications, and operations.
                         </p>
                     </div>
                 </div>
@@ -32,31 +32,45 @@ const pageTemplates = `
         <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-5 gap-16">
             <div class="lg:col-span-3">
                 <section id="philosophy" class="pt-8">
-                    <h2 class="text-3xl font-bold text-white mb-8">My Guiding Principles</h2>
-                    <div class="space-y-8">
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary">🛡️</div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white mb-1">Lead from the Front</h3>
-                                <p class="text-gray-400">I believe in taking complete ownership, end-to-end. From owning the migration of a critical SSO system for 200+ users to single-handedly driving the configuration of enterprise-wide financial platforms, I am the accountable driver who ensures projects cross the finish line successfully and without disruption.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary">🚀</div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white mb-1">Innovate with Purpose</h3>
-                                <p class="text-gray-400">Technology is a tool to solve human problems. I have a passion for integrating advanced solutions—from co-developing NLP models for call intelligence to integrating GenAI recommendation systems—to automate processes, unlock new efficiencies, and deliver a smarter user experience.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl text-brand-primary">🏛️</div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white mb-1">Build for the Future</h3>
-                                <p class="text-gray-400">True value lies in creating systems that last. I focus on establishing robust frameworks, whether it's designing a formal analytics engagement model from scratch or implementing a full Agile methodology for a startup. The goal is always to increase efficiency and build a foundation for scalable growth.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+				  <h2 class="text-3xl font-bold text-white mb-8">How I Deliver Impact</h2>
+				  <div class="space-y-8">
+					<div class="flex items-start gap-4">
+					  <div class="text-3xl text-brand-primary">🔑</div>
+					  <div>
+						<h3 class="text-xl font-semibold text-white mb-1">Own the Outcome</h3>
+						<p class="text-gray-400">I take full responsibility for program delivery, from discovery through adoption, ensuring stakeholders get the results they need, on time and at scale.</p>
+					  </div>
+					</div>
+					<div class="flex items-start gap-4">
+					  <div class="text-3xl text-brand-primary">💡</div>
+					  <div>
+						<h3 class="text-xl font-semibold text-white mb-1">Drive Meaningful Innovation</h3>
+						<p class="text-gray-400">I use the latest technology, AI, automation, and analytics, not for buzzwords, but to unlock real value and measurable impact.</p>
+					  </div>
+					</div>
+					<div class="flex items-start gap-4">
+					  <div class="text-3xl text-brand-primary">🤝</div>
+					  <div>
+						<h3 class="text-xl font-semibold text-white mb-1">Collaborate Across Boundaries</h3>
+						<p class="text-gray-400">The best solutions happen when diverse teams align. I thrive at the intersection of business, tech, and analytics, translating complex needs into unified action.</p>
+					  </div>
+					</div>
+					<div class="flex items-start gap-4">
+					  <div class="text-3xl text-brand-primary">📊</div>
+					  <div>
+						<h3 class="text-xl font-semibold text-white mb-1">Prioritize Clarity, Data, and Action</h3>
+						<p class="text-gray-400">I turn ambiguity into structure and use data to drive decisions, transforming chaos into actionable roadmaps that deliver real results.</p>
+					  </div>
+					</div>
+					<div class="flex items-start gap-4">
+					  <div class="text-3xl text-brand-primary">🌱</div>
+					  <div>
+						<h3 class="text-xl font-semibold text-white mb-1">Learn, Coach, and Elevate Others</h3>
+						<p class="text-gray-400">I share what I know and create systems for teams to succeed, mentoring and enabling others along the way.</p>
+					  </div>
+					</div>
+				  </div>
+				</section>
                 <section id="core-traits" class="pt-16">
                     <h2 class="text-3xl font-bold text-white mb-8">Core Traits</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
