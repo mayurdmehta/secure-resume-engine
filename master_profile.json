@@ -29,7 +29,7 @@
             "Partnered with marketing stakeholders to map existing workflows and define a new, holistic standardization framework.",
 			"Owned the project end-to-end, from requirements gathering to platform configuration and stakeholder training.",
             "Configured the utm.io platform with the newly standardized parameters.",
-            "Developed training materials in SharePoint and led change management for over 200 stakeholders using Jira and Smartsheet."
+            "Developed training materials in SharePoint and led change management for over 200 stakeholders using Jira and Smartsheet.",
             "Used Domo and SQL for data-backed analysis to facilitate change management, training and onboarding and keep leadership informed.",
             "Led change management for 200+ stakeholders, developing training materials in SharePoint and managing the project with Jira and Smartsheet."
           ],
@@ -97,7 +97,7 @@
             "Delivered training and onboarding for all 200+ affected stakeholders."
           ],
           "outcomes": [
-            { "metric": "0 incidents", "description": "Completed the migration with zero disruption to user access or permissions." }
+            { "metric": "0 incidents", "description": "Completed the migration with zero disruption to user access or permissions." },
 			{ "metric": "200+ users", "description": "Seamlessly transitioned over 200 users to a unified login system." }
 
           ]
@@ -136,7 +136,7 @@
             "Owned feature prioritization and managed the product roadmap in Jira."
           ],
           "outcomes": [
-            { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." }
+            { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." },
 			{ "metric": "15+ interviews", "description": "Validated product direction through extensive research." }
 
           ]
@@ -152,7 +152,7 @@
             "Mentored junior team members on agile best practices."
           ],
           "outcomes": [
-            { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." }
+            { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." },
 			{ "metric": "10+ beta customers", "description": "Established a rapid feedback loop for continuous improvement." }
           ]
         },
@@ -162,13 +162,13 @@
           "problem": "A chaotic startup development environment hindered the ability to deliver value quickly.",
           "actions": [
             "Established a formal Agile (Scrum) framework from the ground up, acting as the team's Scrum Master.",
-            "Used Jira to build project boards and manage backlogs, integrating it with GitHub for CI/CD."
+            "Used Jira to build project boards and manage backlogs, integrating it with GitHub for CI/CD.",
             "Facilitated sprint planning, stand‑ups, retrospectives, and reviews.",
             "Scaled the design and development team to 10+, Coached the team to use iterative development and agile best practices for adaptability."
           ],
           "outcomes": [
             { "metric": "Adaptability ↑", "description": "Transformed chaotic processes into adaptive, value‑driven sprints." },
-            { "metric": "Delivery speed ↑", "description": "Increased speed and predictability of value delivery." }
+            { "metric": "Delivery speed ↑", "description": "Increased speed and predictability of value delivery." },
 			{ "metric": "Scaled Team to 10+ members ↑", "description": "Hired and Scaled the design and development team to 10+" }
           ]
         },
@@ -178,7 +178,7 @@
           "problem": "The bootstrapped startup needed to validate its core idea and market entry strategy to de-risk development.",
           "actions": [
             "Architected foundational product artifacts in Miro and managed the first-adopter program in Hubspot, with Zapier automating communication.",
-            "Your data-driven approach led to a 40% conversion rate from interviews to beta users."
+            "Your data-driven approach led to a 40% conversion rate from interviews to beta users.",
 			"Executed discovery across market, user, and competitor analyses to identify gaps.",
             "Architected personas and journey maps as a single source of truth in Miro.",
             "Applied ‘diverge and converge’ frameworks to prioritize an MVP feature backlog.",
@@ -203,10 +203,10 @@
           "problem": "An outdated Oracle EBTax module couldn't efficiently handle tax calculations for $1B in annual spend.",
           "actions": [
             "Created all technical documentation in Confluence, Visio, and Lucid Chart.",
-            "Personally owned the configuration of the Thomson Reuters OneSource platform and partnered with development teams for its API integration with Oracle EBS R12."
+            "Personally owned the configuration of the Thomson Reuters OneSource platform and partnered with development teams for its API integration with Oracle EBS R12.",
 			"Led a 7‑phase global SDLC for a 20+ member cross functional development and business teams",
             "Translated international tax laws into BRDs, FRDs, and process flow diagrams.",
-            "Managed API integration with Oracle EBS R12, bridging technical and non‑technical stakeholders."
+            "Managed API integration with Oracle EBS R12, bridging technical and non‑technical stakeholders.",
 			"Managed project plans, risks, dependencies, status updates to senior leadership and stakeholders using Jira, MS Project and Smartsheet"
           ],
           "outcomes": [
@@ -221,13 +221,13 @@
           "actions": [
             "Configured rules-based automation in SAP Concur and the AppZen AI engine.",
             "Managed the API integration between Concur and Oracle EBS R12.",
-            "Developed the training, onboarding and change management plan to successfully onboard over 8,000 employees."
+            "Developed the training, onboarding and change management plan to successfully onboard over 8,000 employees.",
 			"Integrated SAP Concur, Amex, Oracle EBS, and AppZen AI for automated compliance.",
             "Partnered with Finance and Audit to map requirements and ensure SOX compliance.",
-            "Migrated 20+ BI reports from Oracle to Cognos and built new Cognos report studio dashboards.",
+            "Migrated 20+ BI reports from Oracle to Cognos and built new Cognos report studio dashboards."
           ],
           "outcomes": [
-            { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." }
+            { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." },
 			{ "metric": "20% compliance ↑", "description": "Improved on‑time expense reporting compliance by 20%." },
             { "metric": "8,000+ users", "description": "Onboarded 8,000+ employees to the new system." }
           ]
@@ -238,13 +238,13 @@
           "problem": "The manual process for transmitting payment instructions for $1B in annual spend was slow and unscalable.",
           "actions": [
             "Partnered with the development team to architect a host-to-host payment system using XML files over a secure SFTP pipeline.",
-            "Built a failover mechanism into the XML files that integrated with the Oracle EBS Payments module to automatically handle failed payments."
+            "Built a failover mechanism into the XML files that integrated with the Oracle EBS Payments module to automatically handle failed payments.",
             "Authored BR100, BRD, FRD, TDD, Data Mapping documentation for this complex integration.",
             "Managed dependencies with external banking partners and led UAT cycles."
           ],
           "outcomes": [
-            { "metric": "99.99% success", "description": "Achieved a 99.99% successful payment completion rate." }
-			{ "metric": "$1B automation", "description": "Automated transmission for $1B in annual spend." },
+            { "metric": "99.99% success", "description": "Achieved a 99.99% successful payment completion rate." },
+			{ "metric": "$1B automation", "description": "Automated transmission for $1B in annual spend." }
 
           ]
         },
@@ -253,7 +253,7 @@
           "title": "Data-Driven Operational Management",
           "problem": "The Procure-to-Pay team needed to balance long-term projects with ongoing operational support.",
           "actions": [
-            "Built automated Tableau dashboards to give leadership real-time visibility into operational health."
+            "Built automated Tableau dashboards to give leadership real-time visibility into operational health.",
 			"Owned Procure‑to‑Pay modules in Oracle EBS R12 as functional lead.",
             "Used SQL to query the Oracle DB and provide data-driven evidence for prioritization.",
             "Built automated Tableau dashboards for real‑time project health visibility.",
