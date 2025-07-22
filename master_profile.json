@@ -275,7 +275,7 @@
           ],
           "outcomes": [
             { "metric": "90% on-time delivery", "description": "Achieved an impressive 90% on-time delivery rate." },
-            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours of manual work each week." }
+            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours of manual work each week." },
 			{ "metric": "100 issues resolved", "description": "Resolved ~100 resource bottlenecks annually." }
 
           ]
