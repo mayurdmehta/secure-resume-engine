@@ -55,22 +55,24 @@
           ],
           "outcomes": [
             { "metric": "90% accuracy", "description": "Achieved and maintained 90% accuracy for call classification models." },
-            { "metric": "Optimized Spend", "description": "Provided data to directly optimize marketing ad spend and keyword performance." }
+            { "metric": "10% improvement", "description": "Improved the accuracy of incoming cold leads data by 10%." },
+            { "metric": "1000 leads", "description": "Accurately reflected approximately 1000 additional cold leads annually, significantly aiding executive data-driven decision making." }
           ]
         },
         {
           "id": "RH04",
           "title": "Analytics Operational Leadership",
-          "problem": "A 40-person analytics team with four distinct verticals needed a central operational hub to align their work with high-level business goals.",
+          "problem": "A 40-person analytics team, divided into four verticals, faced conflicting priorities, resource overload, and project delays due to the lack of a central operational hub.",
           "actions": [
-            "Served as the primary operational point person for the entire 40-member team.",
-            "Owned and groomed the unified team backlog for all incoming requests.",
-            "Partnered with vertical leads to manage resource allocation and oversee execution.",
-            "Worked directly with leadership to ensure strategic prioritization of the backlog."
+            "Stepped up as the primary operational point person for the entire 40-member team.",
+            "Designed and rolled out a custom Smartsheet Kanban board with integrated Gantt charts and a roadmap view to provide real-time visibility.",
+            "Implemented a weighted average prioritization framework to objectively rank requests based on urgency, impact, and effort.",
+            "Convened biweekly sessions with vertical leads and executive leadership to align priorities, address resourcing challenges, and ensure strategic alignment with a $20M marketing budget."
           ],
           "outcomes": [
             { "metric": "30% efficiency", "description": "Increased the overall efficiency and throughput of the global analytics programs." },
-            { "metric": "Strategic Alignment", "description": "Ensured the team's work was always aligned with the goals for a $20M marketing spend." }
+            { "metric": "1 week reduction", "description": "Shortened the analytics request cycle time by an average of one week, reducing project delays." },
+            { "metric": "Strategic Alignment", "description": "Tightly aligned team outputs with the strategic objectives tied to a $20M marketing investment." }
           ]
         },
         {
@@ -188,12 +190,14 @@
             "Served as a key business analyst for a complex integration of SAP Concur, Amex, Oracle EBS, and the AppZen AI compliance engine.",
             "Partnered with internal stakeholders (Finance, Audit) and external SAP consultants to map requirements.",
             "Single-handedly owned the migration of 20+ operational reports from Oracle to Cognos BI, learning Cognos from scratch.",
-            "Drove the integration of AppZen's ML tool to automate compliance checks, ensuring the entire program was SOX-compliant."
+            "Drove the integration of AppZen's ML tool to automate compliance checks, ensuring the entire program was SOX-compliant.",
+            "Created comprehensive training materials and change management documents to onboard over 8,000 employees onto the new SAP Concur system."
           ],
           "outcomes": [
             { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." },
             { "metric": "20% improvement", "description": "Improved on-time expense reporting compliance." },
-            { "metric": "20+", "description": "Successfully migrated and delivered over 20 critical BI reports on a new platform." }
+            { "metric": "20+", "description": "Successfully migrated and delivered over 20 critical BI reports on a new platform." },
+            { "metric": "8,000+ employees", "description": "Successfully onboarded over 8,000 employees to a new enterprise-wide system." }
           ]
         },
         {
@@ -225,6 +229,22 @@
           "outcomes": [
             { "metric": "25% efficiency", "description": "Increased cross-functional operational efficiency through data-driven prioritization." },
             { "metric": "Improved Stability", "description": "Enabled the successful, simultaneous delivery of multiple large-scale projects while maintaining operational stability." }
+          ]
+        },
+        {
+          "id": "AK05",
+          "title": "Centralized Project Portfolio Management",
+          "problem": "A dynamic portfolio of over 120 projects lacked a centralized tracking system, leading to resource conflicts, unresolved bottlenecks, and project delays.",
+          "actions": [
+            "Took the initiative to overhaul the project management process from the ground up.",
+            "Implemented a centralized Smartsheet tracker, built detailed Gantt charts, and designed a resource allocation dashboard for leadership visibility.",
+            "Facilitated structured weekly meetings with 20+ stakeholders to proactively surface and resolve interdependencies.",
+            "Automated status reporting to consolidate project data and eliminate manual updates."
+          ],
+          "outcomes": [
+            { "metric": "90% on-time delivery", "description": "Achieved a 90% on-time delivery rate for a portfolio of over 120 projects." },
+            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours each week by automating manual status reporting." },
+            { "metric": "~100 issues resolved", "description": "Proactively resolved approximately 100 critical resource conflicts and bottlenecks annually." }
           ]
         }
       ]
