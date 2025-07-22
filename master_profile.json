@@ -45,18 +45,19 @@
         },
         {
           "id": "RH03",
-          "title": "AI Call Intelligence",
-          "problem": "The business lacked visibility into field sales performance and customer sentiment from inbound calls.",
+          "title": "AI Call Intelligence Platform Enhancement",
+          "problem": "Initial call classification models were only 65% accurate, limiting data trust and actionable insights for sales and customer experience teams.",
           "actions": [
-            "Owned the end-to-end configuration and management of the Invoca call intelligence platform.",
-            "Partnered with Invoca's data science team to co-develop and train proprietary NLP models.",
-            "Established a rigorous testing process using confusion matrix analysis to measure model performance.",
-            "Led the technical integration of Invoca data into internal reporting systems and external ad platforms (Google Ads)."
+            "Led the end-to-end configuration and management of the Invoca AI call intelligence platform.",
+            "Partnered with Invoca’s data science team to co-develop and train proprietary NLP models.",
+            "Established a rigorous monthly testing and training regimen using SQL and Domo for detailed analytics.",
+            "Presented three high-level recommendations to senior leadership that drove the accuracy improvements.",
+            "Authored detailed training guides and product documentation to onboard Product and UX/UI teams, establishing myself as the platform SME."
           ],
           "outcomes": [
-            { "metric": "90% accuracy", "description": "Achieved and maintained 90% accuracy for call classification models." },
-            { "metric": "10% improvement", "description": "Improved the accuracy of incoming cold leads data by 10%." },
-            { "metric": "1000 leads", "description": "Accurately reflected approximately 1000 additional cold leads annually, significantly aiding executive data-driven decision making." }
+            { "metric": "65% to 90%", "description": "Increased call classification model accuracy from 65% to 90%." },
+            { "metric": "10% improvement", "description": "Improved classification accuracy for cold leads by 10%." },
+            { "metric": "~1,000 leads", "description": "Correctly surfaced approximately 1,000 more qualified leads annually in closed-loop reporting." }
           ]
         },
         {
