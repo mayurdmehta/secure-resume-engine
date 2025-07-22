@@ -6,6 +6,15 @@
     "location": "Nashua, NH",
     "linkedin": "[LinkedIn Profile URL]"
   },
+  "technicalSkills": {
+    "Methodologies": ["Agile (Scrum/Kanban)", "Waterfall", "SDLC", "Change Management"],
+    "Analytics & AI/ML": ["SQL", "Domo", "NLP Model Tuning", "Data Governance"],
+    "Cloud & Platforms": ["AWS", "SAP Concur", "Oracle EBS R12", "Invoca", "Hubspot", "Mailchimp"],
+    "Project Management & Collaboration": ["Jira", "Smartsheet", "Confluence", "Notion", "Miro", "Visio", "Lucid Chart", "MS Project"],
+    "Integrations & Automation": ["REST APIs", "XML", "SFTP", "Jira Automation Rules", "Smartsheet Automation", "Hubspot Automation", "Zapier"],
+    "BI & Visualization": ["Tableau", "Cognos Report Studio"],
+    "Development & SCM": ["GitHub", "GitHub Actions"]
+  },
   "experience": [
     {
       "company": "Robert Half",
@@ -15,80 +24,83 @@
         {
           "id": "RH01",
           "title": "Data Governance & Standardization",
-          "problem": "Global marketing teams operated in silos with inconsistent campaign tracking, making it impossible to get a clear view of performance across a $20M annual spend.",
+          "problem": "Siloed global marketing teams produced unstructured data, compromising the BI products used by leadership to oversee a $20M annual spend.",
           "actions": [
-            "Owned the project end-to-end, from requirements gathering to platform configuration and stakeholder training.",
-            "Created a single, holistic data standardization framework to unify all marketing teams.",
-            "Configured the utm.io platform with the newly standardized parameters.",
-            "Led the change management, training, and onboarding for over 200 marketing and product stakeholders."
+            "Partnered with marketing stakeholders to map existing workflows and define a new, holistic standardization framework.",
+            "Configured the framework in the utm.io platform.",
+            "Used Domo and SQL for data-backed analysis to facilitate new processes and keep leadership informed.",
+            "Led change management for 200+ stakeholders, developing training materials in SharePoint and managing the project with Jira and Smartsheet."
           ],
           "outcomes": [
-            { "metric": "150% adoption", "description": "Boosted adoption of the new data governance platform." },
-            { "metric": "30% reduction", "description": "Reduced data inconsistencies in marketing reports." },
-            { "metric": "$20M", "description": "Provided clear visibility into the performance of a $20M annual marketing spend." }
+            { "metric": "150% adoption", "description": "Boosted platform adoption." },
+            { "metric": "30% reduction", "description": "Cut data inconsistencies in marketing reports." }
           ]
         },
         {
           "id": "RH02",
           "title": "Analytics Engagement Model",
-          "problem": "The Global Marketing Analytics team lacked a formal intake process, causing analysts and engineers to spend more time chasing requirements than doing high-value work.",
+          "problem": "The Global Marketing Analytics team lacked a formal intake process, causing operational bottlenecks.",
           "actions": [
-            "Partnered with PMO, business, and internal tech teams to establish a formal engagement model.",
-            "Designed and automated a new intake process using Jira and Smartsheet.",
-            "Took ownership of scoping all incoming requests and providing operational support to technical teams.",
-            "Managed the entire workflow within a Kanban Agile framework."
+            "Designed and automated a new engagement model by integrating Jira and Smartsheet with advanced automation rules and formulas.",
+            "Took ownership of the new workflow to manage intake and stakeholder communication."
           ],
           "outcomes": [
-            { "metric": "2 weeks to 3 days", "description": "Reduced the request approval and review lifecycle." },
-            { "metric": "Increased Efficiency", "description": "Freed up engineering resources from administrative tasks to focus on technical work." }
+            { "metric": "2 weeks to 3 days", "description": "Dramatically reduced the request approval lifecycle." },
+            { "metric": "Increased Efficiency", "description": "Freed up valuable engineering resources to focus on high-impact work." }
           ]
         },
         {
           "id": "RH03",
           "title": "AI Call Intelligence Platform Enhancement",
-          "problem": "Initial call classification models were only 65% accurate, limiting data trust and actionable insights for sales and customer experience teams.",
+          "problem": "Call classification models were underperforming at only 65% accuracy, limiting data trust and actionable insights.",
           "actions": [
-            "Led the end-to-end configuration and management of the Invoca AI call intelligence platform.",
-            "Partnered with Invoca’s data science team to co-develop and train proprietary NLP models.",
-            "Established a rigorous monthly testing and training regimen using SQL and Domo for detailed analytics.",
-            "Presented three high-level recommendations to senior leadership that drove the accuracy improvements.",
-            "Authored detailed training guides and product documentation to onboard Product and UX/UI teams, establishing myself as the platform SME."
+            "Acted as the technical program manager, partnering with Invoca's data science team to ensure new NLP models met Robert Half's requirements.",
+            "Conducted rigorous testing and analysis using SQL and Domo, leading to key recommendations for improvement.",
+            "Became the go-to subject matter expert, creating comprehensive documentation in Confluence and SharePoint."
           ],
           "outcomes": [
-            { "metric": "65% to 90%", "description": "Increased call classification model accuracy from 65% to 90%." },
-            { "metric": "10% improvement", "description": "Improved classification accuracy for cold leads by 10%." },
-            { "metric": "~1,000 leads", "description": "Correctly surfaced approximately 1,000 more qualified leads annually in closed-loop reporting." }
+            { "metric": "65% to 90%", "description": "Increased model accuracy from 65% to 90%." },
+            { "metric": "10% improvement", "description": "Improved cold lead classification by 10%, surfacing ~1,000 more qualified leads annually." },
+            { "metric": "Enhanced Visibility", "description": "Attributed leads to marketing efforts in closed-loop reporting, enhancing visibility for marketing teams." }
           ]
         },
         {
           "id": "RH04",
           "title": "Analytics Operational Leadership",
-          "problem": "A 40-person analytics team, divided into four verticals, faced conflicting priorities, resource overload, and project delays due to the lack of a central operational hub.",
+          "problem": "A 40-person analytics team struggled with conflicting priorities and project delays.",
           "actions": [
-            "Stepped up as the primary operational point person for the entire 40-member team.",
-            "Designed and rolled out a custom Smartsheet Kanban board with integrated Gantt charts and a roadmap view to provide real-time visibility.",
-            "Implemented a weighted average prioritization framework to objectively rank requests based on urgency, impact, and effort.",
-            "Convened biweekly sessions with vertical leads and executive leadership to align priorities, address resourcing challenges, and ensure strategic alignment with a $20M marketing budget."
+            "Stepped up as the operational leader, designing a custom Smartsheet Kanban board integrated with Jira for real-time visibility.",
+            "Implemented a weighted average prioritization framework to align work with a $20M marketing investment.",
+            "Led biweekly alignment sessions with leadership to manage resources and priorities."
           ],
           "outcomes": [
-            { "metric": "30% efficiency", "description": "Increased the overall efficiency and throughput of the global analytics programs." },
-            { "metric": "1 week reduction", "description": "Shortened the analytics request cycle time by an average of one week, reducing project delays." },
-            { "metric": "Strategic Alignment", "description": "Tightly aligned team outputs with the strategic objectives tied to a $20M marketing investment." }
+            { "metric": "30% efficiency", "description": "Increased the team's overall efficiency and throughput." },
+            { "metric": "1 week reduction", "description": "Shortened the request cycle time by an average of one week." }
           ]
         },
         {
           "id": "RH05",
           "title": "Confluence SSO Migration",
-          "problem": "An enterprise Atlassian migration created a disjointed user experience, forcing 200+ marketing stakeholders to manage two separate logins for Jira and Confluence.",
+          "problem": "A disjointed user experience required 200+ marketing stakeholders to manage separate logins for Jira and Confluence.",
           "actions": [
-            "Led and owned the entire project to migrate the standalone Confluence instance to the enterprise SSO environment.",
-            "Managed all administrative aspects, including the complex migration of over 100GB of data.",
-            "Meticulously planned and executed the migration to ensure zero disruption and no loss of permissions.",
-            "Handled all training and onboarding for the 200+ affected stakeholders."
+            "Led the migration of a standalone Confluence instance into the enterprise Microsoft Active Directory SSO environment.",
+            "Used Atlassian's native migration tools to meticulously plan and execute the transfer of over 100GB of data."
           ],
           "outcomes": [
-            { "metric": "0 incidents", "description": "Completed the migration ahead of schedule with zero disruption to user access or permissions." },
-            { "metric": "200+ users", "description": "Seamlessly transitioned over 200 users to a unified login system." }
+            { "metric": "0 incidents", "description": "Completed the migration with zero disruption to user access or permissions." }
+          ]
+        },
+        {
+          "id": "RH06",
+          "title": "Automated Call Routing System",
+          "problem": "Inbound callers faced a lengthy and inefficient process to connect with the correct field representative.",
+          "actions": [
+            "Partnered with internal data engineering teams to design and implement an automated call routing system.",
+            "Leveraged the Invoca API to build logic that connected callers to the nearest branch based on their caller ID or location input."
+          ],
+          "outcomes": [
+            { "metric": "90% reduction", "description": "Reduced the number of prompts required to connect to a representative by 90%." },
+            { "metric": "600,000+ calls", "description": "Significantly enhanced the customer experience for more than 600,000 annual calls." }
           ]
         }
       ]
@@ -103,60 +115,48 @@
           "title": "AI Event Platform Product Strategy",
           "problem": "Event planners lacked a single, integrated platform for end-to-end planning, visualization, and execution.",
           "actions": [
-            "Drove the entire product discovery phase, conducting 15+ user interviews and 10+ surveys.",
-            "Synthesized research into foundational product artifacts (personas, journey maps, JTBD).",
-            "Translated validated hypotheses into user stories and functional requirements documents.",
-            "Acted as the product leader, owning feature prioritization and the product roadmap."
+            "Led the entire discovery phase, conducting user research with Google Forms, Survey Monkey, and Mailchimp.",
+            "Synthesized research into product artifacts in Miro and managed the roadmap in Jira.",
+            "Established Hubspot as the central CRM and automated the email journey for lead nurturing."
           ],
           "outcomes": [
-            { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." },
-            { "metric": "15+ interviews", "description": "Validated product direction through extensive user research." }
+            { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." }
           ]
         },
         {
           "id": "LM02",
           "title": "GenAI Recommendation System",
-          "problem": "The platform needed a key differentiating feature—an AI-powered design recommendation system—to be competitive.",
+          "problem": "The platform needed a key market differentiator to be competitive.",
           "actions": [
-            "Oversaw the successful technical integration of Hugging Face (GenAI) and Pinterest APIs.",
-            "Drove technical discussions and maintained the project plan for the feature.",
-            "Launched the feature to a select group of 10+ early adopter customers for feedback.",
-            "Mentored junior team members and interns on Agile and continuous development best practices."
+            "Oversaw the technical integration of Hugging Face (GenAI) and Pinterest APIs to build an AI-powered design recommendation system.",
+            "Managed the entire project—from technical discussions to the early-adopter feedback loop—using Notion as a centralized hub."
           ],
           "outcomes": [
-            { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." },
-            { "metric": "10+ beta customers", "description": "Established a rapid feedback loop for continuous product improvement." }
+            { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." }
           ]
         },
         {
           "id": "LM03",
           "title": "Agile Framework Implementation",
-          "problem": "As a startup, the development environment was chaotic and requirements were constantly changing, hindering the ability to deliver value quickly.",
+          "problem": "A chaotic startup development environment hindered the ability to deliver value quickly.",
           "actions": [
-            "Took the initiative to establish and implement an Agile (Scrum) framework from scratch.",
-            "Acted as the team's Scrum Master and Agile coach.",
-            "Introduced and facilitated all core Scrum ceremonies (sprint planning, stand-ups, retrospectives).",
-            "Coached the team on using iterative development to embrace and adapt to change."
+            "Established a formal Agile (Scrum) framework from the ground up, acting as the team's Scrum Master.",
+            "Used Jira to build project boards and manage backlogs, integrating it with GitHub for CI/CD."
           ],
           "outcomes": [
-            { "metric": "Increased Adaptability", "description": "Transformed a chaotic process into one that could thrive on fluid requirements." },
-            { "metric": "Faster Delivery", "description": "Increased the speed and predictability of value delivery to customers." }
+            { "metric": "Increased Predictability", "description": "Significantly increased the speed and predictability of value delivery." }
           ]
         },
         {
           "id": "LM04",
           "title": "Foundational Product & Market Strategy",
-          "problem": "As a bootstrapped startup with limited runway, we faced the risk of building a product nobody wanted. It was critical to validate our core idea and define a viable market entry strategy before committing significant development resources.",
+          "problem": "The bootstrapped startup needed to validate its core idea and market entry strategy to de-risk development.",
           "actions": [
-            "Executed a multi-faceted discovery process, distilling insights from comprehensive market, user, and competitor analyses to identify a key gap in the market.",
-            "Architected foundational product artifacts (user personas, journey maps) that served as the 'single source of truth' to align the engineering and business vision.",
-            "Drove the strategic definition of our MVP by applying 'diverge and converge' frameworks to translate raw user research into a prioritized feature backlog.",
-            "Recruited and established a 'first-adopter' program to create a rapid and continuous feedback loop for product validation."
+            "Architected foundational product artifacts in Miro and managed the first-adopter program in Hubspot, with Zapier automating communication.",
+            "Your data-driven approach led to a 40% conversion rate from interviews to beta users."
           ],
           "outcomes": [
-            { "metric": "Focused MVP Scope", "description": "Distilled a wide-ranging list of features and ideas into 4 focused, core feature modules essential for the MVP, preventing feature bloat and saving months of estimated development time." },
-            { "metric": "40% Adopter Conversion", "description": "Achieved a 40% conversion rate from user interviews into active beta program participants, proving the identified customer problem was significant and resonant." },
-            { "metric": "2 Letters of Intent (LOI)", "description": "Validated the business model and market demand by securing 2 Letters of Intent (LOI) from key early adopters before a single line of code was written." }
+            { "metric": "2 Letters of Intent", "description": "Validated the business model by securing two Letters of Intent before a single line of code was written." }
           ]
         }
       ]
@@ -169,83 +169,66 @@
         {
           "id": "AK01",
           "title": "Global Tax Automation Program",
-          "problem": "Akamai's existing Oracle EBTax module was outdated and couldn't efficiently handle tax calculations for $1B in annual spend across 30+ global markets.",
+          "problem": "An outdated Oracle EBTax module couldn't efficiently handle tax calculations for $1B in annual spend.",
           "actions": [
-            "Led a 7-phase global program, managing the full SDLC for a 20+ member team.",
-            "Learned and owned the configuration of the Thomson Reuters OneSource platform from scratch.",
-            "Translated complex international tax laws into detailed BRDs, FRDs, and process flow diagrams.",
-            "Managed the complex technical integration between Thomson Reuters and Oracle EBS R12.",
-            "Acted as the primary bridge between technical and non-technical stakeholders during architecture discussions."
+            "Led a 7-phase global program, managing a 20+ member team using Jira, MS Project, and Smartsheet.",
+            "Created all technical documentation in Confluence, Visio, and Lucid Chart.",
+            "Personally owned the configuration of the Thomson Reuters OneSource platform and partnered with development teams for its API integration with Oracle EBS R12."
           ],
           "outcomes": [
-            { "metric": "$4M", "description": "Delivered $4M in annual savings through operational and system efficiencies." },
-            { "metric": "$1B", "description": "Modernized a critical financial process impacting $1B in annual spend." },
-            { "metric": "30+", "description": "Successfully rolled out the new system across more than 30 global markets." }
+            { "metric": "$4M in savings", "description": "Delivered $4M in savings." },
+            { "metric": "30+ markets", "description": "Successfully rolled out the new system across more than 30 global markets." }
           ]
         },
         {
           "id": "AK02",
           "title": "Expense & Compliance Automation",
-          "problem": "An on-premise Oracle expense module was inefficient for a mobile workforce and lacked automated compliance checks for multi-million dollar travel spend.",
+          "problem": "An on-premise Oracle expense module was inefficient and lacked automated compliance checks.",
           "actions": [
-            "Served as a key business analyst for a complex integration of SAP Concur, Amex, Oracle EBS, and the AppZen AI compliance engine.",
-            "Partnered with internal stakeholders (Finance, Audit) and external SAP consultants to map requirements.",
-            "Single-handedly owned the migration of 20+ operational reports from Oracle to Cognos BI, learning Cognos from scratch.",
-            "Drove the integration of AppZen's ML tool to automate compliance checks, ensuring the entire program was SOX-compliant.",
-            "Created comprehensive training materials and change management documents to onboard over 8,000 employees onto the new SAP Concur system."
+            "Configured rules-based automation in SAP Concur and the AppZen AI engine.",
+            "Managed the API integration between Concur and Oracle EBS R12.",
+            "Single-handedly extracted data from Oracle using SQL and built over 20 new reports in Cognos Report Studio.",
+            "Developed the change management plan to successfully onboard over 8,000 employees."
           ],
           "outcomes": [
-            { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." },
-            { "metric": "20% improvement", "description": "Improved on-time expense reporting compliance." },
-            { "metric": "20+", "description": "Successfully migrated and delivered over 20 critical BI reports on a new platform." },
-            { "metric": "8,000+ employees", "description": "Successfully onboarded over 8,000 employees to a new enterprise-wide system." }
+            { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." }
           ]
         },
         {
           "id": "AK03",
           "title": "Host-to-Host Payment Automation",
-          "problem": "The process for transmitting payment instructions for $1B in annual vendor invoices was manual, slow, and lacked scalability.",
+          "problem": "The manual process for transmitting payment instructions for $1B in annual spend was slow and unscalable.",
           "actions": [
-            "Acted as the BA and PM, facilitating the entire SDLC for the automation program.",
-            "Designed the host-to-host payment transmission process using XML files.",
-            "Authored all detailed technical documentation (BRD, FRD, TDD, BR100) for Oracle EBS R12 configuration.",
-            "Managed critical dependencies with external banking partners (Chase, Citi), including regulatory requirements and UAT.",
-            "Ensured the system was designed for high availability."
+            "Partnered with the development team to architect a host-to-host payment system using XML files over a secure SFTP pipeline.",
+            "Built a failover mechanism into the XML files that integrated with the Oracle EBS Payments module to automatically handle failed payments."
           ],
           "outcomes": [
-            { "metric": "$1B", "description": "Automated the payment transmission process for $1B in annual spend." },
-            { "metric": "99.99% success", "description": "Delivered a robust and reliable system with a 99.99% successful payment completion rate." }
+            { "metric": "99.99% success", "description": "Achieved a 99.99% successful payment completion rate." }
           ]
         },
         {
           "id": "AK04",
           "title": "Data-Driven Operational Management",
-          "problem": "The Procure-to-Pay team needed to balance the delivery of critical, long-term projects with ongoing operational support and technical debt reduction.",
+          "problem": "The Procure-to-Pay team needed to balance long-term projects with ongoing operational support.",
           "actions": [
-            "Acted as the functional owner of the Procure-to-Pay modules within Oracle EBS R12.",
-            "Used SQL to analyze operational data and provide objective evidence for prioritization.",
-            "Created automated Tableau dashboards to give leadership real-time visibility into project and operational health.",
-            "Partnered with DevOps on root cause analysis to identify and prioritize critical technical debt."
+            "Used SQL to query the Oracle DB and provide data-driven evidence for prioritization.",
+            "Built automated Tableau dashboards to give leadership real-time visibility into operational health."
           ],
           "outcomes": [
-            { "metric": "25% efficiency", "description": "Increased cross-functional operational efficiency through data-driven prioritization." },
             { "metric": "Improved Stability", "description": "Enabled the successful, simultaneous delivery of multiple large-scale projects while maintaining operational stability." }
           ]
         },
         {
           "id": "AK05",
           "title": "Centralized Project Portfolio Management",
-          "problem": "A dynamic portfolio of over 120 projects lacked a centralized tracking system, leading to resource conflicts, unresolved bottlenecks, and project delays.",
+          "problem": "A portfolio of over 120 projects lacked a centralized system, leading to resource conflicts and delays.",
           "actions": [
-            "Took the initiative to overhaul the project management process from the ground up.",
-            "Implemented a centralized Smartsheet tracker, built detailed Gantt charts, and designed a resource allocation dashboard for leadership visibility.",
-            "Facilitated structured weekly meetings with 20+ stakeholders to proactively surface and resolve interdependencies.",
-            "Automated status reporting to consolidate project data and eliminate manual updates."
+            "Took the initiative to build a centralized system from the ground up, implementing a Smartsheet tracker with Gantt charts and a resource dashboard.",
+            "Automated status reporting and led structured weekly meetings with 20+ stakeholders."
           ],
           "outcomes": [
-            { "metric": "90% on-time delivery", "description": "Achieved a 90% on-time delivery rate for a portfolio of over 120 projects." },
-            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours each week by automating manual status reporting." },
-            { "metric": "~100 issues resolved", "description": "Proactively resolved approximately 100 critical resource conflicts and bottlenecks annually." }
+            { "metric": "90% on-time delivery", "description": "Achieved an impressive 90% on-time delivery rate." },
+            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours of manual work each week." }
           ]
         }
       ]
