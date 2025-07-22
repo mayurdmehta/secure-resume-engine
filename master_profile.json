@@ -27,8 +27,10 @@
           "problem": "Siloed global marketing teams produced unstructured data, compromising the BI products used by leadership to oversee a $20M annual spend.",
           "actions": [
             "Partnered with marketing stakeholders to map existing workflows and define a new, holistic standardization framework.",
-            "Configured the framework in the utm.io platform.",
-            "Used Domo and SQL for data-backed analysis to facilitate new processes and keep leadership informed.",
+			"Owned the project end-to-end, from requirements gathering to platform configuration and stakeholder training.",
+            "Configured the utm.io platform with the newly standardized parameters.",
+            "Developed training materials in SharePoint and led change management for over 200 stakeholders using Jira and Smartsheet."
+            "Used Domo and SQL for data-backed analysis to facilitate change management, training and onboarding and keep leadership informed.",
             "Led change management for 200+ stakeholders, developing training materials in SharePoint and managing the project with Jira and Smartsheet."
           ],
           "outcomes": [
@@ -41,8 +43,10 @@
           "title": "Analytics Engagement Model",
           "problem": "The Global Marketing Analytics team lacked a formal intake process, causing operational bottlenecks.",
           "actions": [
-            "Designed and automated a new engagement model by integrating Jira and Smartsheet with advanced automation rules and formulas.",
-            "Took ownership of the new workflow to manage intake and stakeholder communication."
+            "Partnered with PMO, business, and internal tech teams to establish a formal engagement model.",
+            "Designed and automated a new intake process using Jira and Smartsheet with advanced automation rules and formulas.",
+            "Scoped all incoming requests and provided operational support to technical teams.",
+            "Managed the entire workflow within a Kanban Agile framework."
           ],
           "outcomes": [
             { "metric": "2 weeks to 3 days", "description": "Dramatically reduced the request approval lifecycle." },
@@ -55,8 +59,11 @@
           "problem": "Call classification models were underperforming at only 65% accuracy, limiting data trust and actionable insights.",
           "actions": [
             "Acted as the technical program manager, partnering with Invoca's data science team to ensure new NLP models met Robert Half's requirements.",
-            "Conducted rigorous testing and analysis using SQL and Domo, leading to key recommendations for improvement.",
-            "Became the go-to subject matter expert, creating comprehensive documentation in Confluence and SharePoint."
+            "Conducted rigorous testing and analysis on a monthly cadence",
+			"Led the end-to-end configuration and management of the Invoca AI call intelligence platform.",
+            "Utilized SQL and Domo for performance analysis of the models",
+            "Presented three high-level recommendations to senior leadership that drove the accuracy improvements.",
+            "Authored detailed training guides and product documentation in Confluence and SharePoint, becoming the platform SME."
           ],
           "outcomes": [
             { "metric": "65% to 90%", "description": "Increased model accuracy from 65% to 90%." },
@@ -69,9 +76,10 @@
           "title": "Analytics Operational Leadership",
           "problem": "A 40-person analytics team struggled with conflicting priorities and project delays.",
           "actions": [
-            "Stepped up as the operational leader, designing a custom Smartsheet Kanban board integrated with Jira for real-time visibility.",
-            "Implemented a weighted average prioritization framework to align work with a $20M marketing investment.",
-            "Led biweekly alignment sessions with leadership to manage resources and priorities."
+            "Stepped up as the primary operational point person for the entire 40-member team.",
+            "Designed and rolled out a custom Smartsheet Kanban board integrated with Jira, featuring Gantt charts and a roadmap view for real-time visibility.",
+            "Implemented a weighted average prioritization framework to objectively rank requests based on urgency, impact, and effort.",
+            "Convened biweekly alignment sessions with vertical leads and executive leadership to ensure strategic alignment with a $20M marketing budget."
           ],
           "outcomes": [
             { "metric": "30% efficiency", "description": "Increased the team's overall efficiency and throughput." },
@@ -83,11 +91,15 @@
           "title": "Confluence SSO Migration",
           "problem": "A disjointed user experience required 200+ marketing stakeholders to manage separate logins for Jira and Confluence.",
           "actions": [
-            "Led the migration of a standalone Confluence instance into the enterprise Microsoft Active Directory SSO environment.",
-            "Used Atlassian's native migration tools to meticulously plan and execute the transfer of over 100GB of data."
+			"Led the entire migration of the standalone Confluence instance into the enterprise Microsoft AD SSO environment.",
+            "Used Atlassian's native migration tools to meticulously plan, Manage administrative tasks and migrated over 100 GB of data with zero data loss.",
+            "Executed a meticulous cutover plan to ensure zero disruption to user access or permissions.",
+            "Delivered training and onboarding for all 200+ affected stakeholders."
           ],
           "outcomes": [
             { "metric": "0 incidents", "description": "Completed the migration with zero disruption to user access or permissions." }
+			{ "metric": "200+ users", "description": "Seamlessly transitioned over 200 users to a unified login system." }
+
           ]
         },
         {
@@ -96,7 +108,9 @@
           "problem": "Inbound callers faced a lengthy and inefficient process to connect with the correct field representative.",
           "actions": [
             "Partnered with internal data engineering teams to design and implement an automated call routing system.",
-            "Leveraged the Invoca API to build logic that connected callers to the nearest branch based on their caller ID or location input."
+            "Developed location-based routing to connect callers to their nearest Robert Half branch via caller ID or input.",
+            "Automated prompt reduction, cutting menus by 90%.",
+            "Tested and iterated on routing rules to ensure accuracy and reliability."
           ],
           "outcomes": [
             { "metric": "90% reduction", "description": "Reduced the number of prompts required to connect to a representative by 90%." },
@@ -115,12 +129,16 @@
           "title": "AI Event Platform Product Strategy",
           "problem": "Event planners lacked a single, integrated platform for end-to-end planning, visualization, and execution.",
           "actions": [
-            "Led the entire discovery phase, conducting user research with Google Forms, Survey Monkey, and Mailchimp.",
-            "Synthesized research into product artifacts in Miro and managed the roadmap in Jira.",
-            "Established Hubspot as the central CRM and automated the email journey for lead nurturing."
+			"Drove the product discovery phase with 15+ user interviews and 10+ surveys via Google Forms, SurveyMonkey, and Mailchimp.",
+            "Synthesized research into personas, journey maps, and JTBD artifacts in Miro.",
+            "Translated hypotheses into user stories and functional requirements documents.",
+            "Established HubSpot as the central CRM and automated the entire email journey via Zapier.",
+            "Owned feature prioritization and managed the product roadmap in Jira."
           ],
           "outcomes": [
             { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." }
+			{ "metric": "15+ interviews", "description": "Validated product direction through extensive research." }
+
           ]
         },
         {
@@ -129,10 +147,13 @@
           "problem": "The platform needed a key market differentiator to be competitive.",
           "actions": [
             "Oversaw the technical integration of Hugging Face (GenAI) and Pinterest APIs to build an AI-powered design recommendation system.",
-            "Managed the entire project—from technical discussions to the early-adopter feedback loop—using Notion as a centralized hub."
+            "Drove API discussions, maintained project plan, and integrated feedback loops in Notion.",
+            "Launched to 10+ early adopters and managed the feedback loop for continuous improvement.",
+            "Mentored junior team members on agile best practices."
           ],
           "outcomes": [
             { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." }
+			{ "metric": "10+ beta customers", "description": "Established a rapid feedback loop for continuous improvement." }
           ]
         },
         {
@@ -142,9 +163,13 @@
           "actions": [
             "Established a formal Agile (Scrum) framework from the ground up, acting as the team's Scrum Master.",
             "Used Jira to build project boards and manage backlogs, integrating it with GitHub for CI/CD."
+            "Facilitated sprint planning, stand‑ups, retrospectives, and reviews.",
+            "Scaled the design and development team to 10+, Coached the team to use iterative development and agile best practices for adaptability."
           ],
           "outcomes": [
-            { "metric": "Increased Predictability", "description": "Significantly increased the speed and predictability of value delivery." }
+            { "metric": "Adaptability ↑", "description": "Transformed chaotic processes into adaptive, value‑driven sprints." },
+            { "metric": "Delivery speed ↑", "description": "Increased speed and predictability of value delivery." }
+			{ "metric": "Scaled Team to 10+ members ↑", "description": "Hired and Scaled the design and development team to 10+" }
           ]
         },
         {
@@ -154,10 +179,16 @@
           "actions": [
             "Architected foundational product artifacts in Miro and managed the first-adopter program in Hubspot, with Zapier automating communication.",
             "Your data-driven approach led to a 40% conversion rate from interviews to beta users."
+			"Executed discovery across market, user, and competitor analyses to identify gaps.",
+            "Architected personas and journey maps as a single source of truth in Miro.",
+            "Applied ‘diverge and converge’ frameworks to prioritize an MVP feature backlog.",
+            "Recruited a first‑adopter program and automated feedback loops with HubSpot and Zapier."
           ],
           "outcomes": [
-            { "metric": "2 Letters of Intent", "description": "Validated the business model by securing two Letters of Intent before a single line of code was written." }
-          ]
+            { "metric": "4 core modules", "description": "Distilled features into four essential modules, saving months of development time." },
+            { "metric": "40% conversion", "description": "Converted 40% of interviews into active beta participants." },
+            { "metric": "2 LOIs", "description": "Secured two Letters of Intent before writing any code." }
+		]
         }
       ]
     },
@@ -171,9 +202,12 @@
           "title": "Global Tax Automation Program",
           "problem": "An outdated Oracle EBTax module couldn't efficiently handle tax calculations for $1B in annual spend.",
           "actions": [
-            "Led a 7-phase global program, managing a 20+ member team using Jira, MS Project, and Smartsheet.",
             "Created all technical documentation in Confluence, Visio, and Lucid Chart.",
             "Personally owned the configuration of the Thomson Reuters OneSource platform and partnered with development teams for its API integration with Oracle EBS R12."
+			"Led a 7‑phase global SDLC for a 20+ member cross functional development and business teams",
+            "Translated international tax laws into BRDs, FRDs, and process flow diagrams.",
+            "Managed API integration with Oracle EBS R12, bridging technical and non‑technical stakeholders."
+			"Managed project plans, risks, dependencies, status updates to senior leadership and stakeholders using Jira, MS Project and Smartsheet"
           ],
           "outcomes": [
             { "metric": "$4M in savings", "description": "Delivered $4M in savings." },
@@ -187,11 +221,15 @@
           "actions": [
             "Configured rules-based automation in SAP Concur and the AppZen AI engine.",
             "Managed the API integration between Concur and Oracle EBS R12.",
-            "Single-handedly extracted data from Oracle using SQL and built over 20 new reports in Cognos Report Studio.",
-            "Developed the change management plan to successfully onboard over 8,000 employees."
+            "Developed the training, onboarding and change management plan to successfully onboard over 8,000 employees."
+			"Integrated SAP Concur, Amex, Oracle EBS, and AppZen AI for automated compliance.",
+            "Partnered with Finance and Audit to map requirements and ensure SOX compliance.",
+            "Migrated 20+ BI reports from Oracle to Cognos and built new Cognos report studio dashboards.",
           ],
           "outcomes": [
             { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." }
+			{ "metric": "20% compliance ↑", "description": "Improved on‑time expense reporting compliance by 20%." },
+            { "metric": "8,000+ users", "description": "Onboarded 8,000+ employees to the new system." }
           ]
         },
         {
@@ -201,9 +239,13 @@
           "actions": [
             "Partnered with the development team to architect a host-to-host payment system using XML files over a secure SFTP pipeline.",
             "Built a failover mechanism into the XML files that integrated with the Oracle EBS Payments module to automatically handle failed payments."
+            "Authored BR100, BRD, FRD, TDD, Data Mapping documentation for this complex integration.",
+            "Managed dependencies with external banking partners and led UAT cycles."
           ],
           "outcomes": [
             { "metric": "99.99% success", "description": "Achieved a 99.99% successful payment completion rate." }
+			{ "metric": "$1B automation", "description": "Automated transmission for $1B in annual spend." },
+
           ]
         },
         {
@@ -211,11 +253,15 @@
           "title": "Data-Driven Operational Management",
           "problem": "The Procure-to-Pay team needed to balance long-term projects with ongoing operational support.",
           "actions": [
-            "Used SQL to query the Oracle DB and provide data-driven evidence for prioritization.",
             "Built automated Tableau dashboards to give leadership real-time visibility into operational health."
+			"Owned Procure‑to‑Pay modules in Oracle EBS R12 as functional lead.",
+            "Used SQL to query the Oracle DB and provide data-driven evidence for prioritization.",
+            "Built automated Tableau dashboards for real‑time project health visibility.",
+            "Partnered with DevOps to triage and prioritize technical debt."
           ],
           "outcomes": [
-            { "metric": "Improved Stability", "description": "Enabled the successful, simultaneous delivery of multiple large-scale projects while maintaining operational stability." }
+            { "metric": "25% efficiency ↑", "description": "Boosted cross‑functional operational efficiency by 25%." },
+            { "metric": "Stability ↑", "description": "Enabled simultaneous delivery of large projects while maintaining stability." }
           ]
         },
         {
@@ -224,11 +270,14 @@
           "problem": "A portfolio of over 120 projects lacked a centralized system, leading to resource conflicts and delays.",
           "actions": [
             "Took the initiative to build a centralized system from the ground up, implementing a Smartsheet tracker with Gantt charts and a resource dashboard.",
-            "Automated status reporting and led structured weekly meetings with 20+ stakeholders."
+            "Facilitated weekly stakeholder meetings (20+ participants) to resolve dependencies.",
+            "Automated status reporting to eliminate manual updates."
           ],
           "outcomes": [
             { "metric": "90% on-time delivery", "description": "Achieved an impressive 90% on-time delivery rate." },
             { "metric": "20 hours/week saved", "description": "Saved the team 20 hours of manual work each week." }
+			{ "metric": "100 issues resolved", "description": "Resolved ~100 resource bottlenecks annually." }
+
           ]
         }
       ]
