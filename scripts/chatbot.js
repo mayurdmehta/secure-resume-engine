@@ -38,6 +38,15 @@ async function sendChatMessage() {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
 
+    // --- START: Google Analytics Event Tracking ---
+    // Fire an event to Google Analytics every time a user asks a question.
+    if (typeof gtag === 'function') {
+        gtag('event', 'ask_chatbot', {
+            'user_question': userMessage
+        });
+    }
+    // --- END: Google Analytics Event Tracking ---
+
     addChatMessage(userMessage, 'user');
     chatInput.value = '';
     
