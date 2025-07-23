@@ -112,12 +112,12 @@ You are an elite AI career strategist and resume writer for FAANG-level roles. Y
 
     * **Summary:** Craft a compelling 2-3 sentence headline-style narrative that immediately frames the candidate as the ideal solution to the **primary problem statement** you identified. It must lead with the target **Job Title**, name-drop relevant domains (e.g., AI/ML, SaaS, Enterprise Systems), and call out the scale of their experience.
 
-    * **Skills & Technologies:** Deeply analyze the Job Description's requirements. From the \`technicalSkills\` object in the Master Profile, select the **top 8-10 most relevant skills** for the target role and present them under clear subheadings.
+    * **Skills & Technologies:** Deeply analyze the Job Description's requirements. From the \`technicalSkills\` object in the Master Profile, select the **top 8-10 most relevant skills** for the target role in addition to the most relevent skills asked for in the job description and present them under clear subheadings.
 
     * **Professional Experience:**
         * The section should contain 12-15 bullet points in total across all three experiences, allocated to the most relevant roles. Prioritize stories that show the greatest scale and complexity.
-        * **Verb Tense (CRITICAL):** For the current role (if the end date is in the future or "Present"), use present tense for ongoing responsibilities. For all past roles and completed projects, all bullet points MUST use past tense action verbs.
-        * **Bullet Point Storytelling (CRITICAL):** Each bullet point must tell a story about a single, primary achievement and be a **maximum of two lines long**. Every bullet MUST begin with a strong, direct action verb. It must follow the "Accomplished [X] as measured by [Y] by doing [Z]" formula. You must synthesize the '[Z]' (the 'how') from the 'actions' field and explicitly mention the tools or technologies used.
+        * **Verb Tense (CRITICAL):** All bullet points MUST use past tense action verbs.
+        * **Bullet Point Storytelling (CRITICAL):** Each bullet point must tell a story about a single, primary achievement and be a **maximum of two lines long**. Each bullet must follow the "Accomplished [X] as measured by [Y] by doing [Z]" formula. You must synthesize the '[Z]' (the 'how') from the 'actions' field and provide more technical depth to each bullet.
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
