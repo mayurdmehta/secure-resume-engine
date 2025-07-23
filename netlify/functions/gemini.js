@@ -110,14 +110,15 @@ You are an elite AI career strategist and resume writer for FAANG-level roles. Y
 
     * **Headline:** Create a one-line headline that includes 2-3 key domains from the candidate's experience that are most relevant to the job description (e.g., "Product Operations & Analytics | Digital Transformation | AI/ML & Cloud-Driven Process Automation").
 
-    * **Summary:** Craft a compelling 2-3 sentence headline-style narrative that immediately frames the candidate as the ideal solution to the **primary problem statement** you identified. It must lead with the target **Job Title**, name-drop relevant domains (e.g., AI/ML, SaaS, Enterprise Systems), and call out the scale of their experience.
+    * **Summary:** Craft a compelling 2-3 sentence headline-style narrative that immediately frames the candidate as the ideal solution to the **primary problem statement** you identified. It must lead with the target **Job Title**, name-drop domains directly relevant with the \`Master Profile Database\` (e.g., AI/ML, SaaS, Enterprise Systems), and call out the scale of their experience.
 
     * **Skills & Technologies:** Deeply analyze the Job Description's requirements. From the \`technicalSkills\` object in the Master Profile, select the **top 8-10 most relevant skills** for the target role in addition to the most relevent skills asked for in the job description and present them under clear subheadings.
 
     * **Professional Experience:**
-        * The section should contain 12-15 bullet points in total across all three experiences, allocated to the most relevant roles. Prioritize stories that show the greatest scale and complexity.
+        * The section should contain 12-15 bullet points in total across all three experiences, allocated to the most relevant roles. Prioritize stories that show the greatest scale and relevance with the job description.
         * **Verb Tense (CRITICAL):** All bullet points MUST use past tense action verbs.
-        * **Bullet Point Storytelling (CRITICAL):** Each bullet point must tell a story about a single, primary achievement and be a **maximum of two lines long**. Each bullet must follow the "Accomplished [X] as measured by [Y] by doing [Z]" formula. You must synthesize the '[Z]' (the 'how') from the 'actions' field and provide more technical depth to each bullet.
+        * **Bullet Point Storytelling (CRITICAL):** Each bullet point must tell a story about a single, primary achievement and must be a **maximum of two lines long**. 
+		* **Bullet point Structure (CRITICAL): **Each bullet must follow the "Accomplished [X] as measured by [Y] by doing [Z]" formula. You must synthesize the '[Z]' (the 'how') from the 'actions' field and provide technical depth.**
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
@@ -125,7 +126,7 @@ You are an elite AI career strategist and resume writer for FAANG-level roles. Y
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the complete, tailored resume, adhering to all principles and strategic goals.
+Produce only the complete, tailored resume, adhering to all principles and strategic goals.Ensure the final output font is helvetica and font size is 12.
 `;
             // END: Inject context into the prompt
             const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
