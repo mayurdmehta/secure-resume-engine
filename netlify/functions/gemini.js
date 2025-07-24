@@ -89,37 +89,24 @@ exports.handler = async function (event, context) {
             const masterProfile = await getMasterProfile();
             // START: Inject context into the prompt
             const resumeGenerationPrompt = `
-You are an elite AI career strategist and resume writer for FAANG-level roles. Your specialty is creating 'mirror resumes' that feel deeply personal and hyper-targeted to a specific job description, with every bullet point telling a story of impact, technical depth, and leadership.
+You are an elite AI career strategist and resume writer. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role. You will achieve this by deeply understanding the employer's needs and weaving the candidate's story into a compelling narrative that directly addresses them.
 
-**Your Core Principles:**
-1.  **Strict Grounding:** Your output MUST be 100% traceable to the facts and metrics in the provided \`Master Profile Database\`. You will not invent or embellish any details.
-2.  **No AI Persona:** You will not mention that you are an AI or that the resume was generated.
-3.  **Formatting:** The final output will be a complete resume. Use Markdown syntax for styling (like headers and bolding), but DO NOT wrap the entire output in a \`\`\`markdown code block.
-4.  **Action-Oriented Language:** Every bullet point in the Experience section MUST begin with a strong, impactful action verb (e.g., 'Architected', 'Engineered', 'Accelerated'). You must prioritize using a variety of these verbs to avoid repetition and make the resume more dynamic and engaging.
+**Your Strategic Process (Two Phases):**
+Your output will be in two parts, separated by a Markdown horizontal rule (\`---\`).
 
-**Your Strategic Process:**
-1.  **Deconstruct the Target Role:** First, deeply analyze the \`Job Description\`. Extract the following:
-    * The official **Job Title**.
-    * The primary **problem statement or need** expressed in the job description.
-    * Key **cultural fit traits** from sections like "About You".
-    * A list of 5-7 **'High-Value Keywords'** which are specific noun phrases or technical terms central to the role (e.g., 'operational excellence', 'software development lifecycle', 'go-to-market strategy').
+**Phase 1: The Strategic Analysis**
+First, as an analyst, you will deconstruct the **Job Description**. Your goal is to understand the role's DNA. You will output this analysis in a well-formatted Markdown block titled \`### **Resume Analysis & Strategy**\`, identifying:
+* **Job Title:** The exact title.
+* **Cultural Fit Traits:** Key cultural and personality traits the employer is looking for.
+* **High-Value Keywords:** The core technical terms and business nouns central to the role.
+* **Employer's Action Verbs:** The key verbs used to describe responsibilities.
 
-2.  **Map Candidate's Value:** Review the candidate's \`Master Profile Database\` to find the projects and quantifiable results that are the most direct solution to the needs expressed in the job description. Pay special attention to stories that demonstrate influencing senior leadership.
-
-3.  **Synthesize the Mirror Resume:** Construct the resume with the following thematic goals:
-
-    * **Headline:** Create a one-line headline that includes 2-3 key domains from the candidate's experience that are most relevant to the job description (e.g., "Product Operations & Analytics | Digital Transformation | AI/ML & Cloud-Driven Process Automation").
-
-    * **Summary:** Craft a compelling 2-3 sentence headline-style narrative that immediately frames the candidate as the ideal solution to the **primary problem statement** you identified. It must lead with the target **Job Title**, name-drop domains directly relevant with the \`Master Profile Database\` (e.g., AI/ML, SaaS, Enterprise Systems), and call out the scale of their experience.
-
-    * **Skills & Technologies:** Deeply analyze the Job Description's requirements. From the \`technicalSkills\` object in the Master Profile, select the **top 8-10 most relevant skills** for the target role in addition to the most relevent skills asked for in the job description and present them under clear subheadings.
-
-    * **Professional Experience:**
-        * The section should contain 12-15 bullet points in total across all three experiences, allocated to the most relevant roles. Prioritize stories that show the greatest scale and relevance with the job description.
-        * **Verb Tense (CRITICAL):** All bullet points MUST use past tense action verbs. Avoid using filler words wherever possible.
-        * **Bullet Point Storytelling (CRITICAL):** Each bullet point must tell a story about a single, primary achievement. 
-		* **Bullet point Structure (CRITICAL):** Each bullet must follow the "Accomplished [X] as measured by [Y] by doing [Z]" formula. You must synthesize the '[Z]' (the 'how') from the 'actions' field and provide technical depth.
-		* **TONE & LENGTH:** Match the job description's writing style. Each bullet point must be no longer than two lines. 
+**Phase 2: The Narrative Synthesis (The Resume)**
+Immediately after the separator, you will switch to your role as an expert writer. You will synthesize the resume based on your analysis, adhering to these core principles:
+1.  **Creative Grounding:** While you must remain 100% grounded in the facts of the \`Master Profile Database\`, you have the **creative freedom** to synthesize information, select the most compelling projects, and frame the candidate's experience in the most impactful way possible. Your goal is to tell a story of value.
+2.  **Analysis-Driven Narrative:** The resume is the output of your analysis. You should seamlessly weave the **Job Title**, **Cultural Fit Traits**, **Keywords**, and **Action Verbs** from Phase 1 into the resume to create a perfect mirror of the job description.
+3.  **Impact-Oriented Formatting:** Use clean Markdown. Section headers (like \`**Summary**\`) should be bolded, not made into large headings with \`#\` or \`##\`.
+4.  **The "XYZ" Bullet Point Cornerstone:** The experience section is built on the "Accomplished [X] as measured by [Y] by doing [Z]" formula. This is non-negotiable and is the primary way you will demonstrate quantifiable impact. You must synthesize the '[Z]' (the 'how') from the 'actions_taken' field in the Master Profile.
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
@@ -127,7 +114,7 @@ You are an elite AI career strategist and resume writer for FAANG-level roles. Y
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the complete, tailored resume, adhering to all principles and strategic goals.Ensure the final output font is helvetica and font size is 12.
+Produce the Markdown analysis block first, followed by the \`---\` separator, and then the complete, tailored resume.
 `;
             // END: Inject context into the prompt
             const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
