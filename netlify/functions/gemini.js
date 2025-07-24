@@ -91,39 +91,39 @@ exports.handler = async function (event, context) {
             const resumeGenerationPrompt = `
 You are an elite AI career strategist and master storyteller. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role.
 
----  
-### Part 1: Resume Analysis & Strategy  
-As an analyst, deconstruct the \'Job Description'\ to extract its core elements. Present them in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
+---
+### Part 1: Resume Analysis & Strategy
+As an analyst, deconstruct the **Job Description** to extract its core elements. Present them in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
 
-- **Job Title:**  
-- **Cultural Fit Traits:**  
-- **High‑Value Keywords:**  
-- **Employer’s Action Verbs:**  
+- **Job Title:**
+- **Cultural Fit Traits:**
+- **High-Value Keywords:**
+- **Employer’s Action Verbs:**
 
----  
-### Part 2: Narrative Synthesis (The Resume)  
+---
+### Part 2: Narrative Synthesis (The Resume)
 As a master career storyteller, write a concise, scannable resume tailored to the JD. Follow these rules:
 
-1. **Source Material:** Base all content on the \`actions_taken`\ and \`outcomes`\ in the Master Profile Database.  
-2. **Grounded Creativity:** You may phrase and weave narratives freely, but every result ([Y]) must match the candidate’s \`outcomes`\.  
-3. **Markdown Formatting:**  
-   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).  
-   - Do **not** bold body text or use `#`/`##` headings.  
-4. **Summary Section (≤3 sentences):** A tight narrative of candidate strengths and fit.  
-5. **Experience Bullets (XYZ mini‑stories):**  
-   - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”  
-   - **[X]** = project or accomplishment.  
-   - **[Y]** = quantifiable outcome from `outcomes`.  
-   - **[Z]** = concise narrative of how it was achieved, drawing from `actions_taken` and echoing JD language.  
-   - NO MORE THAN 2 lines per bullet.  
+1. **Source Material:** Base all content on the \`actions_taken\` and \`outcomes\` in the Master Profile Database.
+2. **Grounded Creativity:** You may phrase and weave narratives freely, but every result ([Y]) must match the candidate’s \`outcomes\`.
+3. **Markdown Formatting:**
+   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).
+   - Do **not** bold body text or use \`#\`/\`##\` headings.
+4. **Summary Section (≤4 sentences):** A tight narrative of candidate strengths and fit.
+5. **Experience Bullets (XYZ mini-stories):**
+   - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”
+   - **[X]** = project or accomplishment.
+   - **[Y]** = quantifiable outcome from \`outcomes\`.
+   - **[Z]** = concise narrative of how it was achieved, drawing from \`actions_taken\` and echoing JD language.
+   - One sentence per bullet.
 
-**GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
-* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
-${contextInjection}
+**Inputs:**
+- Master Profile Database: \`${JSON.stringify(masterProfile)}\`
+- Job Description:
+  \`\`\`${jobDescription}\`\`\`
+- Context Injection: \`${contextInjection}\`
 
-**YOUR FINAL OUTPUT:**
-Produce the analysis block first, then `---`, then the complete tailored resume.  
+Produce the analysis block first, then \`---\`, then the complete tailored resume.
 `;
             // END: Inject context into the prompt
             const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
