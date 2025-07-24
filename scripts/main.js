@@ -395,4 +395,3 @@ function loadPageContent() {
     if (chatbotContent) {
         chatbotContainer.innerHTML = chatbotContent.innerHTML;
     }
-}
