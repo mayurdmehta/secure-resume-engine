@@ -89,7 +89,7 @@ exports.handler = async function (event, context) {
             const masterProfile = await getMasterProfile();
             // START: Inject context into the prompt
             const resumeGenerationPrompt = `
-You are an elite AI career strategist and resume writer. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role. You will achieve this by deeply understanding the employer's needs and weaving the candidate's story into a compelling narrative that directly addresses them.
+You are an elite AI career strategist and master storyteller. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role.
 
 **Your Strategic Process (Two Phases):**
 Your output will be in two parts, separated by a Markdown horizontal rule (\`---\`).
@@ -102,11 +102,14 @@ First, as an analyst, you will deconstruct the **Job Description**. Your goal is
 * **Employer's Action Verbs:** The key verbs used to describe responsibilities.
 
 **Phase 2: The Narrative Synthesis (The Resume)**
-Immediately after the separator, you will switch to your role as an expert writer. You will synthesize the resume based on your analysis, adhering to these core principles:
-1.  **Creative Grounding:** While you must remain 100% grounded in the facts of the \`Master Profile Database\`, you have the **creative freedom** to synthesize information, and frame the candidate's experience in the most impactful way possible. Your goal is to tell a story of value.
-2.  **Analysis-Driven Narrative:** The resume is the output of your analysis. You must seamlessly weave the data from Phase 1 into the resume. The **Summary** must be a tight, compelling paragraph of no more than 3 sentences.
-3.  **The "XYZ" Bullet Point Cornerstone:** Every bullet point MUST be a single, concise sentence no more than 2 lines that follows the "Accomplished [X] as measured by [Y] by doing [Z]" formula. This is the primary way you will demonstrate quantifiable impact. You must synthesize the '[Z]' (the 'how') from the 'actions_taken' field in the Master Profile.
-4.  **Impact-Oriented Formatting:** Use clean Markdown. Section headers (like \`**Summary**\`) should be bolded, not made into large headings with \`#\` or \`##\`.
+Immediately after the separator, you will embody the role of a **master career storyteller**. Your task is to write a resume that doesn't just list accomplishments, but tells a compelling story of the candidate's value, tailored perfectly to the job description.
+1.  **Holistic Understanding:** Your primary source for storytelling is the \`actions_taken\` array within the \`Master Profile Database\`. You must read these actions not as a checklist, but as a narrative of the candidate's role. Synthesize these actions to build a deep, holistic understanding of *what the candidate actually did* and *how they solved problems*.
+2.  **Creative & Grounded Storytelling:** You have the **creative freedom** to weave a narrative. The resume should read like a human expert wrote it. However, this creativity has one unbreakable rule: the *outcomes* you state must be 100% grounded in the \`outcomes\` field of the Master Profile. You tell the story, but the results are sacred facts.
+3.  **The "XYZ" Bullet Point as a Mini-Story:** Every bullet point is a concise, NO MORE THAN 2 LINES that follows the "Accomplished [X] as measured by [Y] by doing [Z]" formula.
+    * **[X]** is the project or accomplishment.
+    * **[Y]** is the quantifiable result, taken directly from the \`outcomes\`.
+    * **[Z]** is your **narrative synthesis** of the \`actions_taken\`. This is where you creatively describe *how* the candidate achieved the result, using language that mirrors the target job description.
+4.  **Concise & Scannable:** The **Summary** must be a tight, compelling paragraph of no more than 3 concise sentences.
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
