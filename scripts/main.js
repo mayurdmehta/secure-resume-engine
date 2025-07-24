@@ -373,27 +373,15 @@ document.addEventListener('DOMContentLoaded', () => {
  * Injects the page templates into the main containers in index.html.
  */
 function loadPageContent() {
-    // Corrected to look for the IDs that actually exist in the template string
-    const pageContent = document.getElementById('pages-container'); 
-    const modalContainer = document.getElementById('modals-container');
-    const chatbotContainer = document.getElementById('chatbot-container');
-
     const parser = new DOMParser();
     const doc = parser.parseFromString(pageTemplates, 'text/html');
 
-    // Get the content from the parsed template
-    const pagesContainer = doc.getElementById('pages-container');
-    const modalsContainer = doc.getElementById('modals-container');
-    const chatbotContent = doc.getElementById('chatbot-container');
+    // The parsed content is inside the body of the new document fragment.
+    const templateBody = doc.body;
 
-    // Inject the content into the correct placeholders in index.html
-    if (pagesContainer && pageContent) {
-        pageContent.innerHTML = pagesContainer.innerHTML;
-    }
-    if (modalsContainer && modalContainer) {
-        modalContainer.innerHTML = modalsContainer.innerHTML;
-    }
-    if (chatbotContent && chatbotContainer) {
-        chatbotContainer.innerHTML = chatbotContent.innerHTML;
+    // Append all top-level nodes from the template (style, divs, etc.)
+    // directly to the live document's body.
+    while (templateBody.firstChild) {
+        document.body.appendChild(templateBody.firstChild);
     }
 }
