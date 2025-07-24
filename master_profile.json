@@ -7,7 +7,7 @@
     "linkedin": "[LinkedIn Profile URL]"
   },
   "technicalSkills": {
-    "Methodologies": ["Agile (Scrum/Kanban)", "Waterfall", "SDLC", "Change Management"],
+    "Methodologies": ["Agile (Scrum/Kanban)", "Waterfall", "SDLC"],
     "Analytics & AI/ML": ["SQL", "Domo", "NLP Model Tuning", "Data Governance"],
     "Cloud & Platforms": ["AWS", "SAP Concur", "Oracle EBS R12", "Invoca", "Hubspot", "Mailchimp"],
     "Project Management & Collaboration": ["Jira", "Smartsheet", "Confluence", "Notion", "Miro", "Visio", "Lucid Chart", "MS Project"],
@@ -116,79 +116,6 @@
             { "metric": "90% reduction", "description": "Reduced the number of prompts required to connect to a representative by 90%." },
             { "metric": "600,000+ calls", "description": "Significantly enhanced the customer experience for more than 600,000 annual calls." }
           ]
-        }
-      ]
-    },
-    {
-      "company": "LilacMosaic Technologies",
-      "title": "Co-Founder / Lead Business Analyst",
-      "dates": "Aug 2023 – Jan 2025",
-      "projects": [
-        {
-          "id": "LM01",
-          "title": "AI Event Platform Product Strategy",
-          "problem": "Event planners lacked a single, integrated platform for end-to-end planning, visualization, and execution.",
-          "actions": [
-			"Drove the product discovery phase with 15+ user interviews and 10+ surveys via Google Forms, SurveyMonkey, and Mailchimp.",
-            "Synthesized research into personas, journey maps, and JTBD artifacts in Miro.",
-            "Translated hypotheses into user stories and functional requirements documents.",
-            "Established HubSpot as the central CRM and automated the entire email journey via Zapier.",
-            "Owned feature prioritization and managed the product roadmap in Jira."
-          ],
-          "outcomes": [
-            { "metric": "Product Roadmap", "description": "Created the foundational product strategy and a clear, actionable roadmap from concept." },
-			{ "metric": "15+ interviews", "description": "Validated product direction through extensive research." }
-
-          ]
-        },
-        {
-          "id": "LM02",
-          "title": "GenAI Recommendation System",
-          "problem": "The platform needed a key market differentiator to be competitive.",
-          "actions": [
-            "Oversaw the technical integration of Hugging Face (GenAI) and Pinterest APIs to build an AI-powered design recommendation system.",
-            "Drove API discussions, maintained project plan, and integrated feedback loops in Notion.",
-            "Launched to 10+ early adopters and managed the feedback loop for continuous improvement.",
-            "Mentored junior team members on agile best practices."
-          ],
-          "outcomes": [
-            { "metric": "Feature Launch", "description": "Successfully launched a core, AI-driven design recommendation feature to beta." },
-			{ "metric": "10+ beta customers", "description": "Established a rapid feedback loop for continuous improvement." }
-          ]
-        },
-        {
-          "id": "LM03",
-          "title": "Agile Framework Implementation",
-          "problem": "A chaotic startup development environment hindered the ability to deliver value quickly.",
-          "actions": [
-            "Established a formal Agile (Scrum) framework from the ground up, acting as the team's Scrum Master.",
-            "Used Jira to build project boards and manage backlogs, integrating it with GitHub for CI/CD.",
-            "Facilitated sprint planning, stand‑ups, retrospectives, and reviews.",
-            "Scaled the design and development team to 10+, Coached the team to use iterative development and agile best practices for adaptability."
-          ],
-          "outcomes": [
-            { "metric": "Adaptability ↑", "description": "Transformed chaotic processes into adaptive, value‑driven sprints." },
-            { "metric": "Delivery speed ↑", "description": "Increased speed and predictability of value delivery." },
-			{ "metric": "Scaled Team to 10+ members ↑", "description": "Hired and Scaled the design and development team to 10+" }
-          ]
-        },
-        {
-          "id": "LM04",
-          "title": "Foundational Product & Market Strategy",
-          "problem": "The bootstrapped startup needed to validate its core idea and market entry strategy to de-risk development.",
-          "actions": [
-            "Architected foundational product artifacts in Miro and managed the first-adopter program in Hubspot, with Zapier automating communication.",
-            "Your data-driven approach led to a 40% conversion rate from interviews to beta users.",
-			"Executed discovery across market, user, and competitor analyses to identify gaps.",
-            "Architected personas and journey maps as a single source of truth in Miro.",
-            "Applied ‘diverge and converge’ frameworks to prioritize an MVP feature backlog.",
-            "Recruited a first‑adopter program and automated feedback loops with HubSpot and Zapier."
-          ],
-          "outcomes": [
-            { "metric": "4 core modules", "description": "Distilled features into four essential modules, saving months of development time." },
-            { "metric": "40% conversion", "description": "Converted 40% of interviews into active beta participants." },
-            { "metric": "2 LOIs", "description": "Secured two Letters of Intent before writing any code." }
-		]
         }
       ]
     },

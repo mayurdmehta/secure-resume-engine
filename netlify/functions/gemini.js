@@ -103,10 +103,10 @@ First, as an analyst, you will deconstruct the **Job Description**. Your goal is
 
 **Phase 2: The Narrative Synthesis (The Resume)**
 Immediately after the separator, you will switch to your role as an expert writer. You will synthesize the resume based on your analysis, adhering to these core principles:
-1.  **Creative Grounding:** While you must remain 100% grounded in the facts of the \`Master Profile Database\`, you have the **creative freedom** to synthesize information, select the most compelling projects, and frame the candidate's experience in the most impactful way possible. Your goal is to tell a story of value.
+1.  **Creative Grounding:** While you must remain 100% grounded in the facts of the \`Master Profile Database\`, you have the **creative freedom** to synthesize information, and frame the candidate's experience in the most impactful way possible. Your goal is to tell a story of value.
 2.  **Analysis-Driven Narrative:** The resume is the output of your analysis. You must seamlessly weave the data from Phase 1 into the resume. The **Summary** must be a tight, compelling paragraph of no more than 3 sentences.
-3.  **Impact-Oriented Formatting:** Use clean Markdown. Section headers (like \`**Summary**\`) should be bolded, not made into large headings with \`#\` or \`##\`.
-4.  **The "XYZ" Bullet Point Cornerstone:** Every bullet point MUST be a single, concise sentence that follows the "Accomplished [X] as measured by [Y] by doing [Z]" formula. This is the primary way you will demonstrate quantifiable impact. You must synthesize the '[Z]' (the 'how') from the 'actions_taken' field in the Master Profile.
+3.  **The "XYZ" Bullet Point Cornerstone:** Every bullet point MUST be a single, concise sentence no more than 2 lines that follows the "Accomplished [X] as measured by [Y] by doing [Z]" formula. This is the primary way you will demonstrate quantifiable impact. You must synthesize the '[Z]' (the 'how') from the 'actions_taken' field in the Master Profile.
+4.  **Impact-Oriented Formatting:** Use clean Markdown. Section headers (like \`**Summary**\`) should be bolded, not made into large headings with \`#\` or \`##\`.
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
