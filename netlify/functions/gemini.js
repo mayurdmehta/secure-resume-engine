@@ -109,7 +109,7 @@ As a master career storyteller, write a concise, scannable resume tailored to th
 3. **Markdown Formatting:**  
    - Use **bold** for section headers only (e.g. **Summary**, **Experience**).  
    - Do **not** bold body text or use `#`/`##` headings.  
-4. **Summary Section (≤4 sentences):** A tight narrative of candidate strengths and fit.  
+4. **Summary Section (≤3 sentences):** A tight narrative of candidate strengths and fit.  
 5. **Experience Bullets (XYZ mini‑stories):**  
    - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”  
    - **[X]** = project or accomplishment.  
