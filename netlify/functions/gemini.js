@@ -100,7 +100,7 @@ exports.handler = async function (event, context) {
             resumeText, 
             userQuery, 
             additionalContext, 
-            engine = 'gemini' // Default to gemini if not provided
+            engine = 'gemini' 
         } = JSON.parse(event.body);
         
         const apiKey = engine === 'chatgpt' 
@@ -114,7 +114,7 @@ exports.handler = async function (event, context) {
         const contextInjection = additionalContext ? `\n\n**Additional User-Provided Context to Emphasize:**\n\`\`\`${additionalContext}\`\`\`` : '';
         
         let prompt;
-        // All prompts are now defined here, in one place.
+        
         switch (mode) {
             case 'generate':
                 const masterProfileForResume = await getMasterProfile();
@@ -144,13 +144,13 @@ As a master career storyteller, your second step is to write a concise, scannabl
 5.  **Markdown Formatting:** Use **bold** for section headers only (e.g., **Summary**, **Experience**). Do **not** bold body text or use \`#\`/\`##\` headings.
 
 **Inputs:**
-- Master Profile Database: \`${JSON.stringify(masterProfile)}\`
+- Master Profile Database: \`${JSON.stringify(masterProfileForResume)}\`
 - Job Description:
   \`\`\`${jobDescription}\`\`\`
 - Context Injection: \`${contextInjection}\`
 
 Produce the analysis block first, then \`---\`, then the complete tailored resume.
-`; // Your full resume prompt here
+`;
                 break;
             case 'coverLetter':
                 const masterProfileForCL = await getMasterProfile();
@@ -165,12 +165,12 @@ Produce the analysis block first, then \`---\`, then the complete tailored resum
 6.  **Context Adherence:** If the user provides additional context (e.g., a specific person to address the letter to), you must follow that instruction precisely.
 
 **GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
+* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfileForCL)}
 * **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the complete, tailored cover letter.`; // Your full cover letter prompt here
+Produce only the complete, tailored cover letter.`;
                 break;
             case 'generateLinkedin':
                  const masterProfileForLI = await getMasterProfile();
@@ -208,12 +208,12 @@ Produce only the complete, tailored cover letter.`; // Your full cover letter pr
 4.  **Assemble the Final Text:** Combine the subject, body, and a professional closing ("Best regards,\nMayur Mehta") into the specified plain text format.
 
 **GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
+* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfileForLI)}
 * **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the tailored text in the specified format, adhering to all rules.`; // Your full LinkedIn prompt here
+Produce only the tailored text in the specified format, adhering to all rules.`;
                 break;
             case 'chatbot':
                 const chatbotProfile = await getChatbotProfile();
@@ -243,7 +243,7 @@ You will now answer the user's question.
 - **DO NOT** narrate your thought process or mention that you are following rules.
 - **DO** respond directly to the user's question in a conversational manner, adhering to all rules above.
 
-Your response begins now:`; // Your full chatbot prompt here
+Your response begins now:`;
                 break;
             case 'interviewPrep':
                 prompt = `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions that probe for specific examples of the candidate's skills and experience. The questions should be open-ended and designed to elicit detailed responses.
@@ -253,7 +253,7 @@ Your response begins now:`; // Your full chatbot prompt here
 
              **Candidate's Resume:**
              \`\`\`${resumeText}\`\`\`
-             `; // Your full interview prep prompt here
+             `;
                 break;
             default:
                 throw new Error('Invalid mode provided.');

@@ -5,6 +5,14 @@ import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
 const pageTemplates = `
+<style>
+    /* This new style block adds the visual feedback for the active engine selector button. */
+    .engine-selector-btn.active {
+        background-color: #4F46E5; /* A brand-aligned blue color */
+        color: #FFFFFF;
+        font-weight: 600;
+    }
+</style>
 <div id="pages-container">
     <div id="home" class="page">
         <section class="py-16 md:py-20">
