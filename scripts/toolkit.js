@@ -198,4 +198,3 @@ function copyToClipboard() {
     }
     document.body.removeChild(textArea);
 	}
-}
