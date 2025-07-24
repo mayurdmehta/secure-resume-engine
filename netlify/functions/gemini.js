@@ -117,7 +117,7 @@ Immediately after the separator, you will embody the role of a **master career s
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce the Markdown analysis block first, followed by the \`---\` separator, and then the complete, tailored resume.
+Produce the Markdown analysis block first, followed by the \`---\` separator, and then the complete, tailored resume.Ensure only the headings are bolded not the text within the headings.
 `;
             // END: Inject context into the prompt
             const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
