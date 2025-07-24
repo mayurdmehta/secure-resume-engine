@@ -106,7 +106,7 @@ As a master career storyteller, your second step is to write a concise, scannabl
 2.  **Creative Synthesis:** Use the context from Step 1 and your understanding from the \`master_profile\` to creatively draft a compelling narrative of the candidate's experience. This narrative must mirror the job description's language and weave in the \`High-Value Keywords\` naturally, avoiding filler words.
 3.  **Summary (3 Sentences):** Create a tight, compelling summary of upto 3 sentences. Weave in the target job title and company name naturally into the summary.
 4.  **Experience & Bullet Points:**
-    * **XYZ Format:** Every bullet point must be a concise, human friendly narrative of up to 2 lines, following the "Accomplished [X] as measured by [Y] by doing [Z]" format.
+    * **XYZ Format:** Every bullet point must be a concise, human friendly narrative of up to 2 lines, following the "Accomplished [X] as measured by [Y] by doing [Z]" format. Prioritize action verbs from the job description to start the bullet point.
 	* **Relevance is Key:** Allocate up to 6 bullet points for each professional experience section (e.g., for each company) based on how relevant the candidate's experience are to the target job description.
     * **Splitting Stories:** If a single project story from the \`master_profile\` is highly relevant, you have the creative freedom to extract multiple distinct accomplishments from it, creating several targeted bullet points.
     * **Technical Depth:** Where appropriate, weave in specific technical details from the \`actions\` to demonstrate depth.
