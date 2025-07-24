@@ -26,8 +26,8 @@
           "title": "Data Governance & Standardization",
           "problem": "Siloed global marketing teams produced unstructured data, compromising the BI products used by leadership to oversee a $20M annual spend.",
           "actions": [
-            "Partnered with marketing stakeholders to map existing workflows and define a new, holistic standardization framework.",
-			"Owned the project end-to-end, from requirements gathering to platform configuration and stakeholder training.",
+            "Partnered with marketing and product stakeholders to map existing workflows and create a new, holistic data standardization framework.",
+			"Owned end-to-end project execution, from requirements gathering to platform configuration and stakeholder training.",
             "Configured the utm.io platform with the newly standardized parameters.",
             "Developed training materials and led change management for over 200 stakeholders; utilized Jira and Smartsheet for project management activities.",
             "Used Domo and SQL for data-backed analysis to facilitate change management, training and onboarding and keep leadership informed.",
@@ -58,12 +58,11 @@
           "title": "AI Call Intelligence Platform Enhancement",
           "problem": "Call classification models were underperforming at only 65% accuracy, limiting data trust and actionable insights.",
           "actions": [
-            "Acted as the technical program manager, partnering with Invoca's data science team to ensure new NLP models met Robert Half's requirements.",
-            "Conducted rigorous testing and analysis on a monthly cadence",
-			"Led the end-to-end configuration and management of the Invoca AI call intelligence platform.",
-            "Utilized SQL and Domo for performance analysis of the models",
-            "Presented three high-level recommendations to senior leadership that drove the accuracy improvements.",
-            "Authored detailed training guides and product documentation in Confluence and SharePoint, becoming the platform SME."
+            "Partnered with Invoca's data science team to ensure new NLP models met Robert Half's requirements.",
+            "Conducted rigorous testing and analysis on a monthly cadence using confusion matrix",
+			"Led the end-to-end configuration and management of the Invoca call intelligence platform.",
+            "Utilized SQL and Domo for performance analysis of the models and Presented three high-level recommendations to senior leadership that drove the model accuray improvements.",
+            "Authored detailed training guides and product documentation in Confluence and SharePoint, becoming the platform SME,and onboarded UX and Product teams."
           ],
           "outcomes": [
             { "metric": "65% to 90%", "description": "Increased model accuracy from 65% to 90%." },
