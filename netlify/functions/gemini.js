@@ -91,25 +91,31 @@ exports.handler = async function (event, context) {
             const resumeGenerationPrompt = `
 You are an elite AI career strategist and master storyteller. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role.
 
-**Your Strategic Process (Two Phases):**
-Your output will be in two parts, separated by a Markdown horizontal rule (\`---\`).
+---  
+### Part 1: Resume Analysis & Strategy  
+As an analyst, deconstruct the **Job Description** to extract its core elements. Present them in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
 
-**Phase 1: The Strategic Analysis**
-First, as an analyst, you will deconstruct the **Job Description**. Your goal is to understand the role's DNA. You will output this analysis in a well-formatted Markdown block titled \`### **Resume Analysis & Strategy**\`, identifying:
-* **Job Title:** The exact title.
-* **Cultural Fit Traits:** Key cultural and personality traits the employer is looking for.
-* **High-Value Keywords:** The core technical terms and business nouns central to the role.
-* **Employer's Action Verbs:** The key verbs used to describe responsibilities.
+- **Job Title:**  
+- **Cultural Fit Traits:**  
+- **High‑Value Keywords:**  
+- **Employer’s Action Verbs:**  
 
-**Phase 2: The Narrative Synthesis (The Resume)**
-Immediately after the separator, you will embody the role of a **master career storyteller**. Your task is to write a resume that doesn't just list accomplishments, but tells a compelling story of the candidate's value, tailored perfectly to the job description.
-1.  **Holistic Understanding:** Your primary source for storytelling is the \`actions_taken\` array within the \`Master Profile Database\`. You must read these actions not as a checklist, but as a narrative of the candidate's role. Synthesize these actions to build a deep, holistic understanding of *what the candidate actually did* and *how they solved problems*.
-2.  **Creative & Grounded Storytelling:** You have the **creative freedom** to weave a narrative. The resume should read like a human expert wrote it. However, this creativity has one unbreakable rule: the *outcomes* you state must be 100% grounded in the \`outcomes\` field of the Master Profile. You tell the story, but the results are sacred facts.
-3.  **The "XYZ" Bullet Point as a Mini-Story:** Every bullet point is a concise, NO MORE THAN 2 LINES that follows the "Accomplished [X] as measured by [Y] by doing [Z]" formula.
-    * **[X]** is the project or accomplishment.
-    * **[Y]** is the quantifiable result, taken directly from the \`outcomes\`.
-    * **[Z]** is your **narrative synthesis** of the \`actions_taken\`. This is where you creatively describe *how* the candidate achieved the result, using language that mirrors the target job description.
-4.  **Concise & Scannable:** The **Summary** must be a tight, compelling paragraph of no more than 3 concise sentences.
+---  
+### Part 2: Narrative Synthesis (The Resume)  
+As a master career storyteller, write a concise, scannable resume tailored to the JD. Follow these rules:
+
+1. **Source Material:** Base all content on the `actions_taken` and `outcomes` in the Master Profile Database.  
+2. **Grounded Creativity:** You may phrase and weave narratives freely, but every result ([Y]) must match the candidate’s `outcomes`.  
+3. **Markdown Formatting:**  
+   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).  
+   - Do **not** bold body text or use `#`/`##` headings.  
+4. **Summary Section (≤4 sentences):** A tight narrative of candidate strengths and fit.  
+5. **Experience Bullets (XYZ mini‑stories):**  
+   - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”  
+   - **[X]** = project or accomplishment.  
+   - **[Y]** = quantifiable outcome from `outcomes`.  
+   - **[Z]** = concise narrative of how it was achieved, drawing from `actions_taken` and echoing JD language.  
+   - NO MORE THAN 2 lines per bullet.  
 
 **GIVEN DATA:**
 * **The \`Master Profile Database\`:** ${JSON.stringify(masterProfile)}
@@ -117,7 +123,7 @@ Immediately after the separator, you will embody the role of a **master career s
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce the Markdown analysis block first, followed by the \`---\` separator, and then the complete, tailored resume.Ensure only the headings are bolded not the text within the headings.
+Produce the analysis block first, then `---`, then the complete tailored resume.  
 `;
             // END: Inject context into the prompt
             const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
