@@ -111,7 +111,7 @@ As a master career storyteller, write a concise, scannable resume tailored to th
    - **[X]** = project or accomplishment.
    - **[Y]** = quantifiable outcome from \`outcomes\`.
    - **[Z]** = concise narrative of how it was achieved, drawing from \`actions_taken\` and echoing JD language.
-   - NO MORE THAN 2 LINES per bullet.
+   - Concise, human reader friendly,NO MORE THAN 2 LINES per bullet.Avoid using filler words (Examples I, me, we, Worked, made, took, Overused buzzwords: Strategic, innovative, passionate, Repetitive phrases: "Managed," "responsible for", Adverbs: Efficiently, diligently, thoroughly, ETC.,) 
 4. **Markdown Formatting:**
    - Use **bold** for section headers only (e.g. **Summary**, **Experience**).
    - Do **not** bold body text or use \`#\`/\`##\` headings.
