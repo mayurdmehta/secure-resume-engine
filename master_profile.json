@@ -128,12 +128,7 @@
           "title": "Global Tax Automation Program",
           "problem": "An outdated Oracle EBTax module couldn't efficiently handle tax calculations for $1B in annual spend.",
           "actions": [
-            "Created all technical documentation in Confluence, Visio, and Lucid Chart.",
-            "Personally owned the configuration of the Thomson Reuters OneSource platform and partnered with development teams for its API integration with Oracle EBS R12.",
-			"Led a 7‑phase global SDLC for a 20+ member cross functional development and business teams",
-            "Translated international tax laws into BRDs, FRDs, and process flow diagrams.",
-            "Managed API integration with Oracle EBS R12, bridging technical and non‑technical stakeholders.",
-			"Managed project plans, risks, dependencies, status updates to senior leadership and stakeholders using Jira, MS Project and Smartsheet"
+            "When our manual tax‑calculation process strained under global complexity, I spearheaded an 18‑month, seven‑phase SDLC to deploy the Thomson Reuters OneSource SaaS platform for finance, purchasing, and tax teams across 30 markets. I led requirements‑gathering workshops with stakeholders worldwide, translating international tax laws and regional nuances into detailed process flows, BRDs, FRDs, and Confluence documentation. I owned OneSource configuration—defining tax engines, business‑rule sets, and data mappings—and partnered with development teams to integrate its APIs with Oracle EBS R12. I drove every SDLC phase: authoring UAT scripts, facilitating QA cycles, and delivering post‑deployment support. In parallel, I managed project plans, risks, and status updates for a 20+‑member cross‑functional team using Jira, MS Project, and Smartsheet. Post–go‑live, I collaborated with DevOps to triage bugs, lead root‑cause analyses, and prioritize fixes. The result: a fully automated, audit‑ready tax engine that eliminated manual calculations, accelerated filings, reduced compliance risk, and provided finance teams with real‑time visibility."
           ],
           "outcomes": [
             { "metric": "$4M in savings", "description": "Delivered $4M in savings." },
@@ -145,12 +140,7 @@
           "title": "Expense & Compliance Automation",
           "problem": "An on-premise Oracle expense module was inefficient and lacked automated compliance checks.",
           "actions": [
-            "Configured rules-based automation in SAP Concur and the AppZen AI engine.",
-            "Managed the API integration between Concur and Oracle EBS R12.",
-            "Developed the training, onboarding and change management plan to successfully onboard over 8,000 employees.",
-			"Integrated SAP Concur, Amex, Oracle EBS, and AppZen AI for automated compliance.",
-            "Partnered with Finance and Audit to map requirements and ensure SOX compliance.",
-            "Migrated 20+ BI reports from Oracle to Cognos and built new Cognos report studio dashboards."
+            "When our legacy Oracle iExpense module began to impede timely expense reporting and reconciliation, I led the initiative to migrate to SAP Concur and batch‑process integrations with Oracle Purchasing and Finance. As the Business Analyst, I collaborated with Finance, Procurement, and a third‑party implementation vendor to elicit and document end‑to‑end requirements, then authored detailed technical specifications covering data mappings, batch schedules, error‑handling rules, and SOX controls. I owned configuration within SAP Concur—designing rules‑based workflows to enforce policy—and extended Oracle EBS PO/AP/GL/AR modules to ingest and reconcile Concur data. I managed batch‑processing integrations, validating exports/imports and automating reconciliations to achieve complete alignment on spend, commitments, and accruals. To ensure quality, I defined the SDLC phases, developed UAT test scripts, facilitated QA cycles, and provided post‑deployment support. Partnering with DevOps, I triaged post‑production bugs, led root‑cause analyses, prioritized fixes, and verified resolutions. The result was a unified expense ecosystem—streamlined submission‑to‑payment, eliminated manual reconciliations, and delivered real‑time financial visibility across systems."
           ],
           "outcomes": [
             { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." },
