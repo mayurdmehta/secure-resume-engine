@@ -88,8 +88,7 @@ exports.handler = async function (event, context) {
         if (mode === 'generate') {
             const masterProfile = await getMasterProfile();
             // START: Inject context into the prompt
-            const resumeGenerationPrompt = `
-`You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
+            const resumeGenerationPrompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
 
 ---
 ### Part 1: Resume Analysis & Strategy
