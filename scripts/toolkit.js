@@ -6,29 +6,27 @@ let selectedEngine = 'gemini'; // Default to Gemini
 export function initToolkit() {
     // A single event listener manages all interactions within the toolkit.
     document.body.addEventListener('click', async (event) => {
+        const toolkitPage = document.getElementById('toolkit');
+        if (!toolkitPage || toolkitPage.classList.contains('hidden')) {
+            return; // Only run if the toolkit page is active
+        }
+
         const button = event.target.closest('button');
         if (!button) return;
 
         // --- Handle AI Engine Selector Clicks ---
         if (button.classList.contains('engine-selector-btn')) {
-            // First, remove the 'active' class from all engine selector buttons
+            selectedEngine = button.dataset.engine;
+            
+            // Update the UI to show which engine is active
             document.querySelectorAll('.engine-selector-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // Then, add the 'active' class to the specific button that was clicked
             button.classList.add('active');
-            
-            // Update the selected engine variable
-            selectedEngine = button.dataset.engine;
             return; // Exit after handling the selector change
         }
 
-        // --- Handle All Other Toolkit Buttons ONLY if the page is visible ---
-        const toolkitPage = document.getElementById('toolkit');
-        if (!toolkitPage || toolkitPage.classList.contains('hidden')) {
-            return; // Only run the logic below if the toolkit page is active
-        }
-
+        // --- Handle Generation Button Clicks ---
         const generationModes = {
             'generateResumeBtn': 'generate',
             'coverLetterBtn': 'coverLetter',
@@ -199,4 +197,5 @@ function copyToClipboard() {
         showError("Failed to copy text.");
     }
     document.body.removeChild(textArea);
+	}
 }
