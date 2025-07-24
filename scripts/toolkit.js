@@ -1,30 +1,60 @@
 import { callBackend } from './api.js';
 
+// This variable will hold the currently selected AI engine.
+let selectedEngine = 'gemini'; // Default to Gemini
+
 export function initToolkit() {
+    // A single event listener manages all interactions within the toolkit.
     document.body.addEventListener('click', async (event) => {
         const toolkitPage = document.getElementById('toolkit');
         if (!toolkitPage || toolkitPage.classList.contains('hidden')) {
-            return;
+            return; // Only run if the toolkit page is active
         }
 
-        const targetId = event.target.closest('button')?.id;
+        const button = event.target.closest('button');
+        if (!button) return;
 
-        if (['generateBtn', 'coverLetterBtn', 'generateLinkedinBtn', 'interviewPrepBtn'].includes(targetId)) {
-            const mode = targetId.replace('Btn', '');
-            await handleApiCall(mode);
-        } else if (targetId === 'copyBtn') {
+        // --- Handle AI Engine Selector Clicks ---
+        if (button.classList.contains('engine-selector-btn')) {
+            selectedEngine = button.dataset.engine;
+            
+            // Update the UI to show which engine is active
+            document.querySelectorAll('.engine-selector-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            return; // Exit after handling the selector change
+        }
+
+        // --- Handle Generation Button Clicks ---
+        const generationModes = {
+            'generateResumeBtn': 'generate',
+            'coverLetterBtn': 'coverLetter',
+            'generateLinkedinBtn': 'generateLinkedin',
+            'interviewPrepBtn': 'interviewPrep'
+        };
+
+        const mode = generationModes[button.id];
+        
+        if (mode) {
+            // Pass the determined mode to the central API handler
+            await handleApiCall(mode); 
+        } else if (button.id === 'copyBtn') {
             copyToClipboard();
         }
     });
 }
 
+/**
+ * Handles all API calls by gathering data, setting loading states,
+ * and passing the selected engine to the backend.
+ * @param {string} mode - The type of content to generate (e.g., 'generate', 'coverLetter').
+ */
 async function handleApiCall(mode) {
     const jobDescription = document.getElementById('jobDescription').value;
-    // START: Get additional context
     const additionalContext = document.getElementById('additionalContext').value;
-    // END: Get additional context
 
-    if (!jobDescription.trim()) {
+    if (mode !== 'interviewPrep' && !jobDescription.trim()) {
         showError("Please paste a job description.");
         return;
     }
@@ -32,7 +62,7 @@ async function handleApiCall(mode) {
     let resumeTextForFeatures = "";
     if (mode === 'interviewPrep') {
         resumeTextForFeatures = document.getElementById('resumeOutput').innerText;
-        if (!resumeTextForFeatures.trim() || !resumeTextForFeatures.includes('Professional Experience')) {
+        if (!resumeTextForFeatures.trim() || !resumeTextForFeatures.includes('Summary')) {
             showError("Please generate a resume first to provide context for interview prep.");
             return;
         }
@@ -42,9 +72,8 @@ async function handleApiCall(mode) {
     }
 
     try {
-        // START: Pass additional context to the backend
-        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures, '', additionalContext);
-        // END: Pass additional context to the backend
+        // The selectedEngine is now passed to the backend call
+        const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures, '', additionalContext, selectedEngine);
 
         if (mode === 'interviewPrep') {
             document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
@@ -65,7 +94,9 @@ async function handleApiCall(mode) {
         try {
             const parsedError = JSON.parse(error.message);
             if(parsedError.error) errorMessage = parsedError.error;
-        } catch(e) { /* Ignore parsing errors */ }
+        } catch(e) { 
+            errorMessage = error.message;
+        }
 
         if (mode === 'interviewPrep') {
              document.getElementById('modalBody').innerHTML = `<p class="text-red-400">${errorMessage}</p>`;
@@ -81,17 +112,18 @@ async function handleApiCall(mode) {
 }
 
 function setLoading(isLoading) {
-    const generateBtn = document.getElementById('generateBtn');
-    const coverLetterBtn = document.getElementById('coverLetterBtn');
-    const linkedInBtn = document.getElementById('generateLinkedinBtn');
+    const allButtons = document.querySelectorAll('#toolkit button');
     const resumeOutput = document.getElementById('resumeOutput');
     const loader = document.getElementById('loader');
     const errorMessageDiv = document.getElementById('error-message');
     const nextSteps = document.getElementById('nextSteps');
 
-    if(generateBtn) generateBtn.disabled = isLoading;
-    if(coverLetterBtn) coverLetterBtn.disabled = isLoading;
-    if(linkedInBtn) linkedInBtn.disabled = isLoading;
+    allButtons.forEach(button => {
+        // Disable all buttons except the copy and engine selector buttons
+        if(button.id !== 'copyBtn' && !button.classList.contains('engine-selector-btn')) {
+            button.disabled = isLoading;
+        }
+    });
 
     if (isLoading) {
         if(resumeOutput) resumeOutput.classList.add('hidden');

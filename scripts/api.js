@@ -1,16 +1,15 @@
-// START: Updated function signature to include additionalContext
-export async function callBackend(mode, jobDescription = '', resumeText = '', userQuery = '', additionalContext = '') {
-// END: Updated function signature
+export async function callBackend(mode, jobDescription = '', resumeText = '', userQuery = '', additionalContext = '', engine = 'gemini') {
     try {
-        const backendUrl = `${window.location.origin}/.netlify/functions/gemini`;
+        // The backend function is now a generic "ai-router"
+        const backendUrl = `${window.location.origin}/.netlify/functions/gemini`; 
+        
         const payload = {
             mode,
             jobDescription,
             resumeText,
             userQuery,
-            // START: Add additionalContext to payload
-            additionalContext
-            // END: Add additionalContext to payload
+            additionalContext,
+            engine // Pass the selected engine to the backend
         };
 
         const response = await fetch(backendUrl, {
@@ -20,7 +19,14 @@ export async function callBackend(mode, jobDescription = '', resumeText = '', us
         });
 
         if (!response.ok) {
-            throw new Error(`API request failed: ${response.statusText}`);
+            const errorText = await response.text();
+            // Try to parse the error text as JSON, otherwise use the raw text
+            try {
+                const errorJson = JSON.parse(errorText);
+                throw new Error(errorJson.error || `API request failed: ${response.statusText}`);
+            } catch (e) {
+                throw new Error(errorText || `API request failed: ${response.statusText}`);
+            }
         }
         return await response.text();
 

@@ -28,10 +28,9 @@ async function getChatbotProfile() {
     }
 }
 
-
 // --- HELPER FUNCTION TO CALL THE GEMINI API ---
 async function callGeminiAPI(apiKey, prompt) {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
     const payload = {
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         safetySettings: [
@@ -41,54 +40,85 @@ async function callGeminiAPI(apiKey, prompt) {
             { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
         ],
     };
-
     const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
-
     if (!response.ok) {
         const errorBody = await response.text();
         console.error("Gemini API Error:", errorBody);
-        throw new Error(`Error from Gemini API with status: ${response.status}`);
+        throw new Error(`Error from Gemini API: ${errorBody}`);
     }
-
     const result = await response.json();
-
     if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
         return result.candidates[0].content.parts[0].text;
     } else {
-        console.error("API Response did not contain valid candidates:", JSON.stringify(result, null, 2));
-        throw new Error('The AI model returned an empty or invalid response.');
+        throw new Error('The Gemini model returned an empty or invalid response.');
     }
 }
 
-// --- SERVERLESS FUNCTION HANDLER ---
+// --- HELPER FUNCTION TO CALL THE OPENAI API ---
+async function callChatGPTAPI(apiKey, prompt) {
+    const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const payload = {
+        model: "gpt-4o",
+        messages: [{ role: "user", content: prompt }],
+    };
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error("OpenAI API Error:", errorBody);
+        throw new Error(`Error from OpenAI API: ${errorBody}`);
+    }
+    const result = await response.json();
+    if (result.choices && result.choices[0] && result.choices[0].message) {
+        return result.choices[0].message.content;
+    } else {
+        throw new Error('The ChatGPT model returned an empty or invalid response.');
+    }
+}
+
+
+// --- MAIN SERVERLESS FUNCTION HANDLER ---
 exports.handler = async function (event, context) {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
     try {
-        // START: Destructure additionalContext from the request body
-        const { mode, jobDescription, resumeText, userQuery, additionalContext } = JSON.parse(event.body);
-        // END: Destructure additionalContext
-        const apiKey = process.env.GEMINI_API_KEY;
+        const { 
+            mode, 
+            jobDescription, 
+            resumeText, 
+            userQuery, 
+            additionalContext, 
+            engine = 'gemini' // Default to gemini if not provided
+        } = JSON.parse(event.body);
+        
+        const apiKey = engine === 'chatgpt' 
+            ? process.env.OPENAI_API_KEY 
+            : process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
-            throw new Error("API key is not configured.");
+            throw new Error(`API key for the selected engine (${engine}) is not configured.`);
         }
         
-        // START: Create a reusable context string to be injected into prompts
         const contextInjection = additionalContext ? `\n\n**Additional User-Provided Context to Emphasize:**\n\`\`\`${additionalContext}\`\`\`` : '';
-        // END: Create a reusable context string
-
-        // --- RESUME GENERATION MODE ---
-        if (mode === 'generate') {
-            const masterProfile = await getMasterProfile();
-            // START: Inject context into the prompt
-            const resumeGenerationPrompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
+        
+        let prompt;
+        // All prompts are now defined here, in one place.
+        switch (mode) {
+            case 'generate':
+                const masterProfileForResume = await getMasterProfile();
+                prompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
 
 ---
 ### Part 1: Resume Analysis & Strategy
@@ -120,18 +150,11 @@ As a master career storyteller, your second step is to write a concise, scannabl
 - Context Injection: \`${contextInjection}\`
 
 Produce the analysis block first, then \`---\`, then the complete tailored resume.
-`;
-            // END: Inject context into the prompt
-            const finalResume = await callGeminiAPI(apiKey, resumeGenerationPrompt);
-            return { statusCode: 200, body: finalResume };
-        }
-
-        // --- COVER LETTER GENERATION MODE ---
-        if (mode === 'coverLetter') {
-            const masterProfile = await getMasterProfile();
-            // START: Inject context into the prompt
-            const coverLetterPrompt = `
-You are an expert career coach writing a cover letter for a client. Your task is to create a compelling, professional, and human-sounding cover letter based on the client's full professional history, a target job description, and any specific instructions provided in the additional context.
+`; // Your full resume prompt here
+                break;
+            case 'coverLetter':
+                const masterProfileForCL = await getMasterProfile();
+                prompt = `You are an expert career coach writing a cover letter for a client. Your task is to create a compelling, professional, and human-sounding cover letter based on the client's full professional history, a target job description, and any specific instructions provided in the additional context.
 
 **CRITICAL RULES:**
 1.  **Strict Grounding:** Base the letter entirely on the facts provided in the \`Master Profile Database\`. Do not invent or embellish any details.
@@ -147,19 +170,11 @@ You are an expert career coach writing a cover letter for a client. Your task is
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the complete, tailored cover letter.
-`;
-            // END: Inject context into the prompt
-            const finalCoverLetter = await callGeminiAPI(apiKey, coverLetterPrompt);
-            return { statusCode: 200, body: finalCoverLetter };
-        }
-        
-        // --- LINKEDIN MESSAGE GENERATION MODE ---
-        if (mode === 'generateLinkedin') {
-            const masterProfile = await getMasterProfile();
-            // START: Inject context into the prompt
-            const linkedinMessagePrompt = `
-You are a world-class career strategist and networking expert, ghostwriting a LinkedIn InMail message. Your goal is to create an exceptionally concise and impactful message that positions the candidate as the clear solution to the hiring manager's problem.
+Produce only the complete, tailored cover letter.`; // Your full cover letter prompt here
+                break;
+            case 'generateLinkedin':
+                 const masterProfileForLI = await getMasterProfile();
+                prompt = `You are a world-class career strategist and networking expert, ghostwriting a LinkedIn InMail message. Your goal is to create an exceptionally concise and impactful message that positions the candidate as the clear solution to the hiring manager's problem.
 
 **CRITICAL RULES:**
 1.  **Output Format:** Your final output MUST be plain text. It must start with "Subject: " followed by the subject line, a double newline, and then the message body followed by a closing.
@@ -198,18 +213,11 @@ You are a world-class career strategist and networking expert, ghostwriting a Li
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
-Produce only the tailored text in the specified format, adhering to all rules.
-`;
-            // END: Inject context into the prompt
-            const finalMessage = await callGeminiAPI(apiKey, linkedinMessagePrompt);
-            return { statusCode: 200, body: finalMessage };
-        }
-
-        // --- CHATBOT MODE ---
-        if (mode === 'chatbot') {
-            const chatbotProfile = await getChatbotProfile();
-            const chatbotPrompt = `
-You are an AI Career Advocate for Mayur Mehta. Your purpose is to engage with recruiters and hiring managers in a way that is insightful, compelling, and authentically represents Mayur's professional story and capabilities. You are a friendly, professional, and highly intelligent conversationalist.
+Produce only the tailored text in the specified format, adhering to all rules.`; // Your full LinkedIn prompt here
+                break;
+            case 'chatbot':
+                const chatbotProfile = await getChatbotProfile();
+                prompt = `You are an AI Career Advocate for Mayur Mehta. Your purpose is to engage with recruiters and hiring managers in a way that is insightful, compelling, and authentically represents Mayur's professional story and capabilities. You are a friendly, professional, and highly intelligent conversationalist.
 
 **CONTEXT:**
 * **Your Knowledge Base:** The \`Chatbot Profile Database\` below contains all the information you are permitted to use.
@@ -235,34 +243,44 @@ You will now answer the user's question.
 - **DO NOT** narrate your thought process or mention that you are following rules.
 - **DO** respond directly to the user's question in a conversational manner, adhering to all rules above.
 
-Your response begins now:
-`;
-            const responseText = await callGeminiAPI(apiKey, chatbotPrompt);
-            return { statusCode: 200, body: responseText };
-        }
-
-
-        // --- INTERVIEW PREP MODE ---
-        if (mode === 'interviewPrep') {
-             const interviewPrepPrompt = `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions that probe for specific examples of the candidate's skills and experience. The questions should be open-ended and designed to elicit detailed responses.
+Your response begins now:`; // Your full chatbot prompt here
+                break;
+            case 'interviewPrep':
+                prompt = `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions that probe for specific examples of the candidate's skills and experience. The questions should be open-ended and designed to elicit detailed responses.
 
              **Job Description:**
              \`\`\`${jobDescription}\`\`\`
 
              **Candidate's Resume:**
              \`\`\`${resumeText}\`\`\`
-             `;
-             const resultText = await callGeminiAPI(apiKey, interviewPrepPrompt);
-             return { statusCode: 200, body: resultText };
+             `; // Your full interview prep prompt here
+                break;
+            default:
+                throw new Error('Invalid mode provided.');
         }
 
-        return { statusCode: 400, body: 'Invalid mode provided.' };
+        let resultText;
+        if (engine === 'chatgpt') {
+            resultText = await callChatGPTAPI(apiKey, prompt);
+        } else {
+            resultText = await callGeminiAPI(apiKey, prompt);
+        }
+        
+        if (mode === 'generate') {
+            const resumeStartMarker = '---';
+            const resumeIndex = resultText.indexOf(resumeStartMarker);
+            if (resumeIndex !== -1) {
+                resultText = resultText.substring(resumeIndex + resumeStartMarker.length).trim();
+            }
+        }
+
+        return { statusCode: 200, body: resultText };
 
     } catch (error) {
         console.error('Function Error:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message || 'An internal error occurred.' }),
+            body: JSON.stringify({ error: error.message || 'An internal server error occurred.' }),
         };
     }
 };

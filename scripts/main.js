@@ -4,7 +4,6 @@ import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
 // The HTML content for all pages is stored in this template literal.
-// The static <header> has been removed as it lives permanently in index.html.
 const pageTemplates = `
 <div id="pages-container">
     <div id="home" class="page">
@@ -17,8 +16,8 @@ const pageTemplates = `
                     <div class="md:col-span-2 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Delivering Scalable Solutions in AI, Automation and Business Systems </h1>
                         <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto md:mx-0 mb-8">
-                        </p>
                             Hi, I'm Mayur—a technical program manager and builder passionate about turning ambitious ideas into scalable reality. From delivering automation solutions impacting $1B in annual transactions at the enterprise level to building AI-powered solutions from the ground up, I specialize in bridging business vision with technical execution. I lead cross-functional teams to design, launch, and continuously improve high-impact programs across analytics, AI, enterprise applications, and operations.
+                        </p>
                     </div>
                 </div>
                 <div class="mt-16 md:mt-20 text-center">
@@ -216,16 +215,25 @@ const pageTemplates = `
                     <textarea id="additionalContext" class="w-full h-32 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200" placeholder="e.g., Mention my passion for data visualization, address the cover letter to Jane Doe, or highlight my startup experience..."></textarea>
                 </div>
 
-                <div class="flex space-x-4 mt-4">
-                    <button id="generateBtn" class="flex-1 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:from-gray-600 disabled:to-gray-700 disabled:shadow-none">
+                <!-- AI Engine Selector -->
+                <div class="mt-6">
+                    <label class="block text-lg font-semibold text-white mb-3 text-center">Select AI Engine</label>
+                    <div id="engine-selector" class="flex w-full bg-gray-900 border border-gray-700 rounded-lg p-1">
+                        <button class="engine-selector-btn flex-1 p-2 rounded-md transition-colors duration-300 active" data-engine="gemini">Gemini</button>
+                        <button class="engine-selector-btn flex-1 p-2 rounded-md transition-colors duration-300" data-engine="chatgpt">ChatGPT</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <button id="generateResumeBtn" class="col-span-2 bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-brand-primary transition-all duration-200 flex items-center justify-center disabled:bg-gray-600 disabled:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
                         Generate Resume
                     </button>
-                    <button id="coverLetterBtn" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
+                    <button id="coverLetterBtn" class="bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-green-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-600 disabled:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                         Generate Cover Letter
                     </button>
-                    <button id="generateLinkedinBtn" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-400">
+                    <button id="generateLinkedinBtn" class="bg-sky-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-sky-500 transition-all duration-200 flex items-center justify-center disabled:bg-gray-600 disabled:opacity-50">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         LinkedIn Message
                     </button>
