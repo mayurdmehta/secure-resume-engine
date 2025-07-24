@@ -30,7 +30,8 @@ async function getChatbotProfile() {
 
 // --- HELPER FUNCTION TO CALL THE GEMINI API ---
 async function callGeminiAPI(apiKey, prompt) {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    // FIX: Updated the model name to 'gemini-2.0-flash'.
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
     const payload = {
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         safetySettings: [
@@ -54,10 +55,11 @@ async function callGeminiAPI(apiKey, prompt) {
     if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
         return result.candidates[0].content.parts[0].text;
     } else {
-        throw new Error('The Gemini model returned an empty or invalid response.');
+        // Provide more detailed error logging if the response structure is unexpected
+        console.error("Unexpected Gemini API response structure:", JSON.stringify(result, null, 2));
+        throw new Error('The Gemini model returned an invalid response structure.');
     }
 }
-
 // --- HELPER FUNCTION TO CALL THE OPENAI API ---
 async function callChatGPTAPI(apiKey, prompt) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
@@ -134,7 +136,7 @@ As a master career storyteller, your second step is to write a concise, scannabl
 
 1.  **Holistic Understanding:** Your source material is the \`master_profile\`. First, read the \`problem\` and detailed \`actions\` for each project to build a deep, contextual understanding of the candidate's story and capabilities.
 2.  **Creative Synthesis:** Use the context from Step 1 and your understanding from the \`master_profile\` to creatively draft a compelling narrative of the candidate's experience. This narrative must mirror the job description's language and weave in the \`High-Value Keywords\` naturally, avoiding filler words.
-3.  **Summary (3 Sentences):** Create a tight, compelling summary of upto 3 sentences. Weave in the target job title and company name naturally into the summary.
+3.  **Summary (3 Sentences):** Create a tight, compelling summary of upto 3 sentences. Weave in the target job title and target company name naturally into the summary. Ensure summary is human reader friendly.
 4.  **Experience & Bullet Points:**
     * **XYZ Format:** Every bullet point must be a concise, human friendly narrative of up to 2 lines, following the "Accomplished [X] as measured by [Y] by doing [Z]" format. Prioritize action verbs from the job description to start the bullet point.
 	* **Relevance is Key:** Allocate up to 6 bullet points for each professional experience section (e.g., for each company) based on how relevant the candidate's experience are to the target job description.
