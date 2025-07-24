@@ -120,7 +120,7 @@ exports.handler = async function (event, context) {
         switch (mode) {
             case 'generate':
                 const masterProfileForResume = await getMasterProfile();
-                prompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
+                prompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience.
 
 ---
 ### Part 1: Resume Analysis & Strategy
@@ -143,7 +143,7 @@ As a master career storyteller, your second step is to write a concise, scannabl
     * **Splitting Stories:** If a single project story from the \`master_profile\` is highly relevant, you have the creative freedom to extract multiple distinct accomplishments from it, creating several targeted bullet points.
     * **Technical Depth:** Where appropriate, weave in specific technical details from the \`actions\` to demonstrate depth.
     * **Grounded Results:** The \`[Y]\` (the result) MUST be 100% grounded in the \`outcomes\` from the \`master_profile\`.
-5.  **Markdown Formatting:** Use **bold** for section headers only (e.g., **Summary**, **Experience**). Do **not** bold body text or use \`#\`/\`##\` headings.
+5.  **Markdown Formatting:** Use **bold** for section headers only (e.g., **Summary**, **Experience**). Do **not** bold body text or use \`#\`/\`##\` headings within sections.
 
 **Inputs:**
 - Master Profile Database: \`${JSON.stringify(masterProfileForResume)}\`
@@ -151,7 +151,7 @@ As a master career storyteller, your second step is to write a concise, scannabl
   \`\`\`${jobDescription}\`\`\`
 - Context Injection: \`${contextInjection}\`
 
-Produce the analysis block first, then \`---\`, then the complete tailored resume.
+Produce the analysis block first, then \`---\`, then the complete tailored resume. You MUST ensure adherence to the process outlined in Part 1 and Part 2.
 `;
                 break;
             case 'coverLetter':
