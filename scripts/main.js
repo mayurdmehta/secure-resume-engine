@@ -376,11 +376,15 @@ function loadPageContent() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(pageTemplates, 'text/html');
 
-    // The parsed content is inside the body of the new document fragment.
-    const templateBody = doc.body;
+    // Find the style tag within the parsed template
+    const styleTag = doc.querySelector('style');
+    if (styleTag) {
+        // Move the styles to the document's head, which also removes it from the parsed doc's body
+        document.head.appendChild(styleTag);
+    }
 
-    // Append all top-level nodes from the template (style, divs, etc.)
-    // directly to the live document's body.
+    // Now, append the rest of the content (the divs) to the live body
+    const templateBody = doc.body;
     while (templateBody.firstChild) {
         document.body.appendChild(templateBody.firstChild);
     }
