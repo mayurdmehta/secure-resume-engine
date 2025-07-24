@@ -89,32 +89,30 @@ exports.handler = async function (event, context) {
             const masterProfile = await getMasterProfile();
             // START: Inject context into the prompt
             const resumeGenerationPrompt = `
-You are an elite AI career strategist and master storyteller. Your mission is to create a 'mirror resume' that is so perfectly tailored it feels like it was written by a human expert specifically for the target role.
+`You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience. Your output must have two parts, separated by a Markdown horizontal rule (---).
 
 ---
 ### Part 1: Resume Analysis & Strategy
-As an analyst, deconstruct the **Job Description** to extract its core elements. Present them in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
+As an analyst, your first step is to thoroughly understand the problem statement from the **Job Description**. Deconstruct it to extract its core elements and load them into your context. Present this analysis in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
 
 - **Job Title:**
 - **Cultural Fit Traits:**
 - **High-Value Keywords:**
-- **Employer’s Action Verbs:**
 
 ---
 ### Part 2: Narrative Synthesis (The Resume)
-As a master career storyteller, write a concise, scannable resume tailored to the JD. Follow these rules:
+As a master career storyteller, your second step is to write a concise, scannable resume that perfectly mirrors the job description. Follow these rules:
 
-1. **Grounded Creativity:** Phrase and weave narratives freely by building holistic context from \'actions_taken\`; Every result ([Y]) must match the candidate’s \`outcomes\`.Incorporate your analysis from Part 1 into your narrative for a more personalized and tailored resume.
-2. **Summary Section (≤3 sentences):** A tight narrative of candidate strengths and fit from **Job Description**
-3. **Experience Bullets (XYZ mini-stories):**
-   - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”
-   - **[X]** = project or accomplishment.
-   - **[Y]** = quantifiable outcome from \`outcomes\`.
-   - **[Z]** = concise narrative of how it was achieved, drawing from \`actions_taken\` and echoing JD language.
-   - Concise, human reader friendly,NO MORE THAN 2 LINES per bullet.Avoid using filler words (Examples I, me, we, Worked, made, took, Overused buzzwords: Strategic, innovative, passionate, Repetitive phrases: "Managed," "responsible for", Adverbs: Efficiently, diligently, thoroughly, ETC.,) 
-4. **Markdown Formatting:**
-   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).
-   - Do **not** bold body text or use \`#\`/\`##\` headings.
+1.  **Holistic Understanding:** Your source material is the \`master_profile\`. First, read the \`problem\` and detailed \`actions\` for each project to build a deep, contextual understanding of the candidate's story and capabilities.
+2.  **Creative Synthesis:** Use the context from Step 1 and your understanding from the \`master_profile\` to creatively draft a compelling narrative of the candidate's experience. This narrative must mirror the job description's language and weave in the \`High-Value Keywords\` naturally, avoiding filler words.
+3.  **Summary (3 Sentences):** Create a tight, compelling summary of upto 3 sentences. Weave in the target job title and company name naturally into the summary.
+4.  **Experience & Bullet Points:**
+    * **Relevance is Key:** Allocate up to 6 bullet points for each professional experience section (e.g., for each company) based on how relevant the candidate's experience are to the target job description.
+    * **Splitting Stories:** If a single project story from the \`master_profile\` is highly relevant, you have the creative freedom to extract multiple distinct accomplishments from it, creating several targeted bullet points.
+    * **XYZ Format:** Every bullet point must be a concise story of up to 2 lines, following the "Accomplished [X] as measured by [Y] by doing [Z]" format.
+    * **Technical Depth:** Where appropriate, weave in specific technical details from the \`actions\` to demonstrate depth.
+    * **Grounded Results:** The \`[Y]\` (the result) MUST be 100% grounded in the \`outcomes\` from the \`master_profile\`.
+5.  **Markdown Formatting:** Use **bold** for section headers only (e.g., **Summary**, **Experience**). Do **not** bold body text or use \`#\`/\`##\` headings.
 
 **Inputs:**
 - Master Profile Database: \`${JSON.stringify(masterProfile)}\`
