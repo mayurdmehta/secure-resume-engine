@@ -373,8 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
  * Injects the page templates into the main containers in index.html.
  */
 function loadPageContent() {
-    const pageContent = document.getElementById('page-content');
-    const modalContainer = document.getElementById('modal-container');
+    // Corrected to look for the IDs that actually exist in the template string
+    const pageContent = document.getElementById('pages-container'); 
+    const modalContainer = document.getElementById('modals-container');
     const chatbotContainer = document.getElementById('chatbot-container');
 
     const parser = new DOMParser();
@@ -386,12 +387,13 @@ function loadPageContent() {
     const chatbotContent = doc.getElementById('chatbot-container');
 
     // Inject the content into the correct placeholders in index.html
-    if (pagesContainer) {
+    if (pagesContainer && pageContent) {
         pageContent.innerHTML = pagesContainer.innerHTML;
     }
-    if (modalsContainer) {
+    if (modalsContainer && modalContainer) {
         modalContainer.innerHTML = modalsContainer.innerHTML;
     }
-    if (chatbotContent) {
+    if (chatbotContent && chatbotContainer) {
         chatbotContainer.innerHTML = chatbotContent.innerHTML;
     }
+}
