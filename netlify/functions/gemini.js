@@ -104,18 +104,17 @@ As an analyst, deconstruct the **Job Description** to extract its core elements.
 ### Part 2: Narrative Synthesis (The Resume)
 As a master career storyteller, write a concise, scannable resume tailored to the JD. Follow these rules:
 
-1. **Source Material:** Base all content on the \`actions_taken\` and \`outcomes\` in the Master Profile Database.
-2. **Grounded Creativity:** You may phrase and weave narratives freely, but every result ([Y]) must match the candidate’s \`outcomes\`.Incorporate your analysis from Part 1 into your narrative for a more personalized and tailored resume.
-3. **Markdown Formatting:**
-   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).
-   - Do **not** bold body text or use \`#\`/\`##\` headings.
-4. **Summary Section (≤3 sentences):** A tight narrative of candidate strengths and fit.
-5. **Experience Bullets (XYZ mini-stories):**
+1. **Grounded Creativity:** Build holistic context, phrase and weave narratives freely from \'actions_taken\`, and every result ([Y]) must match the candidate’s \`outcomes\`.Incorporate your analysis from Part 1 into your narrative for a more personalized and tailored resume.
+2. **Summary Section (≤3 sentences):** A tight narrative of candidate strengths and fit from **Job Description**
+3. **Experience Bullets (XYZ mini-stories):**
    - Format: “Accomplished **[X]** as measured by **[Y]** by **[Z]**.”
    - **[X]** = project or accomplishment.
    - **[Y]** = quantifiable outcome from \`outcomes\`.
    - **[Z]** = concise narrative of how it was achieved, drawing from \`actions_taken\` and echoing JD language.
-   - One sentence per bullet.
+   - NO MORE THAN 2 LINES per bullet.
+4. **Markdown Formatting:**
+   - Use **bold** for section headers only (e.g. **Summary**, **Experience**).
+   - Do **not** bold body text or use \`#\`/\`##\` headings.
 
 **Inputs:**
 - Master Profile Database: \`${JSON.stringify(masterProfile)}\`
