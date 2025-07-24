@@ -197,3 +197,4 @@ function copyToClipboard() {
         showError("Failed to copy text.");
     }
     document.body.removeChild(textArea);
+}
