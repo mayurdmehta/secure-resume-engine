@@ -30,7 +30,6 @@ async function getChatbotProfile() {
 
 // --- HELPER FUNCTION TO CALL THE GEMINI API ---
 async function callGeminiAPI(apiKey, prompt) {
-    // FIX: Updated the model name to 'gemini-2.0-flash'.
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
     const payload = {
         contents: [{ role: "user", parts: [{ text: prompt }] }],
@@ -55,7 +54,6 @@ async function callGeminiAPI(apiKey, prompt) {
     if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
         return result.candidates[0].content.parts[0].text;
     } else {
-        // Provide more detailed error logging if the response structure is unexpected
         console.error("Unexpected Gemini API response structure:", JSON.stringify(result, null, 2));
         throw new Error('The Gemini model returned an invalid response structure.');
     }
@@ -113,16 +111,18 @@ exports.handler = async function (event, context) {
             throw new Error(`API key for the selected engine (${engine}) is not configured.`);
         }
         
-        const contextInjection = additionalContext ? `\n\n**Additional User-Provided Context to Emphasize:**\n\`\`\`${additionalContext}\`\`\`` : '';
+        const contextInjection = additionalContext ? `\n\n**Additional User-Provided Context to Emphasize:**\n\\\`\\\`\\\`${additionalContext}\\\`\\\`\\\`` : '';
         
         let prompt;
         
         switch (mode) {
             case 'generate':
                 const masterProfileForResume = await getMasterProfile();
+                // FIX: Escaped all literal backticks (`) with a backslash (\`) to prevent a syntax error.
+                // FIX: Corrected the variable name from masterProfile to masterProfileForResume.
                 prompt = `You are a world-class resume writer and an elite Career Strategist. Your speciality is to create FAANG-caliber mirror resumes. 
 
-Your mission is to leverage the provided \`Job Description\` to extract core requirements, then mine the \`Master Profile Database\` to craft a tailored, human-friendly resume that:
+Your mission is to leverage the provided \\\`Job Description\\\` to extract core requirements, then mine the \\\`Master Profile Database\\\` to craft a tailored, human-friendly resume that:
 - Mirrors the role’s keywords, tone, and cultural traits.
 - Selects the most impactful stories and quantifiable results.
 - **Critically MUST** structure each bullet in the "Accomplished [X] by [Y] as measured by [Z]" format.
@@ -146,13 +146,13 @@ First, analyze the inputs and produce a strategy report. Present this as a Markd
 #### Part 2: Narrative Synthesis (The Resume)
 After your analysis, you will write the complete resume based on the following rules.
 
-- **Header & Contact:** Copy verbatim from the \`Master Profile Database\`.
+- **Header & Contact:** Copy verbatim from the \\\`Master Profile Database\\\`.
 - **Summary (3–4 sentences):**
     - Mirror the JD tone, weaving in the Job Title and Company.
     - Highlight the top 2–3 achievements with quantified outcomes.
     - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven"). Show, don't tell.
 - **Experience (for each role in JSON):**
-    - **Relevance Filter:** Prioritize stories from the \`Master Profile Database\` that are most aligned with the JD.
+    - **Relevance Filter:** Prioritize stories from the \\\`Master Profile Database\\\` that are most aligned with the JD.
     - **Bullet Structure:** "Accomplished [X] by [Y] as measured by [Z]".
     - **Bullet Rules:** Each bullet must be 2 lines or less. Use up to 6 bullets per company. You may create multiple bullets from a single project if it is highly relevant.
     - **Technical Depth & Keywords:** Integrate relevant skills and jargon naturally.
@@ -161,13 +161,13 @@ After your analysis, you will write the complete resume based on the following r
     - List skills in the order of importance inferred from the JD.
 
 **Inputs:**
-- Master Profile Database: \`${JSON.stringify(masterProfile)}\`
+- Master Profile Database: \\\`${JSON.stringify(masterProfileForResume)}\\\`
 - Job Description:
-  \`\`\`${jobDescription}\`\`\`
-- Context Injection: \`${contextInjection}\`
+  \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
+- Context Injection: ${contextInjection}
 
 First, output the complete **JD Analysis & Strategy** block.
-Then, output a `---` separator on its own line.
+Then, output a \`---\` separator on its own line.
 Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
 `;
                 break;
@@ -176,16 +176,16 @@ Finally, output the complete, final resume in Markdown, starting from the candid
                 prompt = `You are an expert career coach writing a cover letter for a client. Your task is to create a compelling, professional, and human-sounding cover letter based on the client's full professional history, a target job description, and any specific instructions provided in the additional context.
 
 **CRITICAL RULES:**
-1.  **Strict Grounding:** Base the letter entirely on the facts provided in the \`Master Profile Database\`. Do not invent or embellish any details.
-2.  **Highlight Reel, Not a Summary:** Do not simply summarize the resume. Instead, select the 2-3 most impactful projects or accomplishments from the Master Profile that directly align with the core needs of the Job Description and any points in the \`Additional User-Provided Context\`. Build a narrative around them.
-3.  **Tone Matching:** The tone of the cover letter MUST mirror the professional tone of the \`Job Description\`.
+1.  **Strict Grounding:** Base the letter entirely on the facts provided in the \\\`Master Profile Database\\\`. Do not invent or embellish any details.
+2.  **Highlight Reel, Not a Summary:** Do not simply summarize the resume. Instead, select the 2-3 most impactful projects or accomplishments from the Master Profile that directly align with the core needs of the Job Description and any points in the \\\`Additional User-Provided Context\\\`. Build a narrative around them.
+3.  **Tone Matching:** The tone of the cover letter MUST mirror the professional tone of the \\\`Job Description\\\`.
 4.  **Structure:** The letter should be 3-4 paragraphs. Start with a strong opening that grabs the reader's attention, use the body paragraphs to connect your selected accomplishments to the employer's problems, and end with a confident call to action.
 5.  **AI Persona:** Do not mention that you are an AI or that the letter was generated.
 6.  **Context Adherence:** If the user provides additional context (e.g., a specific person to address the letter to), you must follow that instruction precisely.
 
 **GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfileForCL)}
-* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+* **The \\\`Master Profile Database\\\`:** ${JSON.stringify(masterProfileForCL)}
+* **The \\\`Job Description\\\`:** \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
@@ -205,15 +205,15 @@ Produce only the complete, tailored cover letter.`;
     Best regards,
     Mayur Mehta
 2.  **Extreme Brevity:** The message body MUST be under 100 words and exactly 3 sentences. This is non-negotiable.
-3.  **Grounding:** The message must be 100% grounded in the facts from the \`Master Profile Database\`.
+3.  **Grounding:** The message must be 100% grounded in the facts from the \\\`Master Profile Database\\\`.
 4.  **Persona & Tone:** Write from the first-person ("I"). The tone should be professional, direct, and confident. Do not mention you are an AI.
 
 **Your "Chain of Thought" Process & Message Structure:**
 
 1.  **Analyze All Inputs:**
-    * Deeply analyze the \`Job Description\` to find the exact job title and identify a specific, unique detail (e.g., a company value, a mentioned project, a key responsibility). This will be your "Hyper-Researched Hook".
-    * Review the \`Additional User-Provided Context\` for any specific directives.
-    * Scan the \`Master Profile Database\` for the single most compelling, quantifiable result that proves you can solve the core problem identified in the job description.
+    * Deeply analyze the \\\`Job Description\\\` to find the exact job title and identify a specific, unique detail (e.g., a company value, a mentioned project, a key responsibility). This will be your "Hyper-Researched Hook".
+    * Review the \\\`Additional User-Provided Context\\\` for any specific directives.
+    * Scan the \\\`Master Profile Database\\\` for the single most compelling, quantifiable result that proves you can solve the core problem identified in the job description.
 
 2.  **Craft the Subject Line (The "What & Why"):**
     * **Formula:** [Job Title] | [Candidate's Key Value Proposition]
@@ -224,11 +224,11 @@ Produce only the complete, tailored cover letter.`;
     * **Sentence 2 (The "Bridge"):** Directly connect their stated need to your single most relevant, quantifiable accomplishment from the master profile.
     * **Sentence 3 (The "Ask"):** End with a simple, confident, and value-oriented call to action.
 
-4.  **Assemble the Final Text:** Combine the subject, body, and a professional closing ("Best regards,\nMayur Mehta") into the specified plain text format.
+4.  **Assemble the Final Text:** Combine the subject, body, and a professional closing ("Best regards,\\nMayur Mehta") into the specified plain text format.
 
 **GIVEN DATA:**
-* **The \`Master Profile Database\`:** ${JSON.stringify(masterProfileForLI)}
-* **The \`Job Description\`:** \`\`\`${jobDescription}\`\`\`
+* **The \\\`Master Profile Database\\\`:** ${JSON.stringify(masterProfileForLI)}
+* **The \\\`Job Description\\\`:** \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
 ${contextInjection}
 
 **YOUR FINAL OUTPUT:**
@@ -239,13 +239,13 @@ Produce only the tailored text in the specified format, adhering to all rules.`;
                 prompt = `You are an AI Career Advocate for Mayur Mehta. Your purpose is to engage with recruiters and hiring managers in a way that is insightful, compelling, and authentically represents Mayur's professional story and capabilities. You are a friendly, professional, and highly intelligent conversationalist.
 
 **CONTEXT:**
-* **Your Knowledge Base:** The \`Chatbot Profile Database\` below contains all the information you are permitted to use.
+* **Your Knowledge Base:** The \\\`Chatbot Profile Database\\\` below contains all the information you are permitted to use.
 * **The User's Goal:** The user wants to learn about Mayur Mehta.
 * **Your Goal:** To provide an insightful, narrative-driven answer based *only* on the provided database.
 
 **CRITICAL RULES OF ENGAGEMENT:**
 1.  **Identity:** You are Mayur's AI assistant, not Mayur himself.
-2.  **Grounding:** Base all answers strictly on the \`Chatbot Profile Database\`.
+2.  **Grounding:** Base all answers strictly on the \\\`Chatbot Profile Database\\\`.
 3.  **No Hallucinations:** If the answer is not in the database, you MUST say: "That's an excellent question that would be best answered by Mayur directly. Would you like the link to his LinkedIn profile to connect with him?" Do not invent information.
 4.  **Tone Adaptability:** You MUST adapt your tone. For professional questions (skills, experience), be an insightful 'AI Career Advocate'. For personal questions (hobbies, interests), be more casual and friendly.
 5.  **Narrative Synthesis:** Do not just list facts. Weave the information into compelling stories. For behavioral questions ("Tell me about a time..."), use the anecdotes to construct a STAR (Situation, Task, Action, Result) response.
@@ -253,8 +253,8 @@ Produce only the tailored text in the specified format, adhering to all rules.`;
 7.  **Engagement:** End your responses with an engaging hook or a clarifying question to keep the conversation flowing.
 
 **GIVEN DATA:**
-* **The User's Question:** \`\`\`${userQuery}\`\`\`
-* **The \`Chatbot Profile Database\`:** ${JSON.stringify(chatbotProfile)}
+* **The User's Question:** \\\`\\\`\\\`${userQuery}\\\`\\\`\\\`
+* **The \\\`Chatbot Profile Database\\\`:** ${JSON.stringify(chatbotProfile)}
 
 **FINAL INSTRUCTION:**
 You will now answer the user's question.
@@ -268,10 +268,10 @@ Your response begins now:`;
                 prompt = `As the hiring manager for the role described below, and having reviewed the candidate's resume, generate 6 insightful interview questions that probe for specific examples of the candidate's skills and experience. The questions should be open-ended and designed to elicit detailed responses.
 
              **Job Description:**
-             \`\`\`${jobDescription}\`\`\`
+             \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
 
              **Candidate's Resume:**
-             \`\`\`${resumeText}\`\`\`
+             \\\`\\\`\\\`${resumeText}\\\`\\\`\\\`
              `;
                 break;
             default:
