@@ -125,7 +125,7 @@ exports.handler = async function (event, context) {
 Your mission is to leverage the provided \\\`Job Description\\\` to extract core requirements, then mine the \\\`Master Profile Database\\\` to craft a tailored, human-friendly resume that:
 - Mirrors the role’s keywords, tone, and cultural traits.
 - Selects the most impactful stories and quantifiable results.
-- **Critically MUST** structure each bullet in the "Accomplished [X] by [Y] as measured by [Z]" format.
+- **Critically MUST** structure each bullet in the "Accomplished [X] as measured by [Y] by doing [Z]" format.
 - Keeps bullets to two lines maximum.
 - Includes a concise FAANG-style summary.
 - Bypasses ATS filters with rich keyword usage.
@@ -145,15 +145,13 @@ First, analyze the inputs and produce a strategy report. Present this as a Markd
 
 #### Part 2: Narrative Synthesis (The Resume)
 After your analysis, you will write the complete resume based on the following rules.
-
-- **Header & Contact:** Copy verbatim from the \\\`Master Profile Database\\\`.
 - **Summary (3–4 sentences):**
     - Mirror the JD tone, weaving in the Job Title and Company.
     - Highlight the top 2–3 achievements with quantified outcomes.
-    - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven"). Show, don't tell.
+    - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven", "I" etc). Show, don't tell.
 - **Experience (for each role in JSON):**
-    - **Relevance Filter:** Prioritize stories from the \\\`Master Profile Database\\\` that are most aligned with the JD.
-    - **Bullet Structure:** "Accomplished [X] by [Y] as measured by [Z]".
+    - **Creative Freedom:** You have creative freedom to narrate, weave professional experiences from \\\`Master Profile Database\\\` based on your analysis from part 1, prioritize relevant experience first. 
+    - **Bullet Structure:** "Accomplished [X] as measured by [Y] by doing [Z]" format.
     - **Bullet Rules:** Each bullet must be 2 lines or less. Use up to 6 bullets per company. You may create multiple bullets from a single project if it is highly relevant.
     - **Technical Depth & Keywords:** Integrate relevant skills and jargon naturally.
 - **Education & Skills:**
@@ -166,8 +164,10 @@ After your analysis, you will write the complete resume based on the following r
   \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
 - Context Injection: ${contextInjection}
 
+**Output**
 First, output the complete **JD Analysis & Strategy** block.
 Then, output a \`---\` separator on its own line.
+**Header & Contact:** Copy verbatim from the \\\`Master Profile Database\\\`
 Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
 `;
                 break;
