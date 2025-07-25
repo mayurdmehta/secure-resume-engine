@@ -169,7 +169,7 @@ Then, output a `---` separator on its own line.
 Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
 
 **Inputs:**
-- Master Profile Database: \`${JSON.stringify(masterProfileForResume)}\`
+- Master Profile Database: ${JSON.stringify(masterProfileForResume)}
 - Job Description:
   \`\`\`${jobDescription}\`\`\`
 - Context Injection: \`${contextInjection}\`
