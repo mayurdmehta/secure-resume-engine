@@ -77,11 +77,25 @@ async function handleApiCall(mode) {
         // The selectedEngine is now passed to the backend call
         const resultText = await callBackend(mode, jobDescription, resumeTextForFeatures, '', additionalContext, selectedEngine);
 
+        let htmlContent;
+
+        // The LinkedIn message has a special plain-text format, so we handle it separately.
+        // For all other content, we parse the returned Markdown into HTML.
+        if (mode === 'generateLinkedin' && resultText.startsWith('Subject: ')) {
+            const parts = resultText.split(/\n\n/);
+            const subjectLine = parts[0].replace('Subject: ', '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const body = parts.slice(1).join('<br><br>').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            htmlContent = `<h3>${subjectLine}</h3><br>${body}`;
+        } else {
+            // Use the 'marked' library to parse the Markdown response into HTML.
+            htmlContent = marked.parse(resultText);
+        }
+
         if (mode === 'interviewPrep') {
-            document.getElementById('modalBody').innerHTML = formatForDisplay(resultText);
+            document.getElementById('modalBody').innerHTML = htmlContent;
             document.getElementById('modalLoader').classList.add('hidden');
         } else {
-            document.getElementById('resumeOutput').innerHTML = formatForDisplay(resultText);
+            document.getElementById('resumeOutput').innerHTML = htmlContent;
             document.getElementById('copyBtn').classList.remove('hidden');
             
             if (mode === 'generate') {
@@ -146,31 +160,6 @@ function showError(message) {
     }
 }
 
-function formatForDisplay(text) {
-    let sanitizedText = text
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-    if (sanitizedText.startsWith('Subject: ')) {
-        const parts = sanitizedText.split(/\n\n/);
-        const subjectLine = parts[0].replace('Subject: ', '');
-        const body = parts.slice(1).join('<br><br>');
-        return `<h3>${subjectLine}</h3><br>${body}`;
-    }
-
-    let html = sanitizedText
-        .replace(/\n\n/g, '<br><br>')
-        .replace(/\n/g, '<br>')
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/(\<br\>)?\s*\* (.*)/gim, (match, br, content) => `<ul><li>${content.trim()}</li></ul>`)
-        .replace(/<\/ul>\s*<ul>/g, '');
-
-    return html;
-}
-
 function openModal(title) {
     const toolkitModal = document.getElementById('toolkit-modal');
     const modalTitle = toolkitModal.querySelector('#modalTitle');
@@ -185,7 +174,8 @@ function openModal(title) {
 
 function copyToClipboard() {
     const resumeOutput = document.getElementById('resumeOutput');
-    const textToCopy = resumeOutput.innerText;
+    // .innerText correctly gets the visible text, ignoring HTML tags, which is perfect for copying.
+    const textToCopy = resumeOutput.innerText; 
     const textArea = document.createElement('textarea');
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
