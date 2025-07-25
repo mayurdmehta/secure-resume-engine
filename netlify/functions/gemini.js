@@ -120,38 +120,59 @@ exports.handler = async function (event, context) {
         switch (mode) {
             case 'generate':
                 const masterProfileForResume = await getMasterProfile();
-                prompt = `You are a world-class AI career strategist and resume writer. Your speciality is mirror resume creation highly tailored according to candidate's experience.
+                prompt = `You are a world-class resume writer and an elite Career Strategist. Your speciality is to create FAANG-caliber mirror resumes. 
+
+Your mission is to leverage the provided Job Description to extract core requirements, then mine the Master Profile JSON to craft a tailored, human-friendly resume that:
+- Mirrors the role’s keywords, tone, and cultural traits.
+- Selects the most impactful stories and quantifiable results.
+- **Critically MUST** structure each bullet in the "Accomplished [X] by [Y] as measured by [Z]" format.
+- Keeps bullets to two lines maximum.
+- Includes a concise FAANG-style summary.
+- Bypasses ATS filters with rich keyword usage.
 
 ---
-### Part 1: Resume Analysis & Strategy
-As an analyst, your first step is to thoroughly understand the problem statement from the **Job Description**. Deconstruct it to extract its core elements and load them into your context. Present this analysis in a Markdown block titled **Resume Analysis & Strategy** using this exact structure (labels bolded, values plain text):
+### PROCESS
+---
 
-- **Job Title:**
-- **Cultural Fit Traits:**
-- **High-Value Keywords:**
+#### Part 1: JD Analysis & Strategy
+First, analyze the inputs and produce a strategy report. Present this as a Markdown block titled **JD Analysis & Strategy**.
+
+- **Job Title:** Extract the exact title.
+- **High-Value Keywords:** List all technical terms & business nouns, separated by commas.
+- **Cultural & Personality Traits:** List all relevant traits, separated by commas (e.g., “collaborative,” “innovative”).
+- **Tone & Style:** Describe the tone (e.g., Formal, conversational) and seniority level.
+- **Key Action Verbs:** List the key verbs highlighted in the job responsibilities, separated by commas.
+
+#### Part 2: Narrative Synthesis (The Resume)
+After your analysis, you will write the complete resume based on the following rules.
+
+- **Header & Contact:** Copy verbatim from the `Master Profile`.
+- **Summary (3–4 sentences):**
+    - Mirror the JD tone, weaving in the Job Title and Company.
+    - Highlight the top 2–3 achievements with quantified outcomes.
+    - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven"). Show, don't tell.
+- **Experience (for each role in JSON):**
+    - **Relevance Filter:** Prioritize stories from the `Master Profile` that are most aligned with the JD.
+    - **Bullet Structure:** "Accomplished [X] by [Y] as measured by [Z]".
+    - **Bullet Rules:** Each bullet must be 2 lines or less. Use up to 6 bullets per company. You may create multiple bullets from a single project if it is highly relevant.
+    - **Technical Depth & Keywords:** Integrate relevant skills and jargon naturally.
+- **Education & Skills:**
+    - Emphasize degrees and certifications that match the JD.
+    - List skills in the order of importance inferred from the JD.
 
 ---
-### Part 2: Narrative Synthesis (The Resume)
-As a master career storyteller, your second step is to write a concise, scannable resume that perfectly mirrors the job description. Follow these rules:
+### OUTPUT FORMAT
+---
 
-1.  **Holistic Understanding:** Your source material is the \`master_profile\`. First, read the \`problem\` and detailed \`actions\` for each project to build a deep, contextual understanding of the candidate's story and capabilities.
-2.  **Creative Synthesis:** Use the context from Step 1 and your understanding from the \`master_profile\` to creatively draft a compelling narrative of the candidate's experience. This narrative must mirror the job description's language and weave in the \`High-Value Keywords\` naturally, avoiding filler words.
-3.  **Summary (3 Sentences):** Create a tight, compelling summary of upto 3 sentences. Weave in the target job title and target company name naturally into the summary. Ensure summary is human reader friendly. Avoid using filler, cliche and vague words, instead outline the professional experience through outcomes and results.
-4.  **Experience & Bullet Points:**
-    * **XYZ Format:** Every bullet point must be a concise, human friendly narrative of up to 2 lines, following the "Accomplished [X] as measured by [Y] by doing [Z]" format. Prioritize action verbs from the job description to start the bullet point.
-	* **Relevance is Key:** Allocate up to 6 bullet points for each professional experience section (e.g., for each company) based on how relevant the candidate's experience are to the target job description.
-    * **Splitting Stories:** If a single project story from the \`master_profile\` is highly relevant, you have the creative freedom to extract multiple distinct accomplishments from it, creating several targeted bullet points.
-    * **Technical Depth:** Where appropriate, weave in specific technical details from the \`actions\` to demonstrate depth.
-    * **Grounded Results:** The \`[Y]\` (the result) MUST be 100% grounded in the \`outcomes\` from the \`master_profile\`.
-5.  **Markdown Formatting:** Use **bold** for section headers only (e.g., **Summary**, **Experience**). Do **not** bold body text or use \`#\`/\`##\` headings within sections.
+First, output the complete **JD Analysis & Strategy** block.
+Then, output a `---` separator on its own line.
+Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
 
 **Inputs:**
 - Master Profile Database: \`${JSON.stringify(masterProfileForResume)}\`
 - Job Description:
   \`\`\`${jobDescription}\`\`\`
 - Context Injection: \`${contextInjection}\`
-
-Produce the analysis block first, then \`---\`, then the complete tailored resume. You MUST ensure adherence to the process outlined in Part 1 and Part 2.
 `;
                 break;
             case 'coverLetter':
