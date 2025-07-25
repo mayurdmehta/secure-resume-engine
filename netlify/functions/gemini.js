@@ -150,7 +150,7 @@ After your analysis, you will write the complete resume based on the following r
     - Highlight the top 2–3 achievements with quantified outcomes.
     - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven", "I" etc). Show, don't tell.
 - **Experience (for each role in JSON):**
-    - **Creative Freedom:** You have creative freedom to narrate, weave professional experiences from \\\`Master Profile Database\\\` based on your analysis from part 1, prioritize relevant experience first. 
+    - **Creative Freedom:** You have creative freedom to narrate, weave professional experiences from \\\`Master Profile Database\\\`. Naturally weave in **High-Value Keywords:** from part 1 analysis and prioritize relevant experience first. 
     - **Bullet Structure:** "Accomplished [X] as measured by [Y] by doing [Z]" format.
     - **Bullet Rules:** Each bullet must be 2 lines or less. Use up to 6 bullets per company. You may create multiple bullets from a single project if it is highly relevant.
     - **Technical Depth & Keywords:** Integrate relevant skills and jargon naturally.
