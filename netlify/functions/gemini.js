@@ -160,19 +160,15 @@ After your analysis, you will write the complete resume based on the following r
     - Emphasize degrees and certifications that match the JD.
     - List skills in the order of importance inferred from the JD.
 
----
-### OUTPUT FORMAT
----
+**Inputs:**
+- Master Profile Database: \`${JSON.stringify(masterProfile)}\`
+- Job Description:
+  \`\`\`${jobDescription}\`\`\`
+- Context Injection: \`${contextInjection}\`
 
 First, output the complete **JD Analysis & Strategy** block.
 Then, output a `---` separator on its own line.
 Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
-
-**Inputs:**
-- Master Profile Database: ${JSON.stringify(masterProfileForResume)}
-- Job Description:
-  \`\`\`${jobDescription}\`\`\`
-- Context Injection: \`${contextInjection}\`
 `;
                 break;
             case 'coverLetter':
