@@ -62,7 +62,7 @@ async function callGeminiAPI(apiKey, prompt) {
 async function callChatGPTAPI(apiKey, prompt) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const payload = {
-        model: "gpt-4o",
+        model: "gpt-5",
         messages: [{ role: "user", content: prompt }],
     };
     const response = await fetch(apiUrl, {
