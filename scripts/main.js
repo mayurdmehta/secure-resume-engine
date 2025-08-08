@@ -18,7 +18,7 @@ const pageTemplates = `
         <section class="py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
-                    <div class="md:col-span-1 flex justify-center md:justify-left">
+                    <div class="md:col-span-1 flex justify-center md:justify-start">
                         <img src="https://mayur-mehta-portfolio.netlify.app/portfolio_profile.jpg" alt="Mayur Mehta Headshot" class="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover border-4 border-gray-700 shadow-lg">
                     </div>
                     <div class="md:col-span-2 text-center md:text-left">
@@ -168,29 +168,47 @@ const pageTemplates = `
     </div>
 
     <div id="projects" class="page hidden">
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
-            <p class="text-xl text-gray-400">A showcase of my passion for building and problem-solving.</p>
-        </header>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project1-modal">
-                <h3 class="text-2xl font-bold text-brand-primary mb-2">This Portfolio Website</h3>
-                <p class="text-gray-400 mb-4">A meta-project on building a personal portfolio through an iterative, AI-assisted development process with Gemini.</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI-Assisted Development</span>
-                    <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Prompt Engineering</span>
-                </div>
-            </div>
-            <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project2-modal">
-                <h3 class="text-2xl font-bold text-brand-primary mb-2">Career Toolkit AI</h3>
-                <p class="text-gray-400 mb-4">The engine powering this site. An AI tool that analyzes job descriptions and generates tailored career assets.</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Process Automation</span>
-                     <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI Implementation</span>
-                </div>
-            </div>
-        </div>
+  <header class="text-center mb-12">
+    <h1 class="text-5xl font-bold text-white mb-4">My Projects</h1>
+    <p class="text-xl text-gray-400">A showcase of my passion for building and problem-solving.</p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <!-- Project 1 -->
+    <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project1-modal">
+      <h3 class="text-2xl font-bold text-brand-primary mb-2">This Portfolio Website</h3>
+      <p class="text-gray-400 mb-4">A meta-project on building a personal portfolio through an iterative, AI-assisted development process with Gemini.</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI-Assisted Development</span>
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Prompt Engineering</span>
+      </div>
     </div>
+
+    <!-- Project 2 -->
+    <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project2-modal">
+      <h3 class="text-2xl font-bold text-brand-primary mb-2">Career Toolkit AI</h3>
+      <p class="text-gray-400 mb-4">The engine powering this site. An AI tool that analyzes job descriptions and generates tailored career assets.</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Process Automation</span>
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">AI Implementation</span>
+      </div>
+    </div>
+
+    <!-- Project 3 (NEW) -->
+    <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project3-modal">
+      <h3 class="text-2xl font-bold text-brand-primary mb-2">Automated Follow-Up Assistant</h3>
+      <p class="text-gray-400 mb-4">
+        Classifies sent outreach, checks for no-reply after 7 days, drafts a context-aware follow-up, and creates a review-ready Gmail draft.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Process Automation</span>
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">n8n</span>
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">OpenAI</span>
+        <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Gmail API</span>
+      </div>
+    </div>
+  </div>
+</div>
     <div id="blogs" class="page hidden">
         <div class="text-center py-20">
             <h1 class="text-5xl font-bold text-white mb-4">My Blog</h1>
@@ -284,9 +302,9 @@ const pageTemplates = `
                 <h3>My Role & Approach</h3>
                 <p>I acted as the Product Manager and AI Director for this project. My role was to guide my AI partner, Gemini, through an iterative development process. I provided the high-level vision, detailed requirements for each feature, and continuous feedback to refine the output. This involved:</p>
                 <ul>
-                    <li>**Prompt Engineering:** Crafting precise instructions to generate code for the UI, application logic, and backend functions.</li>
-                    <li>**Architectural Decisions:** Making key decisions, such as separating the frontend from the backend, securing API keys with a serverless function, and designing a holistic database structure.</li>
-                    <li>**Debugging & Iteration:** Collaboratively debugging issues related to API calls, data structures, and UI behavior.</li>
+                    <li><strong>Prompt Engineering: Crafting precise instructions to generate code for the UI, application logic, and backend functions.</strong></li>
+                    <li><strong>Architectural Decisions: Making key decisions, such as separating the frontend from the backend, securing API keys with a serverless function, and designing a holistic database structure.</strong></li>
+                    <li><strong>Debugging & Iteration: Collaboratively debugging issues related to API calls, data structures, and UI behavior.</strong></li>
                 </ul>
                 <h3>The Outcome</h3>
                 <p>This entire portfolio website, with over 500 lines of code across multiple files, was built through a collaborative human-AI process. It serves as a live demonstration of a modern workflow, rapid prototyping, and the ability to leverage AI as a powerful productivity multiplier to bring a complex idea to life.</p>
@@ -316,6 +334,92 @@ const pageTemplates = `
             </div>
         </div>
     </div>
+	<div id="project3-modal" class="modal-backdrop hidden">
+  <div class="modal-content">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-semibold text-white">Automated Follow-Up Assistant</h2>
+      <button class="close-modal-btn text-gray-400 hover:text-white text-3xl">&times;</button>
+    </div>
+
+    <div class="prose prose-dark max-w-none">
+      <h3>The Solution</h3>
+      <p>
+        An end-to-end follow-up engine that watches my sent outreach, detects when 7+ days pass with no reply,
+        drafts a context-aware nudge with the full thread, and leaves a review-ready Gmail draft—no manual reminders required.
+      </p>
+
+      <h3>My Role &amp; Approach</h3>
+      <ul>
+        <li>Deterministic LLM classification (INITIAL vs REPLY) with JSON-only output</li>
+        <li>Full-thread fetch + context builder (ageDays, reply detection, recipient extraction)</li>
+        <li>Eligibility gate: ≥7 days old and no recipient reply (OOO ignored)</li>
+        <li>LLM-generated follow-up, saved as a Gmail <em>Draft</em> (never auto-send)</li>
+        <li>Optional logging + dedupe (Sheets or static index)</li>
+      </ul>
+
+      <h3>Tech Stack</h3>
+      <p>n8n, Gmail API, OpenAI GPT-4o, JavaScript Code nodes, Google Sheets (optional)</p>
+
+      <h3>Flow Highlights</h3>
+      <ol>
+        <li>Gmail Trigger → AI Classify (INITIAL/REPLY)</li>
+        <li>Merge → Filter INITIAL → Fetch Thread → Build Thread (ageDays, toHeader, reply detection)</li>
+        <li>IF Eligible (≥7 days, no reply) → AI Draft → Gmail Create Draft</li>
+        <li>Optional: Append to Sheet + dedupe</li>
+      </ol>
+
+      <div class="mt-6 flex items-center gap-3">
+        <button
+          class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-gray-200 hover:bg-gray-800 transition"
+          data-modal-target="project3-workflow-modal"
+        >
+          <!-- icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 10l4.553-2.276A2 2 0 0122 9.618V14.5a2 2 0 01-1.106 1.789L15 18M5 8h5M5 12h8M5 16h8" />
+          </svg>
+          View workflow
+        </button>
+
+        <!-- Optional thumbnail: click opens the full-screen modal -->
+        <!--
+        <img
+          src="/images/projects/n8n-followup-flow.png"
+          alt="Workflow preview"
+          class="rounded-lg border border-gray-700 cursor-zoom-in max-h-40"
+          data-modal-target="project3-workflow-modal"
+        />
+        -->
+      </div>
+
+      <h3 class="mt-8">The Outcome</h3>
+      <p>Hands-off, review-ready follow-ups with consistent tone. Increased reply reliability and time saved each week.</p>
+    </div>
+  </div>
+</div>
+<div id="project3-workflow-modal" class="modal-backdrop hidden">
+  <div class="modal-content !max-w-[90vw] !w-[90vw] !h-[90vh] flex flex-col">
+    <div class="flex justify-between items-center mb-3">
+      <h2 class="text-xl font-semibold text-white">Workflow Diagram</h2>
+      <button class="close-modal-btn text-gray-400 hover:text-white text-3xl">&times;</button>
+    </div>
+
+    <div class="flex items-center gap-3 mb-3 text-sm text-gray-300">
+      <span>Tip: scroll to zoom, drag to pan</span>
+    </div>
+
+    <div class="relative flex-1 overflow-auto rounded-lg border border-gray-700 bg-black/50">
+      <img
+        src="/workflow.png"
+        alt="n8n follow-up workflow"
+        class="block mx-auto select-none"
+        style="max-width: none; width: 1800px; height: auto;"
+        draggable="false"
+      />
+    </div>
+  </div>
+</div>
+
     <div id="toolkit-modal" class="modal-backdrop hidden">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4">
