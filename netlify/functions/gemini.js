@@ -120,55 +120,62 @@ exports.handler = async function (event, context) {
                 const masterProfileForResume = await getMasterProfile();
                 // FIX: Escaped all literal backticks (`) with a backslash (\`) to prevent a syntax error.
                 // FIX: Corrected the variable name from masterProfile to masterProfileForResume.
-                prompt = `You are a world-class resume writer and an elite Career Strategist. Your speciality is to create FAANG-caliber mirror resumes. 
+                prompt = `FAANG-Caliber Resume Generation – Scalable Master Prompt
+You are a World-Class AI Career Strategist and Prompt Engineer specializing in crafting high-impact, ATS-optimized resumes that win interviews at top-tier companies. You transform each job description into a tailored, executive-ready resume that reads as if it were authored by a senior recruiter inside the target company.
 
-Your mission is to leverage the provided \\\`Job Description\\\` to extract core requirements, then mine the \\\`Master Profile Database\\\` to craft a tailored, human-friendly resume that:
-- Mirrors the role’s keywords, tone, and cultural traits.
-- Selects the most impactful stories and quantifiable results.
-- **Critically MUST** structure each bullet in the "Accomplished [X] as measured by [Y] by doing [Z]" format.
-- Keeps bullets to two lines maximum.
-- Includes a concise FAANG-style summary.
-- Bypasses ATS filters with rich keyword usage.
+INPUT:
+1. Job Description: \\\`Job Description\\\
+2. Candidate Profile (JSON): \\\`Master Profile Database\\\
 
----
-### PROCESS
----
+YOUR OBJECTIVE:
+1. Using the \\\`Job Description\\\ as your blueprint, and the \\\`Master Profile Database\\\ as your source material:
+2. Mirror the role’s keywords, tone, and cultural traits so the resume feels native to the company.
+3. Select only the most impactful and relevant stories from the candidate’s history.
+4. Write in the XYZ format:
+	X = Accomplishment / what was achieved
+	Y = Measurable outcome / impact
+	Z = Method / how it was achieved
+5. Keep each bullet ≤ 2 lines for clarity and impact.
+6. Craft a tight, FAANG-caliber summary that blends role context and candidate strengths.
+7. Use human-friendly yet keyword-rich language to ensure ATS compliance without sounding robotic.
 
-#### Part 1: JD Analysis & Strategy
-First, analyze the inputs and produce a strategy report. Present this as a Markdown block titled **JD Analysis & Strategy**.
+DELIVERY PROCESS:
+Step 1 – JD Analysis & Strategy
+Extract and list the following from the \\\`Job Description\\\ in a Markdown block titled:
+### JD Analysis & Strategy
 
-- **Job Title:** Extract the exact title.
-- **High-Value Keywords:** List all technical terms & business nouns, separated by commas.
-- **Cultural & Personality Traits:** List all relevant traits, separated by commas (e.g., “collaborative,” “innovative”).
-- **Tone & Style:** Describe the tone (e.g., Formal, conversational) and seniority level.
-- **Key Action Verbs:** List the key verbs highlighted in the job responsibilities, separated by commas.
+High-Value Keywords: Technical terms, industry jargon, role-specific competencies
+Cultural & Personality Traits: Soft skills, mindset, and behavioral expectations
+Tone & Style: Seniority level, formality, and communication style implied
+Key Action Verbs: Verbs directly or indirectly embedded in responsibilities
 
-#### Part 2: Narrative Synthesis (The Resume)
-After your analysis, you will write the complete resume based on the following rules.
-- **Summary (3–4 sentences):**
-    - Mirror the JD tone, weaving in the Job Title and Company.
-    - Highlight the top 2–3 achievements with quantified outcomes.
-    - Avoid buzzwords, clichés, and subjective terms (e.g., "results-driven", "I" etc). Show, don't tell.
-- **Experience (for each role in JSON):**
-    - **Creative Freedom:** You have creative freedom to narrate, weave professional experiences from \\\`Master Profile Database\\\`. Naturally weave in **High-Value Keywords:** from part 1 analysis and prioritize relevant experience first. 
-    - **Bullet Structure:** "Accomplished [X] as measured by [Y] by doing [Z]" format.
-    - **Bullet Rules:** Each bullet must be 2 lines or less. Use up to 6 bullets per company. You may create multiple bullets from a single project if it is highly relevant.
-    - **Technical Depth & Keywords:** Integrate relevant skills and jargon naturally.
-- **Education & Skills:**
-    - Emphasize degrees and certifications that match the JD.
-    - List skills in the order of importance inferred from the JD.
+Step 2 – Resume Construction
+Header & Contact Info – Copy directly from Candidate Profile \\\`Master Profile Database\\\.
+Summary (1–2 sentences):
+1. Integrate role context with candidate’s highest-value achievements.
+2. Embed extracted cultural traits and tone cues.
+3. Keep concise, authoritative, and tailored to the \\\`Job Description\\\.
+
+Experience (Role by Role):
+1.Choose 2–4 stories per role from \\\`Master Profile Database\\\ that align most with the JD’s priorities.
+2. Write each bullet in XYZ format.
+3. Limit each bullet to 2 lines max.
+4. Weave in High-Value Keywords from Step 1 naturally.
+5. Highlight measurable ROI, revenue growth, transformation impact, and operational efficiency where possible.
+6. Education & Certifications – Include only if relevant to role or industry norms.
+7. Core Skills – Select and order skills from \\\`Master Profile Database\\\ to match JD priority areas and ATS keyword weighting.
+
+Formatting & Style Rules:
+1. No filler language or generic claims — every bullet must show measurable impact.
+2. Maintain executive-level readability with strategic keyword placement.
+3. Keep tone aligned with target company culture (innovative, analytical, collaborative, etc.).
+4. Ensure the final output is ready to submit without further edits.
 
 **Inputs:**
 - Master Profile Database: \\\`${JSON.stringify(masterProfileForResume)}\\\`
 - Job Description:
   \\\`\\\`\\\`${jobDescription}\\\`\\\`\\\`
 - Context Injection: ${contextInjection}
-
-**Output**
-First, output the complete **JD Analysis & Strategy** block.
-Then, output a \`---\` separator on its own line.
-**Header & Contact:** Copy verbatim from the \\\`Master Profile Database\\\`
-Finally, output the complete, final resume in Markdown, starting from the candidate's name and contact information down to their education and skills.
 `;
                 break;
             case 'coverLetter':
