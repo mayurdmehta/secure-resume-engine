@@ -8,13 +8,15 @@ import { initProjects } from './projects.js';
 // ======================================================================= //
 
 // Data structure to hold blog post content.
-const blogPosts = [
-    {
-        slug: 'vibe-coding-my-way-to-automation',
-        title: 'Vibe Coding My Way to Automation - A Workflow for Email Follow-Ups and Beyond',
-        date: 'August 9, 2025',
-        summary: 'How a non-developer built an AI-powered email follow-up assistant using no-code tools, a little scripting, and a lot of trial and error.',
-        content: `
+cconst blogPosts = [
+  {
+    slug: 'vibe-coding-my-way-to-automation',
+    title:
+      'Vibe Coding My Way to Automation - A Workflow for Email Follow-Ups and Beyond',
+    date: 'August 9, 2025',
+    summary:
+      'How a non-developer built an AI-powered email follow-up assistant using no-code tools, a little scripting, and a lot of trial and error.',
+    content: `
 # Vibe Coding My Way to Automation - A Workflow for Email Follow-Ups and Beyond
 
 ## The Backstory
@@ -96,56 +98,20 @@ If the workflow can read a trigger, assess the context, and draft a response - i
 * Visual automation tools like n8n become far more capable with a touch of scripting.
 
 I started this thinking I’d just automate reminders. I ended up building an AI-powered email assistant. If I can vibe code my way into this, you can too.
-        `,
-    },
-    {
-        slug: 'a-future-post',
-        title: 'A Future Post',
-        date: 'Coming Soon',
-        summary: 'A look ahead at future topics, including AI-driven workflows, automation pipelines, and advanced prompt engineering.',
-        content: '',
-    },
+    `,
+  },
+  {
+    slug: 'a-future-post',
+    title: 'A Future Post',
+    date: 'Coming Soon',
+    summary:
+      'A look ahead at future topics, including AI-driven workflows, automation pipelines, and advanced prompt engineering.',
+    content: '',
+  },
 ];
 
-// Function to render a single blog post from its data.
-function renderBlogPost(slug) {
-  const post = (window.blogPosts || []).find(p => p.slug === slug);
-  if (!post) {
-    return `
-      <div class="text-center py-20">
-        <h1 class="text-3xl font-bold text-white mb-4">Post not found.</h1>
-        <p class="text-gray-400">Please check the URL or return to the blog list.</p>
-      </div>
-    `;
-  }
-
-  // Markdown → HTML (guard if marked is missing)
-  const md = post.content || "";
-  const formattedContent =
-    (window.marked && typeof window.marked.parse === "function")
-      ? window.marked.parse(md)
-      : md.replace(/\n/g, "<br>"); // basic fallback
-
-  return `
-    <div class="max-w-4xl mx-auto px-4 py-8">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">${post.title}</h1>
-      <p class="text-gray-500 mb-6">${post.date ?? ""}</p>
-      <div class="prose prose-invert max-w-none">
-        ${formattedContent}
-      </div>
-    </div>
-  `;
-}
-
-// ✅ Expose once, outside the function
-window.renderBlogPost = renderBlogPost;
-
-// ======================================================================= //
-// END: ADDITIONS FOR THE BLOG FEATURE                                     //
-// ======================================================================= //
-
-
-// The HTML content for all pages is stored in this template literal.
+// optional: helpful for DevTools inspection
+window.blogPosts = blogPosts;
 const pageTemplates = `
 <style>
     /* This style block provides the visual feedback for the active engine selector button. */
