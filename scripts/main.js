@@ -110,8 +110,9 @@ I started this thinking I’d just automate reminders. I ended up building an AI
 // Function to render a single blog post from its data.
 // It is now exported to be used by other modules.
 export function renderBlogPost(slug) {
+    console.log('Attempting to render blog post with slug:', slug);
     const post = blogPosts.find(p => p.slug === slug);
-    if (!post) {
+        if (!post) {
         return `<div class="text-center py-20"><h1 class="text-3xl font-bold text-white mb-4">Post not found.</h1><p class="text-gray-400">Please check the URL or return to the blog list.</p></div>`;
     }
 

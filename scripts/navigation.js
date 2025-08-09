@@ -71,8 +71,23 @@ function handleRouting() {
 export function initNavigation() {
     // Set up a global click listener to handle all navigation and actions.
     document.body.addEventListener('click', (e) => {
-        // Correctly identify navigation links in the header, mobile menu, and the logo.
-        const navLink = e.target.closest('a.nav-link');
+    // Correctly identify navigation links in the header, mobile menu, and the logo.
+    console.log('Click event fired!');
+    const navLink = e.target.closest('a.nav-link');
+    const actionLink = e.target.closest('[data-action]');
+    const mobileMenuButton = e.target.closest('#mobile-menu-button');
+
+    // Handle clicks on internal navigation links (e.g., #projects).
+    if (navLink && navLink.hash) {
+        console.log('Nav link clicked. Hash:', navLink.hash);
+        const pageId = navLink.hash.substring(1);
+        
+        // Check for a specific blog post link.
+        const blogMatch = pageId.match(/^blogs\/(.+)$/);
+        if (blogMatch) {
+            console.log('Blog post link detected! Slug:', blogMatch[1]);
+        }
+		const navLink = e.target.closest('a.nav-link');
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
