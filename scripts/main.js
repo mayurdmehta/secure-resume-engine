@@ -11,7 +11,7 @@ import { initProjects } from './projects.js';
 const blogPosts = [
     {
         slug: 'vibe-coding-my-way-to-automation',
-        title: 'Vibe Coding My Way to Automation - A No-Code/Low-Code Workflow for Email Follow-Ups and Beyond',
+        title: 'Vibe Coding My Way to Automation - A Workflow for Email Follow-Ups and Beyond',
         date: 'August 9, 2025',
         summary: 'How a non-developer built an AI-powered email follow-up assistant using no-code tools, a little scripting, and a lot of trial and error.',
         content: `
