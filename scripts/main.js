@@ -108,8 +108,7 @@ I started this thinking I’d just automate reminders. I ended up building an AI
 ];
 
 // Function to render a single blog post from its data.
-// It is now exported to be used by other modules.
-export function renderBlogPost(slug) {
+function renderBlogPost(slug) {
     const post = blogPosts.find(p => p.slug === slug);
     if (!post) {
         return `<div class="text-center py-20"><h1 class="text-3xl font-bold text-white mb-4">Post not found.</h1><p class="text-gray-400">Please check the URL or return to the blog list.</p></div>`;
@@ -592,7 +591,6 @@ const pageTemplates = `
  * Initializes all modules after the DOM is fully loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // This is the correct call that now injects the content into the main container
     loadPageContent();
     initNavigation();
     initToolkit();
@@ -606,29 +604,28 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadPageContent() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(pageTemplates, 'text/html');
-    
-    // Find the style tag and move it to the head to avoid duplication.
+
+    // Find the style tag within the parsed template
     const styleTag = doc.querySelector('style');
     if (styleTag) {
+        // Move the styles to the document's head, which also removes it from the parsed doc's body
         document.head.appendChild(styleTag);
     }
 
-    // THIS IS THE CORRECTED LOGIC
-    // We now target the existing #page-content container in the main document.
-    const pageContentContainer = document.getElementById('page-content');
+    // Find the page content container in the main document.
+    const pageContentContainer = document.querySelector('#page-content');
     
-    if (pageContentContainer) {
-        // Find the container within our parsed template and get its innerHTML.
-        const pagesContainer = doc.getElementById('pages-container');
-        if (pagesContainer) {
-            pageContentContainer.innerHTML = pagesContainer.innerHTML;
-        } else {
-             // Fallback for an error case.
-            pageContentContainer.innerHTML = `<p class="text-red-500 text-center">Error: Could not load application pages.</p>`;
+    // Check for a specific blog post route
+    const hash = window.location.hash;
+    const blogMatch = hash.match(/^#blogs\/(.+)$/);
+    if (blogMatch) {
+        const slug = blogMatch[1];
+        pageContentContainer.innerHTML = renderBlogPost(slug);
+    } else {
+        // If it's not a blog post, append all the pages normally.
+        const templateBody = doc.body;
+        while (templateBody.firstChild) {
+            document.body.appendChild(templateBody.firstChild);
         }
     }
-    // END OF CORRECTED LOGIC
-    
-    // Now that the pages are loaded, handle the current URL hash.
-    handleRouting();
 }
