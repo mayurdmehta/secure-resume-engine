@@ -1,5 +1,3 @@
-import { renderBlogPost } from './main.js';
-
 /**
  * Switches the visible page based on the provided page ID.
  * @param {string} pageId The ID of the page to display, which can include a sub-route like 'blogs/my-first-post'.
@@ -11,7 +9,7 @@ function switchPage(pageId) {
 
     let targetPageId = pageId;
     let blogMatch = null;
-
+    
     // Check if the pageId is a blog post slug.
     if (pageId) {
         blogMatch = pageId.match(/^blogs\/(.+)$/);
@@ -25,7 +23,7 @@ function switchPage(pageId) {
     if (!targetPageId || !document.getElementById(targetPageId)) {
         targetPageId = 'home';
     }
-
+    
     // Show the target page.
     const activePage = document.getElementById(targetPageId);
     if (activePage) {
@@ -38,7 +36,7 @@ function switchPage(pageId) {
     document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
         link.classList.remove('active');
         const linkId = link.hash.substring(1);
-
+        
         if (blogMatch) {
             // For blog posts, activate the general 'blogs' link.
             if (linkId === 'blogs') {
@@ -71,30 +69,15 @@ function handleRouting() {
 export function initNavigation() {
     // Set up a global click listener to handle all navigation and actions.
     document.body.addEventListener('click', (e) => {
-    // Correctly identify navigation links in the header, mobile menu, and the logo.
-    console.log('Click event fired!');
-    const navLink = e.target.closest('a.nav-link');
-    const actionLink = e.target.closest('[data-action]');
-    const mobileMenuButton = e.target.closest('#mobile-menu-button');
-
-    // Handle clicks on internal navigation links (e.g., #projects).
-    if (navLink && navLink.hash) {
-        console.log('Nav link clicked. Hash:', navLink.hash);
-        const pageId = navLink.hash.substring(1);
-        
-        // Check for a specific blog post link.
-        const blogMatch = pageId.match(/^blogs\/(.+)$/);
-        if (blogMatch) {
-            console.log('Blog post link detected! Slug:', blogMatch[1]);
-        }
-		const navLink = e.target.closest('a.nav-link');
+        // Correctly identify navigation links in the header, mobile menu, and the logo.
+        const navLink = e.target.closest('a.nav-link');
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
         // Handle clicks on internal navigation links (e.g., #projects).
         if (navLink && navLink.hash) {
             const pageId = navLink.hash.substring(1);
-
+            
             // Check for a specific blog post link.
             const blogMatch = pageId.match(/^blogs\/(.+)$/);
 
@@ -108,8 +91,8 @@ export function initNavigation() {
                 
                 // If it's a blog post link, we need to re-render the page content.
                 if (blogMatch) {
-                    // Call the imported renderBlogPost function to generate the content.
-                    document.getElementById('page-content').innerHTML = renderBlogPost(blogMatch[1]);
+                    // This is a new helper function we'll need in main.js
+                    document.getElementById('page-content').innerHTML = window.renderBlogPost(blogMatch[1]);
                     switchPage(pageId);
                 } else {
                     switchPage(pageId);
