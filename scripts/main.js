@@ -1,8 +1,3 @@
-import { initNavigation } from './navigation.js';
-import { initToolkit } from './toolkit.js';
-import { initChatbot } from './chatbot.js';
-import { initProjects } from './projects.js';
-
 // ======================================================================= //
 // ADDITIONS FOR THE BLOG FEATURE                                          //
 // ======================================================================= //
