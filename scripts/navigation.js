@@ -1,113 +1,196 @@
-/* navigation.js — hash router + internal link handling */
+/* navigation.js — SPA navigation, mobile menu, and hash routing
+   Requirements:
+   - index.html contains: <main id="page-content"></main>
+   - main.js defines: window.renderHome, window.renderProjects, window.renderBlogsList (optional),
+                      window.renderBlogPost (async or sync; returns HTML string)
+   - Sections that behave like pages have class="page" and IDs like #home, #projects, #blogs
+*/
 
-function setActiveNav(targetKey, isBlogPost) {
-  document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
-    link.classList.remove('active');
-    const linkId = (link.hash || '').substring(1);
-    if (isBlogPost) {
-      // For blog posts, show Blogs as active
-      if (linkId === 'blogs') link.classList.add('active');
-    } else if (linkId === targetKey) {
-      link.classList.add('active');
+(function () {
+  'use strict';
+
+  // -------------------------------
+  // Utilities
+  // -------------------------------
+  const qs  = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  function hideAllPages() {
+    qsa('.page').forEach(el => el.classList.add('hidden'));
+  }
+
+  function setActiveNav(targetKey, isBlogPost) {
+    qsa('header .nav-link, #mobile-menu .nav-link').forEach(link => {
+      link.classList.remove('active');
+      const linkId = (link.hash || '').replace(/^#/, '');
+      if (isBlogPost) {
+        if (linkId === 'blogs') link.classList.add('active');
+      } else if (linkId === targetKey) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  function closeMobileMenu() {
+    const mm = qs('#mobile-menu');
+    if (mm && !mm.classList.contains('hidden')) mm.classList.add('hidden');
+    const btn = qs('#mobile-menu-button');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMobileMenu() {
+    const mm = qs('#mobile-menu');
+    if (mm) mm.classList.toggle('hidden');
+    const isOpen = mm && !mm.classList.contains('hidden');
+    const btn = qs('#mobile-menu-button');
+    if (btn) btn.setAttribute('aria-expanded', String(!!isOpen));
+  }
+
+  function isHashLink(href) {
+    return typeof href === 'string' && href.startsWith('#');
+  }
+
+  function getHash() {
+    return window.location.hash || '#home';
+  }
+
+  function scrollToTop() {
+    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (_) {
+      window.scrollTo(0, 0);
     }
-  });
-}
+  }
 
-function hideAllPages() {
-  document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
-}
+  // -------------------------------
+  // Page switching (simple pages)
+  // -------------------------------
+  function switchPage(pageId) {
+    const key = pageId || 'home';
+    hideAllPages();
 
-/**
- * Switches visible "page" sections for simple routes (#home, #projects, #blogs).
- * Does NOT handle blog slugs; those are full-page renders into #page-content.
- */
-function switchPage(pageId) {
-  const key = pageId || 'home';
-  hideAllPages();
+    // Fallback to home if target page doesn't exist
+    let targetKey = key;
+    if (!qs(`#${CSS.escape(targetKey)}`)) targetKey = 'home';
 
-  // Default to #home if target doesn't exist
-  let targetKey = key;
-  if (!document.getElementById(targetKey)) targetKey = 'home';
+    const activePage = qs(`#${CSS.escape(targetKey)}`);
+    if (activePage) activePage.classList.remove('hidden');
 
-  const activePage = document.getElementById(targetKey);
-  if (activePage) activePage.classList.remove('hidden');
+    setActiveNav(targetKey, /*isBlogPost*/ false);
+    closeMobileMenu();
+    // ensure the mount for single-post view is cleared when on simple pages
+    const mount = qs('#page-content');
+    if (mount) mount.innerHTML = '';
 
-  setActiveNav(targetKey, /*isBlogPost*/ false);
+    scrollToTop();
+  }
 
-  // Close mobile menu if open
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (mobileMenu) mobileMenu.classList.add('hidden');
-}
+  // -------------------------------
+  // Blog article route (#blogs/<slug>)
+  // -------------------------------
+  async function renderBlogRoute(slug) {
+    const mount = qs('#page-content');
+    if (!mount) return;
 
-/** Handle any route, including #blogs/<slug> */
-function handleRouting() {
-  const hash = window.location.hash || '#home';
-  const pageId = hash.substring(1);
-
-  // #blogs/<slug>
-  const blogMatch = pageId.match(/^blogs\/([^/]+)$/);
-  if (blogMatch) {
-    const slug = decodeURIComponent(blogMatch[1]);
-    const mount = document.getElementById('page-content');
-
-    // Hide all section "pages" so only the article shows
+    // Hide section pages so only the article is visible
     hideAllPages();
     setActiveNav('blogs', /*isBlogPost*/ true);
 
-    if (mount && typeof window.renderBlogPost === 'function') {
-      // renderBlogPost returns HTML string
-      mount.innerHTML = window.renderBlogPost(slug);
+    // Render article (sync or async).
+    // renderBlogPost may be async (if it fetches markdown), so await if it returns a promise.
+    try {
+      const out = window.renderBlogPost && window.renderBlogPost(slug);
+      const html = out && typeof out.then === 'function' ? await out : out;
+      mount.innerHTML = html || `<div class="py-10 text-gray-400">Post not found.</div>`;
+    } catch (err) {
+      mount.innerHTML = `<div class="py-10 text-red-400">Failed to load post: ${String(err)}</div>`;
     }
-    return;
-  }
 
-  // Simple pages
-  document.getElementById('page-content').innerHTML = ''; // clear article view
-  switchPage(pageId || 'home');
-}
-
-/** Intercept all internal hash links (including .blog-card) */
-document.addEventListener('click', (e) => {
-  const a = e.target.closest('a');
-  if (!a) return;
-
-  const href = a.getAttribute('href') || '';
-  if (!href.startsWith('#')) return; // external or non-hash link → ignore
-
-  // Handle action links (e.g., data-action)
-  const actionLink = e.target.closest('[data-action]');
-  if (actionLink) {
-    e.preventDefault();
-    const action = actionLink.dataset.action;
-    if (action === 'open-chatbot') {
-      const chatbotFab = document.getElementById('chatbot-fab');
-      if (chatbotFab) chatbotFab.click();
+    // Focus the first heading for a11y after navigation
+    const h1 = mount.querySelector('h1');
+    if (h1) {
+      h1.setAttribute('tabindex', '-1');
+      try { h1.focus({ preventScroll: true }); } catch(_) { h1.focus(); }
     }
-    return;
+    scrollToTop();
   }
 
-  // Handle mobile menu toggle button
-  const mobileMenuButton = e.target.closest('#mobile-menu-button');
-  if (mobileMenuButton) {
+  // -------------------------------
+  // Router
+  // -------------------------------
+  async function handleRouting() {
+    const hash = getHash();
+    const pageId = hash.replace(/^#/, '');
+
+    // blogs/<slug>
+    const blogMatch = pageId.match(/^blogs\/([^/]+)$/);
+    if (blogMatch) {
+      const slug = decodeURIComponent(blogMatch[1]);
+      await renderBlogRoute(slug);
+      return;
+    }
+
+    // Simple pages (#home, #projects, #blogs)
+    switchPage(pageId || 'home');
+  }
+
+  // -------------------------------
+  // Global click handling
+  //  - internal hash links (including .blog-card)
+  //  - mobile menu toggle
+  //  - action links (e.g., data-action="open-chatbot")
+  // -------------------------------
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+
+    // Mobile menu toggle
+    const mobileMenuButton = target.closest('#mobile-menu-button');
+    if (mobileMenuButton) {
+      e.preventDefault();
+      openMobileMenu();
+      return;
+    }
+
+    // Action links (e.g., open chatbot)
+    const actionLink = target.closest('[data-action]');
+    if (actionLink) {
+      const action = actionLink.getAttribute('data-action');
+      if (action === 'open-chatbot') {
+        e.preventDefault();
+        const chatbotFab = qs('#chatbot-fab');
+        if (chatbotFab) chatbotFab.click();
+      }
+      // allow other actions to fall through if needed
+    }
+
+    // Internal navigation links
+    const a = target.closest('a');
+    if (!a) return;
+
+    const href = a.getAttribute('href') || '';
+    if (!isHashLink(href)) return; // External or non-hash link → let browser handle it
+
     e.preventDefault();
-    const mm = document.getElementById('mobile-menu');
-    if (mm) mm.classList.toggle('hidden');
-    return;
-  }
 
-  // Internal navigation
-  e.preventDefault();
-  if (location.hash !== href) {
-    location.hash = href; // will trigger handleRouting via 'hashchange'
-  } else {
-    // Same-hash click (e.g., re-open same post) → force reroute
-    handleRouting();
-  }
-});
+    // If the hash is changing, set it (this will fire 'hashchange')
+    if (window.location.hash !== href) {
+      window.location.hash = href;
+    } else {
+      // Same-hash click (e.g., re-clicking current card) → force a reroute
+      handleRouting();
+    }
 
-// Route on first load and when hash changes
-window.addEventListener('load', handleRouting);
-window.addEventListener('hashchange', handleRouting);
+    closeMobileMenu();
+  });
 
-// Optional: if elsewhere you call history.pushState, keep this too
-window.addEventListener('popstate', handleRouting);
+  // -------------------------------
+  // History & lifecycle events
+  // -------------------------------
+  window.addEventListener('hashchange', handleRouting);
+  window.addEventListener('popstate', handleRouting);
+  window.addEventListener('load', handleRouting);
+
+  // Expose a tiny API if you need to call it elsewhere
+  window.__nav = {
+    switchPage,
+    handleRouting,
+  };
+})();
