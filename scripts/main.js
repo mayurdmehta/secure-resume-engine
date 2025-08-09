@@ -3,6 +3,136 @@ import { initToolkit } from './toolkit.js';
 import { initChatbot } from './chatbot.js';
 import { initProjects } from './projects.js';
 
+// ======================================================================= //
+// ADDITIONS FOR THE BLOG FEATURE                                          //
+// ======================================================================= //
+
+// Data structure to hold blog post content.
+const blogPosts = [
+    {
+        slug: 'vibe-coding-my-way-to-automation',
+        title: 'Vibe Coding My Way to Automation - A No-Code/Low-Code Workflow for Email Follow-Ups and Beyond',
+        date: 'August 9, 2025',
+        summary: 'How a non-developer built an AI-powered email follow-up assistant using no-code tools, a little scripting, and a lot of trial and error.',
+        content: `
+# Vibe Coding My Way to Automation - A Workflow for Email Follow-Ups and Beyond
+
+## The Backstory
+I send a lot of professional outreach emails - whether for job opportunities, networking, or collaborations. The hardest part? Sifting through too many snoozed conversations in my Gmail inbox, trying to remember who I’ve contacted, who replied, and when I should follow up. So, I decided to fix it. The twist? I’m not a developer. I dove into what’s now a trending buzzword - **vibe coding** - eager to see if I could pull it off without ever being a hands-on coder. Even with a computer science degree, my strengths have always been at the strategic level: partnering with developers, translating between business and technical teams, and aligning everyone to deliver real value. Vibe coding, in this sense, means creating something complex through initiative, AI collaboration, and a lot of trial and error.
+
+---
+
+## The Problem
+Honestly, I was too lazy to keep juggling Gmail snoozes for follow-ups and then spend time writing each one from scratch. I needed a system that:
+* Detects when I send an initial outreach email.
+* Waits 7 days.
+* Checks if the recipient replied.
+* If not, drafts a personalized follow-up in my Gmail.
+* Logs everything so I never send two follow-ups to the same person.
+
+---
+
+## The Vision
+I didn’t want just reminders - I wanted automation that:
+* Reads my sent mail in real time.
+* Classifies emails as **INITIAL** or **REPLY** using AI.
+* Pulls the full thread for context.
+* Writes a follow-up in my tone.
+* Creates a Gmail draft for review.
+* Keeps a record in Google Sheets.
+
+---
+
+## The Stack
+* **n8n** - The automation engine.
+* **Gmail API** - To watch sent messages and create drafts.
+* **OpenAI** - For classification and follow-up generation.
+* **Google Sheets** - To log and deduplicate outreach.
+* **JavaScript (Code Nodes)** - To tie the logic together.
+
+---
+
+## The Build
+* **Gmail Trigger** - Watches for sent mail.
+* **OpenAI Classifier** - Decides if an email is an initial outreach or a reply.
+* **Code Node** - Extracts recipient, thread ID, date, and calculates email age.
+* **IF Node** - Filters for initial outreach older than 7 days with no reply.
+* **OpenAI Follow-Up Writer** - Generates a personalized draft.
+* **Gmail Draft Node** - Saves the follow-up as a draft.
+* **Google Sheets Append** - Logs every initial outreach to prevent duplicates.
+* **One-Time Backfill** - Pulled older outreach emails into the system.
+
+---
+
+## The Challenges
+* **Backfill**: Gmail’s trigger only works going forward, so I had to run a historical search for older emails.
+* **Data Structure Learning Curve**: Figuring out $json in n8n without prior experience took time.
+* **AI Output Consistency**: Ensuring AI responses were valid JSON.
+* **Undefined Errors**: Fixed by adding checks for missing fields.
+
+---
+
+## The Wins
+* **No More Mental Load**: Every follow-up is on time.
+* **Fully Personalized**: AI drafts include details from the original conversation.
+* **Time Savings**: About 10 minutes saved per outreach.
+* **Skill Boost**: Learned enough JavaScript to debug and customize automation.
+
+---
+
+## Beyond Email Follow-Ups
+While this project focused on professional email follow-ups, the same framework can easily be adapted for:
+* Customer support ticket follow-ups.
+* Incident management escalations.
+* Sales pipeline check-ins.
+* Internal project reminders, and more.
+If the workflow can read a trigger, assess the context, and draft a response - it can be customized for it.
+
+---
+
+## Key Takeaways for Non-Developers
+* You can build powerful, code-heavy workflows without being a coder.
+* AI can bridge the gap between idea and execution.
+* Visual automation tools like n8n become far more capable with a touch of scripting.
+
+I started this thinking I’d just automate reminders. I ended up building an AI-powered email assistant. If I can vibe code my way into this, you can too.
+        `,
+    },
+    {
+        slug: 'a-future-post',
+        title: 'A Future Post',
+        date: 'Coming Soon',
+        summary: 'A look ahead at future topics, including AI-driven workflows, automation pipelines, and advanced prompt engineering.',
+        content: '',
+    },
+];
+
+// Function to render a single blog post from its data.
+function renderBlogPost(slug) {
+    const post = blogPosts.find(p => p.slug === slug);
+    if (!post) {
+        return `<div class="text-center py-20"><h1 class="text-3xl font-bold text-white mb-4">Post not found.</h1><p class="text-gray-400">Please check the URL or return to the blog list.</p></div>`;
+    }
+
+    // Use a library to convert Markdown content to HTML
+    const formattedContent = marked.parse(post.content || '');
+
+    return `
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">${post.title}</h1>
+            <p class="text-gray-500 mb-6">${post.date}</p>
+            <div class="prose prose-dark max-w-none">
+                ${formattedContent}
+            </div>
+        </div>
+    `;
+}
+
+// ======================================================================= //
+// END: ADDITIONS FOR THE BLOG FEATURE                                     //
+// ======================================================================= //
+
+
 // The HTML content for all pages is stored in this template literal.
 const pageTemplates = `
 <style>
@@ -174,7 +304,6 @@ const pageTemplates = `
   </header>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-    <!-- Project 1 -->
     <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project1-modal">
       <h3 class="text-2xl font-bold text-brand-primary mb-2">This Portfolio Website</h3>
       <p class="text-gray-400 mb-4">A meta-project on building a personal portfolio through an iterative, AI-assisted development process with Gemini.</p>
@@ -184,7 +313,6 @@ const pageTemplates = `
       </div>
     </div>
 
-    <!-- Project 2 -->
     <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project2-modal">
       <h3 class="text-2xl font-bold text-brand-primary mb-2">Career Toolkit AI</h3>
       <p class="text-gray-400 mb-4">The engine powering this site. An AI tool that analyzes job descriptions and generates tailored career assets.</p>
@@ -194,7 +322,6 @@ const pageTemplates = `
       </div>
     </div>
 
-    <!-- Project 3 (NEW) -->
     <div class="project-card bg-gray-800/50 p-6 rounded-xl border border-gray-700 cursor-pointer" data-modal-target="project3-modal">
       <h3 class="text-2xl font-bold text-brand-primary mb-2">Automated Follow-Up Assistant</h3>
       <p class="text-gray-400 mb-4">
@@ -212,7 +339,16 @@ const pageTemplates = `
     <div id="blogs" class="page hidden">
         <div class="text-center py-20">
             <h1 class="text-5xl font-bold text-white mb-4">My Blog</h1>
-            <p class="text-xl text-gray-400">Coming soon! A collection of my thoughts on technology, product management, and more.</p>
+            <p class="text-xl text-gray-400 mb-12">A collection of my thoughts on technology, product management, and more.</p>
+        </div>
+        <div id="blog-list-container" class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            ${blogPosts.map(post => `
+                <a href="#blogs/${post.slug}" class="blog-card block bg-gray-800/50 p-6 rounded-xl border border-gray-700 transition-transform hover:scale-[1.02] hover:bg-gray-800/70">
+                    <h3 class="text-xl font-bold text-brand-primary mb-2">${post.title}</h3>
+                    <p class="text-gray-400 text-sm mb-4">${post.summary}</p>
+                    <p class="text-gray-500 text-sm">${post.date}</p>
+                </a>
+            `).join('')}
         </div>
     </div>
 
@@ -241,7 +377,6 @@ const pageTemplates = `
                     <textarea id="additionalContext" class="w-full h-32 p-4 bg-gray-900 border border-gray-700 rounded-lg text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200" placeholder="e.g., Mention my passion for data visualization, address the cover letter to Jane Doe, or highlight my startup experience..."></textarea>
                 </div>
 
-                <!-- AI Engine Selector -->
                 <div class="mt-6">
                     <label class="block text-lg font-semibold text-white mb-3 text-center">Select AI Engine</label>
                     <div id="engine-selector" class="flex w-full bg-gray-900 border border-gray-700 rounded-lg p-1">
@@ -373,7 +508,6 @@ const pageTemplates = `
           class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-gray-200 hover:bg-gray-800 transition"
           data-modal-target="project3-workflow-modal"
         >
-          <!-- icon -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15 10l4.553-2.276A2 2 0 0122 9.618V14.5a2 2 0 01-1.106 1.789L15 18M5 8h5M5 12h8M5 16h8" />
@@ -381,16 +515,7 @@ const pageTemplates = `
           View workflow
         </button>
 
-        <!-- Optional thumbnail: click opens the full-screen modal -->
-        <!--
-        <img
-          src="/images/projects/n8n-followup-flow.png"
-          alt="Workflow preview"
-          class="rounded-lg border border-gray-700 cursor-zoom-in max-h-40"
-          data-modal-target="project3-workflow-modal"
-        />
-        -->
-      </div>
+        </div>
 
       <h3 class="mt-8">The Outcome</h3>
       <p>Hands-off, review-ready follow-ups with consistent tone. Increased reply reliability and time saved each week.</p>
@@ -487,9 +612,20 @@ function loadPageContent() {
         document.head.appendChild(styleTag);
     }
 
-    // Now, append the rest of the content (the divs) to the live body
-    const templateBody = doc.body;
-    while (templateBody.firstChild) {
-        document.body.appendChild(templateBody.firstChild);
+    // Find the page content container in the main document.
+    const pageContentContainer = document.querySelector('#page-content');
+    
+    // Check for a specific blog post route
+    const hash = window.location.hash;
+    const blogMatch = hash.match(/^#blogs\/(.+)$/);
+    if (blogMatch) {
+        const slug = blogMatch[1];
+        pageContentContainer.innerHTML = renderBlogPost(slug);
+    } else {
+        // If it's not a blog post, append all the pages normally.
+        const templateBody = doc.body;
+        while (templateBody.firstChild) {
+            document.body.appendChild(templateBody.firstChild);
+        }
     }
 }

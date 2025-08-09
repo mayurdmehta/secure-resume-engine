@@ -1,13 +1,28 @@
 /**
  * Switches the visible page based on the provided page ID.
- * @param {string} pageId The ID of the page to display.
+ * @param {string} pageId The ID of the page to display, which can include a sub-route like 'blogs/my-first-post'.
  */
 function switchPage(pageId) {
-    // Default to 'home' if pageId is invalid or doesn't exist.
-    const targetPageId = (pageId && document.getElementById(pageId)) ? pageId : 'home';
-
+    const pages = document.querySelectorAll('.page');
     // Hide all page elements.
-    document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+    pages.forEach(page => page.classList.add('hidden'));
+
+    let targetPageId = pageId;
+    let blogMatch = null;
+    
+    // Check if the pageId is a blog post slug.
+    if (pageId) {
+        blogMatch = pageId.match(/^blogs\/(.+)$/);
+        if (blogMatch) {
+             // If it's a blog post, the target container is the general #blogs page.
+            targetPageId = 'blogs';
+        }
+    }
+
+    // Default to 'home' if pageId is invalid or doesn't exist.
+    if (!targetPageId || !document.getElementById(targetPageId)) {
+        targetPageId = 'home';
+    }
     
     // Show the target page.
     const activePage = document.getElementById(targetPageId);
@@ -15,15 +30,24 @@ function switchPage(pageId) {
         activePage.classList.remove('hidden');
     }
 
-    // Update the 'active' state for all navigation links.
+    // ======================================================================= //
+    // NEW LOGIC: Update the 'active' state for all navigation links.          //
+    // ======================================================================= //
     document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
         link.classList.remove('active');
-        // Check if the link's hash corresponds to the active page ID.
-        if (link.hash === `#${targetPageId}`) {
+        const linkId = link.hash.substring(1);
+        
+        if (blogMatch) {
+            // For blog posts, activate the general 'blogs' link.
+            if (linkId === 'blogs') {
+                link.classList.add('active');
+            }
+        } else if (linkId === targetPageId) {
+             // For all other pages, activate the specific link.
             link.classList.add('active');
         }
     });
-    
+
     // Ensure the mobile menu is closed after navigation.
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu) {
@@ -53,14 +77,26 @@ export function initNavigation() {
         // Handle clicks on internal navigation links (e.g., #projects).
         if (navLink && navLink.hash) {
             const pageId = navLink.hash.substring(1);
-            // Ensure the target page exists in the DOM.
-            if (document.getElementById(pageId)) {
+            
+            // Check for a specific blog post link.
+            const blogMatch = pageId.match(/^blogs\/(.+)$/);
+
+            // Ensure the target page or a blog post container exists in the DOM.
+            if (document.getElementById(pageId) || (blogMatch && document.getElementById('blogs'))) {
                 e.preventDefault();
                 // Only push a new state if the URL is actually changing.
                 if (window.location.hash !== navLink.hash) {
                     history.pushState({ pageId }, '', navLink.hash);
                 }
-                switchPage(pageId);
+                
+                // If it's a blog post link, we need to re-render the page content.
+                if (blogMatch) {
+                    // This is a new helper function we'll need in main.js
+                    document.getElementById('page-content').innerHTML = window.renderBlogPost(blogMatch[1]);
+                    switchPage(pageId);
+                } else {
+                    switchPage(pageId);
+                }
             }
         }
 
