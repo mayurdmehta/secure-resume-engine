@@ -1,69 +1,77 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mayur Mehta - Personal Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-primary': '#3b82f6',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RT8QQB7EX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayur Mehta - Personal Portfolio</title>
 
-      gtag('config', 'G-3RT8QQB7EX');
-    </script>
-    
-    <!-- FIX: The 'marked' library is included to parse Markdown text into HTML -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { 'brand-primary': '#3b82f6' } } }
+    }
+  </script>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RT8QQB7EX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-3RT8QQB7EX');
+  </script>
+
+  <!-- Markdown parser (global) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+
+  <!-- Your app scripts: main defines renderers; navigation handles routing -->
+  <script src="scripts/main.js" defer></script>
+  <script src="scripts/navigation.js" defer></script>
 </head>
 <body class="bg-gray-900 text-gray-200">
 
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <textarea name="message"></textarea>
-    </form>
+  <!-- Netlify form -->
+  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+  </form>
 
-    <header class="bg-gray-900 border-b border-gray-800">
-        <nav class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-            <a href="#home" class="nav-link flex-shrink-0 flex items-center">
-                <img src="/logo.png" alt="Mayur Mehta Logo" class="h-14" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('ml-3');">
-                <span class="ml-3 text-xl font-bold">Mayur Mehta</span>
-            </a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="nav-link text-gray-400 font-medium active">Home</a>
-                <a href="#projects" class="nav-link text-gray-400 font-medium">Projects</a>
-                <a href="#blogs" class="nav-link text-gray-400 font-medium">Blogs</a>
-                <a href="#toolkit" class="nav-link text-gray-400 font-medium">Career Toolkit AI</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#home" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Home</a>
-            <a href="#projects" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Projects</a>
-            <a href="#blogs" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Blogs</a>
-            <a href="#toolkit" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Career Toolkit AI</a>
-        </div>
-    </header>
+  <!-- Header / Nav -->
+  <header class="bg-gray-900 border-b border-gray-800">
+    <nav class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+      <a href="#home" class="nav-link flex-shrink-0 flex items-center">
+        <img src="/logo.png" alt="Mayur Mehta Logo" class="h-14"
+             onerror="this.style.display='none'; this.nextElementSibling.classList.remove('ml-3');">
+        <span class="ml-3 text-xl font-bold">Mayur Mehta</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="nav-link text-gray-400 font-medium active">Home</a>
+        <a href="#projects" class="nav-link text-gray-400 font-medium">Projects</a>
+        <a href="#blogs" class="nav-link text-gray-400 font-medium">Blogs</a>
+        <a href="#toolkit" class="nav-link text-gray-400 font-medium">Career Toolkit AI</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden text-white" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+    </nav>
 
-    <script type="module" src="scripts/main.js"></script>
+    <div id="mobile-menu" class="hidden md:hidden">
+      <a href="#home" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Home</a>
+      <a href="#projects" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Projects</a>
+      <a href="#blogs" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Blogs</a>
+      <a href="#toolkit" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Career Toolkit AI</a>
+    </div>
+  </header>
+
+  <!-- ✅ SPA mount goes OUTSIDE the header -->
+  <main id="page-content" class="container mx-auto px-4 md:px-8 py-6" aria-live="polite"></main>
+
 </body>
 </html>
+
