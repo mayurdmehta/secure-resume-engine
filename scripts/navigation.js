@@ -16,12 +16,21 @@ function switchPage(pageId) {
     const activePage = document.getElementById(targetPageId);
     if (activePage) {
         activePage.classList.remove('hidden');
+        
+        // NEW: Dispatch a custom event to notify other modules of the page change.
+        // This is the key to fixing the race condition.
+        const event = new CustomEvent('page-switched', {
+            detail: {
+                pageId: targetPageId, // The base page ID (e.g., 'blogs')
+                fullPath: pageId      // The full path from the hash (e.g., 'blogs/my-post')
+            }
+        });
+        document.dispatchEvent(event);
     }
 
     // Update the 'active' state for all navigation links.
     document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
         link.classList.remove('active');
-        // Handle nested routes by comparing only the base segment.
         const linkBase = (link.hash || '').replace(/^#/, '').split('/')[0];
         if (linkBase === targetPageId) {
             link.classList.add('active');
@@ -36,11 +45,10 @@ function switchPage(pageId) {
 }
 
 /**
- * Handles routing by reading the URL hash (supports nested paths like "blogs/slug")
- * and switching to the correct base page.
+ * Handles routing by reading the URL hash and switching to the correct page.
  */
 function handleRouting() {
-    const path = window.location.hash.replace(/^#/, ''); // e.g., "blogs/slug"
+    const path = window.location.hash.replace(/^#/, '');
     switchPage(path);
 }
 
@@ -48,22 +56,18 @@ function handleRouting() {
  * Initializes all navigation functionality for the site.
  */
 export function initNavigation() {
-    // Set up a global click listener to handle all navigation and actions.
+    // A single, delegated click listener for all navigation and actions.
     document.body.addEventListener('click', (e) => {
-        // Correctly identify navigation links in the header, mobile menu, and the logo.
         const navLink = e.target.closest('a.nav-link');
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
-        // Handle clicks on internal navigation links (e.g., #projects, #blogs).
         if (navLink && navLink.hash) {
-            const targetHash = navLink.hash; // e.g., "#blogs"
+            const targetHash = navLink.hash;
             const targetPath = targetHash.replace(/^#/, '');
-            // Ensure the base target page exists in the DOM.
             const baseId = (targetPath || '').split('/')[0] || 'home';
             if (document.getElementById(baseId)) {
                 e.preventDefault();
-                // Only push a new state if the URL is actually changing.
                 if (window.location.hash !== targetHash) {
                     history.pushState({ pageId: targetPath }, '', targetHash);
                 }
@@ -71,32 +75,25 @@ export function initNavigation() {
             }
         }
 
-        // Handle clicks on action links (e.g., open chatbot).
         if (actionLink) {
             e.preventDefault();
             const action = actionLink.dataset.action;
             if (action === 'open-chatbot') {
                 const chatbotFab = document.getElementById('chatbot-fab');
-                // Programmatically click the FAB to trigger its existing toggle logic.
-                if (chatbotFab) {
-                    chatbotFab.click();
-                }
+                if (chatbotFab) chatbotFab.click();
             }
         }
         
-        // Handle clicks on the mobile menu toggle button.
         if (mobileMenuButton) {
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu) mobileMenu.classList.toggle('hidden');
         }
     });
 
-    // Add a listener for the 'popstate' event to handle browser back/forward buttons.
+    // Listen for browser back/forward buttons and hash changes.
     window.addEventListener('popstate', handleRouting);
-
-    // NEW: Also react to pure hash changes (e.g., clicking #blogs/<slug> cards or direct links).
     window.addEventListener('hashchange', handleRouting);
 
-    // Perform initial routing when the application loads to handle deep links like #blogs/<slug>.
+    // Perform initial routing when the application loads.
     handleRouting();
 }
