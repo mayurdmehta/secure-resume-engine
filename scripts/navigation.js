@@ -1,196 +1,102 @@
-/* navigation.js — SPA navigation, mobile menu, and hash routing
-   Requirements:
-   - index.html contains: <main id="page-content"></main>
-   - main.js defines: window.renderHome, window.renderProjects, window.renderBlogsList (optional),
-                      window.renderBlogPost (async or sync; returns HTML string)
-   - Sections that behave like pages have class="page" and IDs like #home, #projects, #blogs
-*/
+/**
+ * Switches the visible page based on the provided page ID or nested route (e.g., "blogs/slug").
+ * @param {string} pageId The ID of the page or nested route to display.
+ */
+function switchPage(pageId) {
+    // Support nested routes like "blogs/slug" by using the base segment for page selection.
+    const baseId = (pageId || '').split('/')[0] || 'home';
 
-(function () {
-  'use strict';
+    // Default to 'home' if baseId is invalid or doesn't exist.
+    const targetPageId = document.getElementById(baseId) ? baseId : 'home';
 
-  // -------------------------------
-  // Utilities
-  // -------------------------------
-  const qs  = (sel, root = document) => root.querySelector(sel);
-  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    // Hide all page elements.
+    document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+    
+    // Show the target page.
+    const activePage = document.getElementById(targetPageId);
+    if (activePage) {
+        activePage.classList.remove('hidden');
+    }
 
-  function hideAllPages() {
-    qsa('.page').forEach(el => el.classList.add('hidden'));
-  }
-
-  function setActiveNav(targetKey, isBlogPost) {
-    qsa('header .nav-link, #mobile-menu .nav-link').forEach(link => {
-      link.classList.remove('active');
-      const linkId = (link.hash || '').replace(/^#/, '');
-      if (isBlogPost) {
-        if (linkId === 'blogs') link.classList.add('active');
-      } else if (linkId === targetKey) {
-        link.classList.add('active');
-      }
+    // Update the 'active' state for all navigation links.
+    document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
+        link.classList.remove('active');
+        // Handle nested routes by comparing only the base segment.
+        const linkBase = (link.hash || '').replace(/^#/, '').split('/')[0];
+        if (linkBase === targetPageId) {
+            link.classList.add('active');
+        }
     });
-  }
-
-  function closeMobileMenu() {
-    const mm = qs('#mobile-menu');
-    if (mm && !mm.classList.contains('hidden')) mm.classList.add('hidden');
-    const btn = qs('#mobile-menu-button');
-    if (btn) btn.setAttribute('aria-expanded', 'false');
-  }
-
-  function openMobileMenu() {
-    const mm = qs('#mobile-menu');
-    if (mm) mm.classList.toggle('hidden');
-    const isOpen = mm && !mm.classList.contains('hidden');
-    const btn = qs('#mobile-menu-button');
-    if (btn) btn.setAttribute('aria-expanded', String(!!isOpen));
-  }
-
-  function isHashLink(href) {
-    return typeof href === 'string' && href.startsWith('#');
-  }
-
-  function getHash() {
-    return window.location.hash || '#home';
-  }
-
-  function scrollToTop() {
-    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (_) {
-      window.scrollTo(0, 0);
+    
+    // Ensure the mobile menu is closed after navigation.
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
     }
-  }
+}
 
-  // -------------------------------
-  // Page switching (simple pages)
-  // -------------------------------
-  function switchPage(pageId) {
-    const key = pageId || 'home';
-    hideAllPages();
+/**
+ * Handles routing by reading the URL hash (supports nested paths like "blogs/slug")
+ * and switching to the correct base page.
+ */
+function handleRouting() {
+    const path = window.location.hash.replace(/^#/, ''); // e.g., "blogs/slug"
+    switchPage(path);
+}
 
-    // Fallback to home if target page doesn't exist
-    let targetKey = key;
-    if (!qs(`#${CSS.escape(targetKey)}`)) targetKey = 'home';
+/**
+ * Initializes all navigation functionality for the site.
+ */
+export function initNavigation() {
+    // Set up a global click listener to handle all navigation and actions.
+    document.body.addEventListener('click', (e) => {
+        // Correctly identify navigation links in the header, mobile menu, and the logo.
+        const navLink = e.target.closest('a.nav-link');
+        const actionLink = e.target.closest('[data-action]');
+        const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
-    const activePage = qs(`#${CSS.escape(targetKey)}`);
-    if (activePage) activePage.classList.remove('hidden');
+        // Handle clicks on internal navigation links (e.g., #projects, #blogs).
+        if (navLink && navLink.hash) {
+            const targetHash = navLink.hash; // e.g., "#blogs"
+            const targetPath = targetHash.replace(/^#/, '');
+            // Ensure the base target page exists in the DOM.
+            const baseId = (targetPath || '').split('/')[0] || 'home';
+            if (document.getElementById(baseId)) {
+                e.preventDefault();
+                // Only push a new state if the URL is actually changing.
+                if (window.location.hash !== targetHash) {
+                    history.pushState({ pageId: targetPath }, '', targetHash);
+                }
+                switchPage(targetPath);
+            }
+        }
 
-    setActiveNav(targetKey, /*isBlogPost*/ false);
-    closeMobileMenu();
-    // ensure the mount for single-post view is cleared when on simple pages
-    const mount = qs('#page-content');
-    if (mount) mount.innerHTML = '';
+        // Handle clicks on action links (e.g., open chatbot).
+        if (actionLink) {
+            e.preventDefault();
+            const action = actionLink.dataset.action;
+            if (action === 'open-chatbot') {
+                const chatbotFab = document.getElementById('chatbot-fab');
+                // Programmatically click the FAB to trigger its existing toggle logic.
+                if (chatbotFab) {
+                    chatbotFab.click();
+                }
+            }
+        }
+        
+        // Handle clicks on the mobile menu toggle button.
+        if (mobileMenuButton) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        }
+    });
 
-    scrollToTop();
-  }
+    // Add a listener for the 'popstate' event to handle browser back/forward buttons.
+    window.addEventListener('popstate', handleRouting);
 
-  // -------------------------------
-  // Blog article route (#blogs/<slug>)
-  // -------------------------------
-  async function renderBlogRoute(slug) {
-    const mount = qs('#page-content');
-    if (!mount) return;
+    // NEW: Also react to pure hash changes (e.g., clicking #blogs/<slug> cards or direct links).
+    window.addEventListener('hashchange', handleRouting);
 
-    // Hide section pages so only the article is visible
-    hideAllPages();
-    setActiveNav('blogs', /*isBlogPost*/ true);
-
-    // Render article (sync or async).
-    // renderBlogPost may be async (if it fetches markdown), so await if it returns a promise.
-    try {
-      const out = window.renderBlogPost && window.renderBlogPost(slug);
-      const html = out && typeof out.then === 'function' ? await out : out;
-      mount.innerHTML = html || `<div class="py-10 text-gray-400">Post not found.</div>`;
-    } catch (err) {
-      mount.innerHTML = `<div class="py-10 text-red-400">Failed to load post: ${String(err)}</div>`;
-    }
-
-    // Focus the first heading for a11y after navigation
-    const h1 = mount.querySelector('h1');
-    if (h1) {
-      h1.setAttribute('tabindex', '-1');
-      try { h1.focus({ preventScroll: true }); } catch(_) { h1.focus(); }
-    }
-    scrollToTop();
-  }
-
-  // -------------------------------
-  // Router
-  // -------------------------------
-  async function handleRouting() {
-    const hash = getHash();
-    const pageId = hash.replace(/^#/, '');
-
-    // blogs/<slug>
-    const blogMatch = pageId.match(/^blogs\/([^/]+)$/);
-    if (blogMatch) {
-      const slug = decodeURIComponent(blogMatch[1]);
-      await renderBlogRoute(slug);
-      return;
-    }
-
-    // Simple pages (#home, #projects, #blogs)
-    switchPage(pageId || 'home');
-  }
-
-  // -------------------------------
-  // Global click handling
-  //  - internal hash links (including .blog-card)
-  //  - mobile menu toggle
-  //  - action links (e.g., data-action="open-chatbot")
-  // -------------------------------
-  document.addEventListener('click', (e) => {
-    const target = e.target;
-
-    // Mobile menu toggle
-    const mobileMenuButton = target.closest('#mobile-menu-button');
-    if (mobileMenuButton) {
-      e.preventDefault();
-      openMobileMenu();
-      return;
-    }
-
-    // Action links (e.g., open chatbot)
-    const actionLink = target.closest('[data-action]');
-    if (actionLink) {
-      const action = actionLink.getAttribute('data-action');
-      if (action === 'open-chatbot') {
-        e.preventDefault();
-        const chatbotFab = qs('#chatbot-fab');
-        if (chatbotFab) chatbotFab.click();
-      }
-      // allow other actions to fall through if needed
-    }
-
-    // Internal navigation links
-    const a = target.closest('a');
-    if (!a) return;
-
-    const href = a.getAttribute('href') || '';
-    if (!isHashLink(href)) return; // External or non-hash link → let browser handle it
-
-    e.preventDefault();
-
-    // If the hash is changing, set it (this will fire 'hashchange')
-    if (window.location.hash !== href) {
-      window.location.hash = href;
-    } else {
-      // Same-hash click (e.g., re-clicking current card) → force a reroute
-      handleRouting();
-    }
-
-    closeMobileMenu();
-  });
-
-  // -------------------------------
-  // History & lifecycle events
-  // -------------------------------
-  window.addEventListener('hashchange', handleRouting);
-  window.addEventListener('popstate', handleRouting);
-  window.addEventListener('load', handleRouting);
-
-  // Expose a tiny API if you need to call it elsewhere
-  window.__nav = {
-    switchPage,
-    handleRouting,
-  };
-})();
+    // Perform initial routing when the application loads to handle deep links like #blogs/<slug>.
+    handleRouting();
+}
