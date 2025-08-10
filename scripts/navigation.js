@@ -1,34 +1,32 @@
 /**
- * Switches the visible page based on the provided page ID or nested route (e.g., "blogs/slug").
+ * Switches the visible page and dispatches a custom event.
  * @param {string} pageId The ID of the page or nested route to display.
  */
 function switchPage(pageId) {
-    // Support nested routes like "blogs/slug" by using the base segment for page selection.
     const baseId = (pageId || '').split('/')[0] || 'home';
-
-    // Default to 'home' if baseId is invalid or doesn't exist.
     const targetPageId = document.getElementById(baseId) ? baseId : 'home';
-
-    // Hide all page elements.
-    document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
-    
-    // Show the target page.
     const activePage = document.getElementById(targetPageId);
-    if (activePage) {
+
+    if (activePage && activePage.classList.contains('hidden')) {
+        document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
         activePage.classList.remove('hidden');
-        
-        // NEW: Dispatch a custom event to notify other modules of the page change.
-        // This is the key to fixing the race condition.
+
+        // --- Google Analytics Tracking for ALL pages ---
+        // We get the page title from the corresponding nav link's text content.
+        const navLink = document.querySelector(`a.nav-link[href="#${targetPageId}"]`);
+        const pageTitle = navLink ? navLink.textContent.trim() : 'Home';
+        trackPageView(`/${targetPageId}`, pageTitle);
+        // ---------------------------------------------
+
         const event = new CustomEvent('page-switched', {
             detail: {
-                pageId: targetPageId, // The base page ID (e.g., 'blogs')
-                fullPath: pageId      // The full path from the hash (e.g., 'blogs/my-post')
+                pageId: targetPageId,
+                fullPath: pageId
             }
         });
         document.dispatchEvent(event);
     }
 
-    // Update the 'active' state for all navigation links.
     document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
         link.classList.remove('active');
         const linkBase = (link.hash || '').replace(/^#/, '').split('/')[0];
@@ -36,8 +34,7 @@ function switchPage(pageId) {
             link.classList.add('active');
         }
     });
-    
-    // Ensure the mobile menu is closed after navigation.
+
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu) {
         mobileMenu.classList.add('hidden');
@@ -45,7 +42,7 @@ function switchPage(pageId) {
 }
 
 /**
- * Handles routing by reading the URL hash and switching to the correct page.
+ * Handles routing by reading the URL hash.
  */
 function handleRouting() {
     const path = window.location.hash.replace(/^#/, '');
@@ -53,47 +50,55 @@ function handleRouting() {
 }
 
 /**
- * Initializes all navigation functionality for the site.
+ * Initializes all navigation functionality.
  */
 export function initNavigation() {
-    // A single, delegated click listener for all navigation and actions.
     document.body.addEventListener('click', (e) => {
         const navLink = e.target.closest('a.nav-link');
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
         if (navLink && navLink.hash) {
-            const targetHash = navLink.hash;
-            const targetPath = targetHash.replace(/^#/, '');
-            const baseId = (targetPath || '').split('/')[0] || 'home';
-            if (document.getElementById(baseId)) {
-                e.preventDefault();
-                if (window.location.hash !== targetHash) {
-                    history.pushState({ pageId: targetPath }, '', targetHash);
-                }
-                switchPage(targetPath);
+            e.preventDefault();
+            const targetPath = navLink.hash.replace(/^#/, '');
+            if (window.location.hash !== navLink.hash) {
+                history.pushState({ pageId: targetPath }, '', navLink.hash);
             }
+            switchPage(targetPath);
         }
 
         if (actionLink) {
             e.preventDefault();
             const action = actionLink.dataset.action;
             if (action === 'open-chatbot') {
-                const chatbotFab = document.getElementById('chatbot-fab');
-                if (chatbotFab) chatbotFab.click();
+                document.getElementById('chatbot-fab')?.click();
             }
         }
         
         if (mobileMenuButton) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+            document.getElementById('mobile-menu')?.classList.toggle('hidden');
         }
     });
 
-    // Listen for browser back/forward buttons and hash changes.
     window.addEventListener('popstate', handleRouting);
     window.addEventListener('hashchange', handleRouting);
 
-    // Perform initial routing when the application loads.
     handleRouting();
+}
+
+/**
+ * Sends a page_view event to Google Analytics for SPA navigation.
+ * @param {string} path - The virtual path of the page (e.g., '/blogs').
+ * @param {string} title - The title of the page.
+ */
+function trackPageView(path, title) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+            page_path: path,
+            page_title: title,
+            page_location: window.location.href
+        });
+    } else {
+        console.log(`Analytics disabled: gtag not found. Page view for ${path} not tracked.`);
+    }
 }
