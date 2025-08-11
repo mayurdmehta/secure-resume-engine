@@ -11,8 +11,12 @@ function switchPage(pageId) {
         document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
         activePage.classList.remove('hidden');
 
+        // Correctly find the nav link for the base page (e.g., 'projects')
         const navLink = document.querySelector(`a.nav-link[href="#${targetPageId}"]`);
         const pageTitle = navLink ? navLink.textContent.trim() : 'Home';
+        
+        // Only track the main page view here. The specific project/blog view
+        // will be tracked by their respective modules if needed.
         trackPageView(`/${targetPageId}`, pageTitle);
 
         const event = new CustomEvent('page-switched', {
@@ -55,7 +59,8 @@ export function initNavigation() {
         const actionLink = e.target.closest('[data-action]');
         const mobileMenuButton = e.target.closest('#mobile-menu-button');
 
-        if (navLink && navLink.hash) {
+        // This listener does not handle project cards anymore, that's in projects.js
+        if (navLink && navLink.hash && !navLink.closest('.project-card')) {
             e.preventDefault();
             const targetPath = navLink.hash.replace(/^#/, '');
             if (window.location.hash !== navLink.hash) {
@@ -79,7 +84,6 @@ export function initNavigation() {
 
     window.addEventListener('popstate', handleRouting);
     window.addEventListener('hashchange', handleRouting);
-    // The initial call to handleRouting() is now removed from here.
 }
 
 /**
