@@ -1,12 +1,12 @@
-# Vibe Coding My Way to Automation — A No-Code/Low-Code Workflow for Email Follow-Ups and Beyond
+# Vibe Coding My Way to Automation — A Workflow for Email Follow-Ups and Beyond
 
 ## The Backstory
 
-I send a lot of professional outreach emails—job opportunities, networking, collaborations. The hardest part? Sifting through too many snoozed conversations in Gmail, trying to remember who I contacted, who replied, and when to follow up.
+I wanted to see if I could actually ship something useful without being a hands-on coder, so I dove into **vibe coding** with my own little experiment.
 
-So I decided to fix it. The twist? I’m not a developer.
+I was buried in snoozed Gmail conversations, trying to remember who I’d emailed, who replied, and when I needed to follow up. It felt like the perfect thing to automate.
 
-I leaned into a trending idea—**vibe coding**—to see if I could ship something useful without being a hands-on coder. Even with a computer science degree, my strengths have always lived at the strategic layer: partnering with developers, translating between business and technical teams, and aligning everyone to deliver real value. In practice, vibe coding meant building something complex through initiative, AI collaboration, and a lot of trial and error.
+Even with a computer science degree, I’ve always been more about the strategic side: teaming up with developers, translating between business and tech, and making sure everyone’s aligned to deliver real value. For me, vibe coding was about taking initiative, collaborating with AI, and figuring it out through plenty of trial and error.
 
 ## The Problem
 
@@ -20,7 +20,7 @@ I was too lazy to juggle Gmail snoozes and then write every follow-up from scrat
 
 ## The Vision
 
-I didn’t want reminders—I wanted **automation** that:
+I wanted **automation** that:
 
 - Reads my sent mail in real time  
 - Classifies emails as **INITIAL** or **REPLY** using AI  
