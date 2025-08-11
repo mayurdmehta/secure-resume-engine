@@ -7,12 +7,12 @@ function switchPage(pageId) {
     const targetPageId = document.getElementById(baseId) ? baseId : 'home';
     const activePage = document.getElementById(targetPageId);
 
-    if (activePage && activePage.classList.contains('hidden')) {
+    // This condition was the source of the bug. It's been corrected.
+    if (activePage) {
         document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
         activePage.classList.remove('hidden');
 
         // --- Google Analytics Tracking for ALL pages ---
-        // We get the page title from the corresponding nav link's text content.
         const navLink = document.querySelector(`a.nav-link[href="#${targetPageId}"]`);
         const pageTitle = navLink ? navLink.textContent.trim() : 'Home';
         trackPageView(`/${targetPageId}`, pageTitle);
