@@ -1,7 +1,7 @@
 [
   {
     "slug": "vibe-coding-my-way-to-automation",
-    "title": "Vibe Coding My Way to Automation — A No-Code/Low-Code Workflow for Email Follow-Ups and Beyond",
+    "title": "Vibe Coding My Way to Automation — Workflow for Email Follow-Ups and Beyond",
     "date": "2025-08-10",
     "tags": ["Automation", "n8n", "Gmail API", "OpenAI", "Google Sheets", "No-Code/Low-Code"],
     "excerpt": "How I built an AI-assisted follow-up system that drafts emails, tracks replies, and saves time—without being a hands-on coder."
