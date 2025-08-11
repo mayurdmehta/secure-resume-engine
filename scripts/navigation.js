@@ -7,16 +7,13 @@ function switchPage(pageId) {
     const targetPageId = document.getElementById(baseId) ? baseId : 'home';
     const activePage = document.getElementById(targetPageId);
 
-    // This condition was the source of the bug. It's been corrected.
     if (activePage) {
         document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
         activePage.classList.remove('hidden');
 
-        // --- Google Analytics Tracking for ALL pages ---
         const navLink = document.querySelector(`a.nav-link[href="#${targetPageId}"]`);
         const pageTitle = navLink ? navLink.textContent.trim() : 'Home';
         trackPageView(`/${targetPageId}`, pageTitle);
-        // ---------------------------------------------
 
         const event = new CustomEvent('page-switched', {
             detail: {
@@ -50,7 +47,7 @@ function handleRouting() {
 }
 
 /**
- * Initializes all navigation functionality.
+ * Initializes navigation event listeners.
  */
 export function initNavigation() {
     document.body.addEventListener('click', (e) => {
@@ -82,9 +79,16 @@ export function initNavigation() {
 
     window.addEventListener('popstate', handleRouting);
     window.addEventListener('hashchange', handleRouting);
+    // The initial call to handleRouting() is now removed from here.
+}
 
+/**
+ * This function is called once from main.js after all modules are initialized.
+ */
+export function performInitialRouting() {
     handleRouting();
 }
+
 
 /**
  * Sends a page_view event to Google Analytics for SPA navigation.
