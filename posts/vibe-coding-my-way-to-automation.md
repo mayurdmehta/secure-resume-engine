@@ -79,5 +79,5 @@ If a workflow can read a trigger, assess context, and draft a response, this app
 - AI can bridge the gap between idea and execution.  
 - Visual tools like **n8n** become far more capable with a touch of scripting.
 
-I started out trying to automate reminders. I ended up building an AI-powered email assistant,**[read more about it on my projects page.]**(https://www.mayur-mehta.com/#projects/automated-followup-assistant) page.
+I started out trying to automate reminders. I ended up building an AI-powered email assistant,**[read more about it on my projects page.](https://www.mayur-mehta.com/#projects/automated-followup-assistant).
 If I can vibe-code my way into this, you can too.
