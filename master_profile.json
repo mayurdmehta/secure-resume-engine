@@ -9,7 +9,7 @@
   "technicalSkills": {
     "Methodologies": ["Agile (Scrum/Kanban)", "Waterfall", "SDLC"],
     "Analytics & AI/ML": ["SQL", "Domo", "NLP Model Tuning", "Data Governance"],
-    "Cloud & Platforms": ["AWS", "SAP Concur", "Oracle EBS R12", "Invoca", "Hubspot", "Mailchimp"],
+    "Cloud & Platforms": ["AWS", "SAP Concur", "Oracle EBS R12", "Invoca", "Hubspot", "Mailchimp", "Thomson Reuters OneSource"],
     "Project Management & Collaboration": ["Jira", "Smartsheet", "Confluence", "Notion", "Miro", "Visio", "Lucid Chart", "MS Project"],
     "Integrations & Automation": ["REST APIs", "XML", "SFTP", "Jira Automation Rules", "Smartsheet Automation", "Hubspot Automation", "Zapier"],
     "BI & Visualization": ["Tableau", "Cognos Report Studio"],
@@ -24,40 +24,46 @@
         {
           "id": "RH01",
           "title": "Data Governance & Standardization",
-          "problem": "Siloed global marketing teams produced unstructured data, compromising the BI products used by leadership to oversee a $20M annual spend.",
+          "problem": "Siloed global marketing teams produced unstructured data, compromising BI visibility into $20M annual spend.",
           "actions": [
-            "When I noticed our marketing analytics suffering due to inconsistent tagging, I stepped in to establish a comprehensive data‑standardization initiative. I collaborated closely with marketing and product stakeholders to map out existing workflows, understand gaps, and define a clear, structured tagging framework. Leveraging my technical expertise, I configured the utm.io platform to enforce strict regex‑based validation rules, ensuring all campaign parameters consistently adhered to our new data standards. Once the standardized parameters were in place, I leveraged SQL within Domo—using complex joins and CASE statements in Beast Mode queries—to deliver data‑backed analysis that guided change management, supported onboarding, and kept leadership informed about our progress. To drive adoption, I personally led change‑management activities for over 200 stakeholders, conducting interactive training sessions, facilitating ongoing communication, and tracking progress using Jira and Smartsheet. I partnered regularly with DevOps to proactively identify risks, resolve issues, and continuously optimize performance. This comprehensive, technically rigorous approach resulted in streamlined data pipelines, robust closed‑loop reporting, and dramatically improved trust in our analytics"
+            "Established a global UTM governance framework by configuring UTM.io with regex-based validation and integrating SQL-driven reporting in Domo to enforce consistent campaign tagging standards.",
+            "Partnered with product and marketing leaders to map workflows, define data standards, and roll out governance processes across teams.",
+            "Delivered training and managed change for 200+ stakeholders using Jira and Smartsheet to drive adoption and compliance."
           ],
           "outcomes": [
-            { "metric": "150% adoption", "description": "Boosted platform adoption." },
-            { "metric": "30% Improvement", "description": "improved data consistencies in marketing reports." }
-			{ "metric": "$20Mn Annual Marketing Spend", "description": "oversight of $20M annual marketing spend" }
-			{ "metric": "200+ Marketing and Product Stakeholders", "description": "Led change management for onboarding to the data governance framework" }
+            { "metric": "30% improvement", "description": "Improved data quality in marketing reports." },
+            { "metric": "$20M annual spend", "description": "Enabled accurate oversight of $20M in marketing investments." },
+            { "metric": "150% adoption", "description": "Achieved 150% increase in platform adoption and trust in BI analytics." },
+            { "metric": "200+ stakeholders", "description": "Led onboarding and change management across global teams." }
           ]
         },
         {
           "id": "RH02",
           "title": "Analytics Engagement Model",
-          "problem": "The Global Marketing Analytics team lacked a formal intake process, causing operational bottlenecks.",
+          "problem": "The global marketing analytics team lacked a formal intake process, creating operational bottlenecks.",
           "actions": [
-            "When our project intake process became a bottleneck—buried in ad‑hoc emails and siloed spreadsheets—I partnered with the PMO, business stakeholders, UI/UX, Product, and internal tech teams to establish a formal engagement model. Together, we mapped decision gates, hand‑offs, and SLA targets, then designed and automated a new intake workflow in Jira and Smartsheet. I built advanced automation rules to auto‑route requests by type, priority, and team capacity, and crafted Smartsheet formulas to calculate age, SLAs, and resource utilization in real time. Every incoming request passed through my hands: I scoped it, wrote detailed user stories and requirements documents, and handed off precise acceptance criteria to downstream development teams. For new feature launches, I worked closely with UI/UX and Product to translate mockups into process flows and wireframes—uncovering downstream impacts on our data pipelines and BI products before a single line of code was written. Managing the entire workflow in a Kanban Agile framework, I drove daily stand‑ups, surfaced blockers early, and rebalanced priorities to keep work flowing. "
+            "Designed and automated a new intake workflow in Jira and Smartsheet, including SLA tracking and automated routing rules.",
+            "Scoped incoming requests, authored user stories, and defined acceptance criteria to ensure efficient downstream development.",
+            "Introduced Kanban Agile delivery, driving stand-ups, backlog prioritization, and dependency management."
           ],
           "outcomes": [
-            { "metric": "2 weeks to 3 days", "description": "Dramatically reduced the request approval lifecycle." },
-            { "metric": "Increased Efficiency", "description": "Freed up valuable engineering resources to focus on high-impact work." }
+            { "metric": "2 weeks to 3 days", "description": "Cut approval lifecycle from 2 weeks to 3 days." },
+            { "metric": "Efficiency gain", "description": "Freed engineering resources to focus on high-impact work." }
           ]
         },
         {
           "id": "RH03",
           "title": "AI Call Intelligence Platform Enhancement",
-          "problem": "Call classification models were underperforming at only 65% accuracy, limiting data trust and actionable insights.",
+          "problem": "Call classification models were underperforming at 65% accuracy, limiting trust in analytics.",
           "actions": [
-            "When our sales enablement, marketing, and customer‑experience teams needed deeper insights from call data, I partnered with Invoca’s data‑science group to tailor NLP models that aligned with Robert Half’s objectives. I led the end‑to‑end configuration and management of the Invoca call‑intelligence platform—translating stakeholder requirements into model parameters, data pipelines, and quality thresholds. On a monthly cadence, I conducted rigorous performance testing using confusion‑matrix analysis, then leveraged SQL within Domo to track precision, recall, and misclassification trends. From these insights, I developed three strategic recommendations—optimizing training datasets, fine‑tuning threshold settings, and enhancing feature extraction—and presented them to senior leadership, driving a 20% improvement in model accuracy. As the platform SME, I authored detailed training guides and product documentation in Confluence, then onboarded UX and Product teams to ensure they could fully leverage call‑intelligence insights in their roadmaps. The result was an enterprise‑grade NLP solution that delivered reliable, actionable intelligence—empowering sales enablement, marketing, and customer‑experience teams to make data‑driven decisions and elevate performance."
+            "Configured and managed Invoca’s NLP call-intelligence platform, aligning model parameters and pipelines with business needs.",
+            "Partnered with Invoca Data Science to optimize training datasets, adjust thresholds, and enhance feature extraction.",
+            "Conducted monthly confusion matrix analysis and SQL-driven precision/recall tracking in Domo, presenting optimization insights to senior leadership."
           ],
           "outcomes": [
-            { "metric": "65% to 90%", "description": "Increased model accuracy from 65% to 90%." },
-            { "metric": "10% improvement", "description": "Improved cold lead classification by 10%, surfacing ~1,000 more qualified leads annually." },
-            { "metric": "Enhanced Visibility", "description": "Attributed leads to marketing efforts in closed-loop reporting, enhancing visibility for marketing teams." }
+            { "metric": "65% to 90%", "description": "Raised model accuracy from 65% to 90%." },
+            { "metric": "1,000+ leads", "description": "Surfaced ~1,000 additional qualified leads annually." },
+            { "metric": "Closed-loop attribution", "description": "Improved visibility of marketing contribution to pipeline." }
           ]
         },
         {
@@ -65,38 +71,42 @@
           "title": "Analytics Operational Leadership",
           "problem": "A 40-person analytics team struggled with conflicting priorities and project delays.",
           "actions": [
-            "When our 40‑member team began to stretch under competing priorities and opaque roadmaps, I stepped into the role of primary operations lead—becoming the go‑to liaison for project status, resource needs, and strategic questions. I architected a custom Smartsheet Kanban board tightly integrated with Jira, layering in Gantt charts and a high‑level roadmap view so every team member and stakeholder could see progress, dependencies, and deadlines at a glance. To ensure we tackled the right work at the right time, I managed the backlog end‑to‑end—capturing incoming requests, refining user stories, and applying a weighted‑average prioritization framework that scored each item by urgency, impact, and effort. That objective model eliminated guesswork, drove consensus on high‑value initiatives, and kept our sprint queues optimized. Every two weeks, I convened alignment sessions with vertical leads and executive sponsors, directly tying our deliverables back to the $20 million marketing budget and broader business goals. These check‑ins surfaced risks early, secured timely decisions, and transformed our delivery process from reactive firefighting into a predictable, business‑aligned engine."
+            "Created an integrated Smartsheet–Jira Kanban system with roadmap and Gantt views to track dependencies and deliverables.",
+            "Implemented a weighted prioritization framework scoring initiatives by urgency, impact, and effort.",
+            "Led biweekly alignment sessions with executive sponsors to tie deliverables to the $20M marketing budget." 
           ],
           "outcomes": [
-            { "metric": "30% efficiency", "description": "Increased the team's overall efficiency and throughput." },
-            { "metric": "1 week reduction", "description": "Shortened the request cycle time by an average of one week." }
-			{ "metric": "250+ annual requests", "description": "streamlining intake, backlog prioritization, and workflows to process over 250 annual requests" }
-			{ "metric": "95% reduction in Approval cycles", "description": "reducing approval cycles by 95%" }
+            { "metric": "30% efficiency", "description": "Increased throughput of the analytics team." },
+            { "metric": "1 week faster", "description": "Reduced average request cycle time by one week." },
+            { "metric": "250+ requests", "description": "Streamlined intake and delivery for 250+ annual requests." },
+            { "metric": "95% reduction", "description": "Reduced approval cycles by 95%." }
           ]
         },
         {
           "id": "RH05",
           "title": "Confluence SSO Migration",
-          "problem": "A disjointed user experience required 200+ marketing stakeholders to manage separate logins for Jira and Confluence.",
+          "problem": "Disjointed user experience required 200+ stakeholders to manage separate Jira and Confluence logins.",
           "actions": [
-			"When our standalone Confluence instance posed security and scalability risks, I championed its migration into our enterprise Microsoft AD SSO environment. I began by mapping out the end‑to‑end workflow—creating process flow diagrams and drafting detailed technical documentation to present to senior leadership and secure project approval. Collaborating with IT security and identity‑management teams, I defined authentication requirements, aligned Active Directory groups to Confluence permission schemes, and validated SAML assertions for seamless single sign‑on. Using Atlassian’s native migration tools, I meticulously planned and managed the export/import of over 100 GB of content—testing each phase in a staging environment to confirm space hierarchies and permission mappings with zero data loss. On cut‑over day, I executed a phased roll‑out that transitioned users from local logins to AD credentials without any disruption to access or permissions. After go‑live, I delivered hands‑on training and onboarding sessions for 200+ stakeholders—walking them through the new SSO flow, troubleshooting common issues, and sharing best practices for collaborative spaces. The migration not only centralized user management and strengthened our security posture but also integrated Confluence into our corporate identity framework—enabling faster provisioning, consistent access controls, and unified audit reporting across the enterprise."
+            "Led migration of Confluence to Microsoft AD SSO by mapping workflows, permissions, and authentication requirements.",
+            "Coordinated IT security and identity teams to validate SAML assertions and align AD groups with Confluence permissions.",
+            "Executed phased cutover and delivered onboarding for 200+ stakeholders with zero disruption."
           ],
           "outcomes": [
-            { "metric": "0 incidents", "description": "Completed the migration with zero disruption to user access or permissions." },
-			{ "metric": "200+ users", "description": "Seamlessly transitioned over 200 users to a unified login system." }
-
+            { "metric": "0 incidents", "description": "Completed migration with no user disruption." },
+            { "metric": "200+ users", "description": "Transitioned over 200 users to unified SSO login." }
           ]
         },
         {
           "id": "RH06",
           "title": "Automated Call Routing System",
-          "problem": "Inbound callers faced a lengthy and inefficient process to connect with the correct field representative.",
+          "problem": "Inbound callers faced delays connecting to correct representatives.",
           "actions": [
-            "When our call‑intelligence platform needed to route callers dynamically, I partnered with data engineering to design an end‑to‑end real‑time automation. We built logic that captures the caller’s location—either from keypad input or caller‑ID area code—and immediately cross‑checks it against a lookup table maintained via the Invoca API. That lookup identifies the nearest Robert Half branch, and Invoca routes the call accordingly."
+            "Designed an Invoca API-based routing system that matched caller location via keypad input or caller ID to the nearest branch.",
+            "Partnered with data engineering to build lookup tables and real-time routing automation."
           ],
           "outcomes": [
-            { "metric": "90% reduction", "description": "Reduced the number of prompts required to connect to a representative by 90%." },
-            { "metric": "600,000+ calls", "description": "Significantly enhanced the customer experience for more than 600,000 annual calls." }
+            { "metric": "90% reduction", "description": "Reduced prompts required to connect to reps by 90%." },
+            { "metric": "600k+ calls", "description": "Improved customer experience for over 600,000 annual calls." }
           ]
         }
       ]
@@ -109,65 +119,73 @@
         {
           "id": "AK01",
           "title": "Global Tax Automation Program",
-          "problem": "An outdated Oracle EBTax module couldn't efficiently handle tax calculations for $1B in annual spend.",
+          "problem": "Manual and outdated Oracle EBTax module created inefficiencies in tax compliance for $1B in annual spend.",
           "actions": [
-            "When our manual tax‑calculation process strained under global complexity, I spearheaded an 18‑month, seven‑phase SDLC to deploy the Thomson Reuters OneSource SaaS platform for finance, purchasing, and tax teams across 30 markets. I led requirements‑gathering workshops with stakeholders worldwide, translating international tax laws and regional nuances into detailed process flows, BRDs, FRDs, and Confluence documentation. I owned OneSource configuration—defining tax engines, business‑rule sets, and data mappings—and partnered with development teams to integrate its APIs with Oracle EBS R12. I drove every SDLC phase: authoring UAT scripts, facilitating QA cycles, and delivering post‑deployment support. In parallel, I managed project plans, risks, and status updates for a 20+‑member cross‑functional team using Jira, MS Project, and Smartsheet. Post–go‑live, I collaborated with DevOps to triage bugs, lead root‑cause analyses, and prioritize fixes. The result: a fully automated, audit‑ready tax engine that eliminated manual calculations, accelerated filings, reduced compliance risk, and provided finance teams with real‑time visibility."
+            "Spearheaded deployment of Thomson Reuters OneSource SaaS across 30 markets, integrating APIs with Oracle EBS R12.",
+            "Led requirements workshops, authored BRDs/FRDs, and configured tax engines and rulesets.",
+            "Managed SDLC phases from UAT to post-deployment support for 20+ cross-functional team members."
           ],
           "outcomes": [
-            { "metric": "$4M in savings", "description": "Delivered $4M in savings." },
-            { "metric": "30+ markets", "description": "Successfully rolled out the new system across more than 30 global markets." }
+            { "metric": "$4M savings", "description": "Delivered $4M in savings through automation." },
+            { "metric": "30+ markets", "description": "Enabled compliance across 30+ countries." }
           ]
         },
         {
           "id": "AK02",
           "title": "Expense & Compliance Automation",
-          "problem": "An on-premise Oracle expense module was inefficient and lacked automated compliance checks.",
+          "problem": "On-premise Oracle expense module lacked automation and compliance checks.",
           "actions": [
-            "When our legacy Oracle iExpense module began to impede timely expense reporting and reconciliation, I led the initiative to migrate to SAP Concur utilizing batch‑process integrations with Oracle Purchasing and Finance. As the Business Analyst, I collaborated with Finance, Procurement, and a third‑party implementation vendor to elicit and document end‑to‑end requirements, then authored detailed technical specifications covering data mappings, batch schedules, error‑handling rules, and SOX controls. I owned configuration within SAP Concur—designing rules‑based workflows to enforce policy—and extended Oracle EBS PO/AP/GL/AR modules to ingest and reconcile Concur data. I managed batch‑processing integrations, validating exports/imports and automating reconciliations to achieve complete alignment on spend, commitments, and accruals. To ensure quality, I defined the SDLC phases, developed UAT test scripts, facilitated QA cycles, and provided post‑deployment support. Partnering with DevOps, I triaged post‑production bugs, led root‑cause analyses, prioritized fixes, and verified resolutions. The result was a unified expense ecosystem—streamlined submission‑to‑payment, eliminated manual reconciliations, and delivered real‑time financial visibility across systems."
+            "Migrated expense management to SAP Concur integrated with Oracle Purchasing and Finance via batch processes.",
+            "Configured Concur with rules-based workflows and mapped integrations to Oracle PO/AP/GL/AR.",
+            "Defined UAT scripts, managed QA cycles, and ensured SOX-compliant reconciliations."
           ],
           "outcomes": [
-            { "metric": "99% automation", "description": "Automated 99% of manual expense report compliance checks." },
-			{ "metric": "20% compliance ↑", "description": "Improved on‑time expense reporting compliance by 20%." },
-            { "metric": "8,000+ users", "description": "Onboarded 8,000+ employees to the new system." }
+            { "metric": "99% automation", "description": "Automated 99% of compliance checks." },
+            { "metric": "20% compliance ↑", "description": "Improved on-time reporting by 20%." },
+            { "metric": "8,000+ users", "description": "Onboarded 8,000+ employees globally." }
           ]
         },
         {
           "id": "AK03",
           "title": "Host-to-Host Payment Automation",
-          "problem": "The manual process for transmitting payment instructions for $1B in annual spend was slow and unscalable.",
+          "problem": "Manual payment transmissions delayed processing of $1B in spend.",
           "actions": [
-            "When manual payment batches threatened timeliness and compliance, I led a global initiative to automate payments via host‑to‑host transmission over SFTP using XML files. Partnering with development, I architected end‑to‑end workflows for ACH, wire, and FX transfers with two multinational banks—defining XML schemas, secure file‑naming conventions, and data mappings into Oracle EBS Payments. To ensure resilience, I built a failover mechanism within the XML pipeline: if a file failed validation or processing, an alternate XML stream automatically retried the transaction, raising on‑time payment success above 99%. I authored BR100, BRD, FRD, TDD, and data‑mapping documentation in Confluence and Lucidchart, giving both technical teams and banking partners clear integration blueprints. I managed dependencies with external banks, coordinated delivery schedules, and led UAT cycles to validate edge cases and performance under load. Post‑go‑live, I provided debug support and root‑cause analysis to the DevOps team—triaging production issues, prioritizing fixes, and verifying resolutions. The outcome: a secure, fully automated payment engine that cut processing time from days to minutes, delivered audit‑ready controls, and offered real‑time visibility across our global finance operation."
+            "Architected XML-based host-to-host payment transmissions over secure SFTP with multinational banks.",
+            "Built failover mechanisms to retry failed validations and maintain >99% on-time payments.",
+            "Documented integrations with BRDs, TDDs, and Confluence blueprints, and led UAT validation."
           ],
           "outcomes": [
-            { "metric": "99.99% success", "description": "Achieved a 99.99% successful payment completion rate." },
-			{ "metric": "$1B automation", "description": "Automated transmission for $1B in annual spend." }
-
+            { "metric": "99.99% success", "description": "Achieved near-perfect payment completion rate." },
+            { "metric": "$1B automated", "description": "Automated global payments for $1B annual spend." }
           ]
         },
         {
           "id": "AK04",
           "title": "Data-Driven Operational Management",
-          "problem": "The Procure-to-Pay team needed to balance long-term projects with ongoing operational support.",
+          "problem": "Procure-to-Pay team needed better prioritization and visibility into enhancements.",
           "actions": [
-            "When our Procure‑to‑Pay team juggled countless enhancement requests without clear prioritization, I stepped in as the functional lead for Oracle EBS R12’s P2P modules and applied data‑driven rigor. I wrote targeted SQL queries against our Oracle database to quantify service‑level gaps, change‑request volumes, and technical‑debt hotspots. Using those insights, I developed automated Tableau dashboards that tracked real‑time project health—highlighting which P2P enhancements would deliver the greatest impact and which technical‑debt items threatened system stability. Armed with these dashboards, I led prioritization discussions with finance, procurement, and IT stakeholders, securing trade‑offs that balanced urgent feature rollouts against necessary debt remediation. I partnered with DevOps to triage and sequence fixes, ensuring that high‑value enhancements advanced swiftly while long‑term projects stayed on track. The result was a transparent, metrics‑backed P2P governance model: enhancement backlogs shrank, stakeholder alignment improved, and leadership gained instant visibility into operational health—transforming our P2P cycle from reactive firefighting into a proactive, strategic engine"
+            "Developed SQL queries to analyze service-level gaps, request volumes, and technical debt hotspots.",
+            "Built Tableau dashboards to track project health and prioritize enhancements vs. remediation.",
+            "Led prioritization sessions with stakeholders and partnered with DevOps for sequencing fixes."
           ],
           "outcomes": [
-            { "metric": "25% efficiency ↑", "description": "Boosted cross‑functional operational efficiency by 25%." },
-            { "metric": "Stability ↑", "description": "Enabled simultaneous delivery of large projects while maintaining stability." }
+            { "metric": "25% efficiency ↑", "description": "Boosted operational efficiency 25%." },
+            { "metric": "Improved stability", "description": "Balanced enhancements with long-term stability." }
           ]
         },
         {
           "id": "AK05",
           "title": "Centralized Project Portfolio Management",
-          "problem": "A portfolio of over 120 projects lacked a centralized system, leading to resource conflicts and delays.",
+          "problem": "Over 120 projects lacked centralized tracking, causing conflicts and delays.",
           "actions": [
-            "When fragmented spreadsheets and ad‑hoc updates threatened project delivery, I built a centralized Smartsheet tracker from the ground up—complete with Gantt charts and a resource dashboard—to give teams a single source of truth for timelines and workloads. I led weekly stakeholder meetings with 20+ cross‑functional participants, driving dependency discussions that surfaced risks early and kept critical projects on schedule. I automated status reporting within Smartsheet—eliminating manual updates—and delivered concise, data‑backed progress reports to senior leadership on a weekly cadence. The result: clear visibility into project health, proactive risk mitigation, and on‑time completion of all key initiatives—achieved without adding headcount or overhead"
+            "Built a Smartsheet portfolio tracker with Gantt charts and resource dashboards as a single source of truth.",
+            "Automated reporting and led weekly stakeholder sessions with 20+ participants to manage dependencies.",
+            "Provided concise progress updates to senior leadership, surfacing risks early."
           ],
           "outcomes": [
-            { "metric": "90% on-time delivery", "description": "Achieved an impressive 90% on-time delivery rate." },
-            { "metric": "20 hours/week saved", "description": "Saved the team 20 hours of manual work each week." },
-			{ "metric": "100 issues resolved", "description": "Resolved ~100 resource bottlenecks annually." }
-
+            { "metric": "90% on-time delivery", "description": "Achieved 90% on-time project completion." },
+            { "metric": "20 hours/week saved", "description": "Saved 20 hours of manual reporting per week." },
+            { "metric": "100+ issues", "description": "Resolved ~100 resource bottlenecks annually." }
           ]
         }
       ]
@@ -188,17 +206,17 @@
     {
       "name": "Certified Scrum Master (CSM)",
       "issuer": "Scrum Alliance",
-      "status": "Completed: Apr 2025"
+      "status": "Completed 2025"
     },
     {
       "name": "AWS Certified Cloud Practitioner",
       "issuer": "AWS",
-      "status": "In Progress, Expected: Jul 2025"
+      "status": "Expected Jul 2025"
     },
     {
       "name": "Project Management Professional (PMP)",
       "issuer": "PMI",
-      "status": "In Progress, Expected: Aug 2025"
+      "status": "Expected Aug 2025"
     }
   ]
 }
