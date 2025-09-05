@@ -26,11 +26,13 @@
           "title": "Data Governance & Standardization",
           "problem": "Siloed global marketing teams produced unstructured data, compromising the BI products used by leadership to oversee a $20M annual spend.",
           "actions": [
-            "When I noticed our marketing analytics suffering due to inconsistent tagging, I stepped in to lead a comprehensive data‑standardization initiative. I collaborated closely with marketing and product stakeholders to map out existing workflows, understand gaps, and define a clear, structured tagging framework. Leveraging my technical expertise, I configured the utm.io platform to enforce strict regex‑based validation rules, ensuring all campaign parameters consistently adhered to our new data standards. Once the standardized parameters were in place, I leveraged SQL within Domo—using complex joins and CASE statements in Beast Mode queries—to deliver data‑backed analysis that guided change management, supported onboarding, and kept leadership informed about our progress. To drive adoption, I personally led change‑management activities for over 200 stakeholders, conducting interactive training sessions, facilitating ongoing communication, and tracking progress using Jira and Smartsheet. I partnered regularly with DevOps to proactively identify risks, resolve issues, and continuously optimize performance. This comprehensive, technically rigorous approach resulted in streamlined data pipelines, robust closed‑loop reporting, and dramatically improved trust in our analytics"
+            "When I noticed our marketing analytics suffering due to inconsistent tagging, I stepped in to establish a comprehensive data‑standardization initiative. I collaborated closely with marketing and product stakeholders to map out existing workflows, understand gaps, and define a clear, structured tagging framework. Leveraging my technical expertise, I configured the utm.io platform to enforce strict regex‑based validation rules, ensuring all campaign parameters consistently adhered to our new data standards. Once the standardized parameters were in place, I leveraged SQL within Domo—using complex joins and CASE statements in Beast Mode queries—to deliver data‑backed analysis that guided change management, supported onboarding, and kept leadership informed about our progress. To drive adoption, I personally led change‑management activities for over 200 stakeholders, conducting interactive training sessions, facilitating ongoing communication, and tracking progress using Jira and Smartsheet. I partnered regularly with DevOps to proactively identify risks, resolve issues, and continuously optimize performance. This comprehensive, technically rigorous approach resulted in streamlined data pipelines, robust closed‑loop reporting, and dramatically improved trust in our analytics"
           ],
           "outcomes": [
             { "metric": "150% adoption", "description": "Boosted platform adoption." },
-            { "metric": "30% reduction", "description": "Cut data inconsistencies in marketing reports." }
+            { "metric": "30% Improvement", "description": "improved data consistencies in marketing reports." }
+			{ "metric": "$20Mn Annual Marketing Spend", "description": "oversight of $20M annual marketing spend" }
+			{ "metric": "200+ Marketing and Product Stakeholders", "description": "Led change management for onboarding to the data governance framework" }
           ]
         },
         {
@@ -68,6 +70,8 @@
           "outcomes": [
             { "metric": "30% efficiency", "description": "Increased the team's overall efficiency and throughput." },
             { "metric": "1 week reduction", "description": "Shortened the request cycle time by an average of one week." }
+			{ "metric": "250+ annual requests", "description": "streamlining intake, backlog prioritization, and workflows to process over 250 annual requests" }
+			{ "metric": "95% reduction in Approval cycles", "description": "reducing approval cycles by 95%" }
           ]
         },
         {
