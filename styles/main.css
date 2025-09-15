@@ -1,5 +1,10 @@
-body { 
-    font-family: 'Inter', sans-serif; 
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.hero-headshot {
+    shape-outside: circle(50%);
+    -webkit-shape-outside: circle(50%);
 }
 
 /* Typography & Content Styles */
